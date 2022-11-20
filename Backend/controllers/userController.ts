@@ -1,7 +1,8 @@
 // Libraries
 import { Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcrypt'
-var jwt = require("jsonwebtoken");
+import axios from 'axios'
+var jwt = require('jsonwebtoken')
 // Models
 import { User } from '../models/user'
 // Validation
@@ -47,7 +48,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 
       // Generate random email verification token
       const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
-      const randomTokenEmail: string = jwt.sign({email: email}, jwtSecretKey)
+      const randomTokenEmail: string = jwt.sign({ email: email }, jwtSecretKey)
 
       // create user
       const user = await User.create({
@@ -77,6 +78,10 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 // Login Page
 export const logIn = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Check if captcha is correct
+    if (!req.body.recaptcha)
+      throw new BadRequest('Debe resolver el captcha primero para poder iniciar sesión')
+
     // Check if user already exists
     const user = await User.findOne({
       where: { email: req.body.email }
@@ -90,6 +95,17 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     if (user.isVerified === false)
       throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
+
+    const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
+
+    const responseGoogleCaptcha = await axios.post(urlGoogleVerification, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      }
+    })
+
+    if (!responseGoogleCaptcha.data.success)
+      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Create Token
     const token = createToken(user.id)
@@ -121,16 +137,16 @@ export const logout = (_req: Request, res: Response, _next: NextFunction) => {
 // Verify User Email
 export const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
     const user = await User.findOne({
       where: { confirmationToken: req.params.token }
     })
 
-    // Check if there is any user with the url token 
+    // Check if there is any user with the url token
     if (!user) throw new NotFound('Token no válido...')
 
     // Check if user is already verified
-    if (user.isVerified === true) throw new Conflict('Este correo ya se encuentra verificado. Inicie sesión con normalidad.')
+    if (user.isVerified === true)
+      throw new Conflict('Este correo ya se encuentra verificado. Inicie sesión con normalidad.')
 
     user.isVerified = true
     await user.save()
@@ -138,9 +154,7 @@ export const verifyUser = async (req: Request, res: Response, next: NextFunction
     return res.status(StatusCodes.ACCEPTED).json({
       message: 'Se ha verificado el correo.'
     })
-    
   } catch (error) {
     return next(error)
   }
-
 }
