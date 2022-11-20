@@ -126,12 +126,19 @@ const submit = async () => {
           email: response.data.user.email,
         };
       });
-      router.push("/dashboard");
-      toast.success(`${response.data.message}`, {
+
+      let searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.has("redirect")) {
+        router.push({ path: `${searchParams.get("redirect")}` });
+      } else {
+        router.push({ path: "/dashboard" });
+
+        toast.success(`${response.data.message}`, {
         timeout: 2000,
         position: "top-center",
         icon: true,
       });
+      }
     })
     .catch((error) => {
       console.log(error);

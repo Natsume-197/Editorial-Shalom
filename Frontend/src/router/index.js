@@ -52,7 +52,10 @@ router.beforeEach((to, _from, next) => {
     if (store.isLoggedIn) {
       next()
     } else {
-      next('/login')
+      next({
+        path: "/login",
+        query: {redirect: to.fullPath}
+      })
     }
   } else {
     next()
