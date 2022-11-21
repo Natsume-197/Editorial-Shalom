@@ -16,7 +16,7 @@ createApp(App)
   .use(router)
   .use(Toast, {
     transition: 'Vue-Toastification__fade',
-    maxToasts: 5,
+    maxToasts: 3,
     newestOnTop: true
   })
   .mount('#app')

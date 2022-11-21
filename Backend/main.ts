@@ -18,11 +18,14 @@ const app: Application = express()
 // Middlewares
   app.use(
     cors({
+      allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'], 
       credentials: true,
-      origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT]
+      origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
+      maxAge: 600,
+      exposedHeaders: ['*', 'Authorization' ] 
     })
   )
-  
+
 app.use(helmet())
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
@@ -46,7 +49,7 @@ app.get('/*', (_req, res) => {
 // Starting the Server
 app.listen(process.env.PORT || 5000, async () => {
   console.log('==================================================')
-  console.log(`Servidor disponible en: http://localhost:${process.env.PORT}`)
+  console.log(`Servidor disponible`)
   // call and connect to Database
   try {
     await connection.sync()
