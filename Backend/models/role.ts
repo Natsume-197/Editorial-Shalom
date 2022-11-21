@@ -7,7 +7,7 @@ import { Table, Model, Column, DataType } from 'sequelize-typescript'
 export class Role extends Model {
     //static associate(models){
     //    Role.belongsTo()
-    //}
+    //  }
 
   @Column({
     type: DataType.INTEGER,
