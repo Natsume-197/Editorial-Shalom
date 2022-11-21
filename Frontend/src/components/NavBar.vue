@@ -4,10 +4,10 @@
       <img width="30" height="30" src="/favicon.svg" />
       <h1 class="text-xl">Editorial Shalom</h1>
     </router-link>
-    <div v-if="isAuth" class="flex items-center justify-center">
-      <div class="-space-x-4">
-      </div>
-    </div>
+    
+
+    
+
     <div
       v-if="isAuth"
       class="md:flex md:items-center md:px-0 text-center md:pb-0 md:static bg-gray-900 md:w-auto w-full duration-500 ease-in">
@@ -35,12 +35,17 @@
           }"
           >{{ link.name }}</router-link
         >
+      </div>      
+      <div class="px-1">
+        <SearchBar/> 
       </div>
+      
     </div>
   </div>
 </template>
 
 <script setup>
+import SearchBar from "../components/SearchBar.vue";
 import { reactive, computed } from 'vue'
 import { userStore } from '../stores/user'
 import { useRouter } from 'vue-router'
