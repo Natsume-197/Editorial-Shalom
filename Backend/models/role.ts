@@ -5,9 +5,9 @@ import { Table, Model, Column, DataType } from 'sequelize-typescript'
   tableName: 'Role'
 })
 export class Role extends Model {
-    static associate(models){
-        Role.belongsTo()
-    }
+    //static associate(models){
+    //    Role.belongsTo()
+    //}
 
   @Column({
     type: DataType.INTEGER,
