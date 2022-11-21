@@ -16,14 +16,13 @@ import { router } from './routes/router'
 const app: Application = express()
 
 // Middlewares
-app.use(
-  cors({
-    credentials: true,
-    // frontend URL's
-    origin: ['http://localhost:3000']
-  })
-)
-
+  app.use(
+    cors({
+      credentials: true,
+      origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT]
+    })
+  )
+  
 app.use(helmet())
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
