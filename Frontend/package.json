@@ -14,6 +14,7 @@
     "flowbite-vue": "^0.0.6",
     "pinia": "^2.0.13",
     "pinia-plugin-persistedstate": "^1.5.1",
+    "v-click-outside": "^3.2.0",
     "vue": "^3.2.33",
     "vue-recaptcha": "^2.0.3",
     "vue-router": "^4.0.14",

@@ -7,6 +7,7 @@ import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import 'animate.css'
 import './assets/tailwind.css'
+import vco from "v-click-outside";
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
@@ -19,4 +20,5 @@ createApp(App)
     maxToasts: 3,
     newestOnTop: true
   })
+  .use(vco)
   .mount('#app')

@@ -36,7 +36,7 @@
           >{{ link.name }}</router-link
         >
       </div>      
-      <div class="px-1">
+      <div class="px-6">
         <SearchBar/> 
       </div>
       
@@ -59,6 +59,7 @@ const isAuth = computed(() => store.isLoggedIn)
 const user = computed(() => store.userInfo)
 
 const toast = useToast()
+
 
 const logout = () => {
   api
