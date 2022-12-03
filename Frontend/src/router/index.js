@@ -13,17 +13,17 @@ const router = createRouter({
     {
       path: '/register',
       name: 'Register',
-      component: () => import('../views/RegisterPage.vue')
+      component: () => import('../views/account/RegisterPage.vue')
     },
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../views/LoginPage.vue')
+      component: () => import('../views/account/LoginPage.vue')
     },
     {
       path: '/account/verify/:token',
       name: 'Verify',
-      component: () => import('../views/VerifyPage.vue'),
+      component: () => import('../views/account/VerifyPage.vue'),
     },
     {
       path: '/profile',
@@ -36,6 +36,11 @@ const router = createRouter({
       name: 'BoardPage',
       component: () => import('../views/BoardPage.vue'),
       meta: { requireAuth: true }
+    },
+    {
+      path: '/account/resetPassword',
+      name: 'ResetPassword',
+      component: () => import('../views/account/RestorePassword.vue'),
     },
     {
       path: '/:catchAll(.*)',

@@ -11,7 +11,7 @@ const transport = nodemailer.createTransport({
   }
 })
 
-async function sendConfirmationEmail(name: string, email: string, token: string) {
+export async function sendConfirmationEmail(name: string, email: string, token: string) {
   transport
     .sendMail({
       from: user,
@@ -25,4 +25,17 @@ async function sendConfirmationEmail(name: string, email: string, token: string)
     .catch((err: any) => console.log(err))
 }
 
-export default sendConfirmationEmail
+export async function sendResetPasswordEmail(name: string, email: string, token: string) {
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: 'Restablecer contraseña',
+      html: `<h2>¡Hola, ${name}!</h2>
+            <p>Para poder reestablecer la contraseña ingresa al siguiente link:</p>
+            ${process.env.URL_SHALOM_FRONT}/account/resetpassword/${token}/
+            </div>`
+    })
+    .catch((err: any) => console.log(err))
+}
+

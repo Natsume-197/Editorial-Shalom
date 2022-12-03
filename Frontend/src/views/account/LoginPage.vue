@@ -51,7 +51,7 @@
             </label>
           </div>
 
-          <router-link to="/" class="text-sm hover:underline">
+          <router-link to="/account/resetPassword" class="text-sm hover:underline">
             ¿Has olvidado tu contraseña?
           </router-link>
         </div>
@@ -83,12 +83,12 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { userStore } from "../stores/user";
+import { userStore } from "../../stores/user";
 import { useToast } from "vue-toastification";
-import { api } from "../../utils/axios";
-import EyeOn from "../components/EyeOn.vue";
-import EyeOff from "../components/EyeOff.vue";
-import Captcha from "../components/Captcha.vue";
+import { api } from "../../../utils/axios";
+import EyeOn from "../../components/EyeOn.vue";
+import EyeOff from "../../components/EyeOff.vue";
+import Captcha from "../../components/Captcha.vue";
 
 const data = reactive({
   email: "",

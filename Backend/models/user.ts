@@ -41,6 +41,14 @@ export class User extends Model {
   confirmationToken!: String;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+    defaultValue: false
+  })
+  resetToken!: String;
+
+  @Column({
     type: DataType.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW

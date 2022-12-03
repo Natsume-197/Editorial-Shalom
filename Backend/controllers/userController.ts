@@ -14,7 +14,7 @@ import { Authorized, BadRequest, Conflict, NotFound } from '../utils/error'
 // HTTP Codes
 import { StatusCodes } from 'http-status-codes'
 // Email
-import sendConfirmationEmail from '../services/mailService'
+import { sendConfirmationEmail, sendResetPasswordEmail } from '../services/mailService'
 
 // Only auth Users can access this page
 export const authPage = (_req: Request, res: Response): object => {
@@ -154,6 +154,115 @@ export const verifyUser = async (req: Request, res: Response, next: NextFunction
 
     return res.status(StatusCodes.ACCEPTED).json({
       message: 'Se ha verificado el correo.'
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+
+export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Find user
+    const user = await User.findOne({
+      where: { email: req.body.email }
+    })
+    if (!user) throw new NotFound('Usuario no encontrado')
+
+    // Generate random reset password token
+    const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
+    const resetToken: string = jwt.sign({ email: req.body.email }, jwtSecretKey)
+
+    // Update user
+    user.resetToken = resetToken
+    await user.save()
+
+    // Send reset password email to user
+    await sendResetPasswordEmail(user.name, user.email, resetToken)
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha enviado un correo electrónico para reestablecer la contraseña del usuario: '${user.name}'.`,
+      user: user
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+
+// CRUD Functions
+
+// Get all users
+export const getAllUsers = async (_req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await User.findAll()
+    return res.status(StatusCodes.OK).json({
+      message: 'Usuarios encontrados',
+      users: users
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if user exists
+    const user = await User.findOne({
+      where: { id: req.params.id }
+    })
+
+    if (!user) throw new NotFound('Este usuario no existe...')
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: 'Usuario encontrado',
+      user: user
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Find user
+    const user = await User.findByPk(req.params.id)
+    if (!user) throw new NotFound('Usuario no encontrado')
+
+    // Update user
+    if (req.body.name) user.name = req.body.name
+    if (req.body.email) user.email = req.body.email
+    if (req.body.password) user.password = req.body.password
+    
+    await user.save()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
+      user: user
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if user exists
+    const user = await User.findOne({
+      where: { id: req.params.id }
+    })
+
+    if (!user) throw new NotFound('Este usuario no existe...')
+
+    // Delete user
+    await user.destroy()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha eliminado el usuario con ID: '${req.body.id}' de forma exitosa.`
     })
   } catch (error) {
     return next(error)
