@@ -3,7 +3,7 @@
     <div class="x-4 py-2 w-80 h-16">
       <div class="flex-1">
         <div class="">
-          <div class="bg-white absolute shadow-md rounded-lg px-3 py-2 mb-4">
+          <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
             <div class="flex items-center bg-gray-200 rounded-md">
               <div class="pl-2">
                 <svg
@@ -26,13 +26,13 @@
                 v-model="query"
               />
             </div>
-            <div class="text-sm w-80">
+            <div class="text-sm w-80 ">
               <div
                 v-if="bookArray && bookArray.length > 0"
                 class="flex justify-start cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
                 v-for="(item, index) in bookArray"
               >
-                <span class="bg-green-400 h-2 w-2 m-2 rounded-full"></span>
+                <span class="bg-green-400 h-2 w-2 m-2 rounded-full "></span>
                 <div
                   @click="itemClicked(item)"
                   class="flex-grow font-medium px-2"
