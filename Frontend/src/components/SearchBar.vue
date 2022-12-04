@@ -2,8 +2,8 @@
   <form @submit.prevent="">
     <div class="x-4 py-2 w-80 h-16">
       <div class="flex-1">
-        <div class="absolute">
-          <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
+        <div class="">
+          <div class="bg-white absolute shadow-md rounded-lg px-3 py-2 mb-4">
             <div class="flex items-center bg-gray-200 rounded-md">
               <div class="pl-2">
                 <svg
