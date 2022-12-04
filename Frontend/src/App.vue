@@ -1,13 +1,41 @@
 <template>
   <main>
-    <NavBar v-if="$route.path !== '/login' && $route.path !== '/register' && $route.path  !== '/account/resetPassword'" />
+    <NavBar v-show="showNavBar" />
     <RouterView />
-    <FooTerVue v-if="$route.path !== '/login' && $route.path !== '/register' && $route.path  !== '/account/resetPassword'" />
+    <FooTerVue v-show="showFooter" />
   </main>
 </template>
 
-<script setup>
-import { RouterView } from 'vue-router'
-import NavBar from './components/NavBar.vue'
-import FooTerVue from './components/Footer.vue'
+<script>
+import { RouterView } from "vue-router";
+import NavBar from "./components/NavBar.vue";
+import FooTerVue from "./components/Footer.vue";
+
+export default {
+  data() {
+    return {
+      showNavBar: false,
+      showFooter: false,
+    };
+  },
+  watch: {
+    $route(route) {
+      if (
+        route.path !== "/login" &&
+        route.path !== "/register" &&
+        route.path !== "/account/resetPassword" &&
+        !route.path.includes("/account/resetpassword/")
+      ) {
+        this.showNavBar = true;
+        this.showFooter = true;
+      } else {
+        this.showNavBar = false;
+        this.showFooter = false;
+      }
+    },
+  },
+  components: {
+    NavBar,
+  },
+};
 </script>

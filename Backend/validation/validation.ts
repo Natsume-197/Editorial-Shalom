@@ -13,6 +13,6 @@ export const userData = Joi.object({
     //upperCase: 1,
     numeric: 1,
     //symbol: 1,
-    requirementCount: 4,
-  }),
+    requirementCount: 4
+  })
 })

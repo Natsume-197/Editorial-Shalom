@@ -160,14 +160,13 @@ export const verifyUser = async (req: Request, res: Response, next: NextFunction
   }
 }
 
-
-export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+export const sendResetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Find user
     const user = await User.findOne({
       where: { email: req.body.email }
     })
-    if (!user) throw new NotFound('Usuario no encontrado')
+    if (!user) throw new NotFound('Correo no encontrado. Verifique nuevamente.')
 
     // Generate random reset password token
     const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
@@ -182,7 +181,7 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 
     // Response
     return res.status(StatusCodes.OK).json({
-      message: `Se ha enviado un correo electrónico para reestablecer la contraseña del usuario: '${user.name}'.`,
+      message: `Se ha enviado un correo electrónico para reestablecer la contraseña: '${user.email}'.`,
       user: user
     })
   } catch (error) {
@@ -190,6 +189,43 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
   }
 }
 
+export const setNewPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Validate User Input
+    //const { error } = passwordData.validate(req.body)
+    //if (error) throw new BadRequest(error.details[0].message)
+
+    // Find user
+    const user = await User.findOne({
+      where: { resetToken: req.params.token }
+    })
+
+    if (!user) throw new NotFound('Token de recuperación de contraseña no válido')
+
+    if (!req.body.password && user) {
+      return res.status(StatusCodes.OK).json({
+        message: `El token es válido.`
+      })
+    } else {
+      // Encrypt the password
+      const salt: string = await bcrypt.genSalt(10)
+      const encryptedPassword: string = await bcrypt.hash(req.body.password, salt)
+
+      // Update user
+      user.password = encryptedPassword
+      user.resetToken = ''
+      await user.save()
+
+      // Response
+      return res.status(StatusCodes.OK).json({
+        message: `La contraseña del correo: '${user.email}' se ha reestablecido de forma exitosa.`,
+        user: user
+      })
+    }
+  } catch (error) {
+    return next(error)
+  }
+}
 
 // CRUD Functions
 
@@ -235,7 +271,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     if (req.body.name) user.name = req.body.name
     if (req.body.email) user.email = req.body.email
     if (req.body.password) user.password = req.body.password
-    
+
     await user.save()
 
     // Response
