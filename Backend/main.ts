@@ -16,15 +16,15 @@ import { router } from './routes/router'
 const app: Application = express()
 
 // Middlewares
-  app.use(
-    cors({
-      allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'], 
-      credentials: true,
-      origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
-      maxAge: 600,
-      exposedHeaders: ['*', 'Authorization' ] 
-    })
-  )
+app.use(
+  cors({
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    credentials: true,
+    origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
+    maxAge: 600,
+    exposedHeaders: ['*', 'Authorization']
+  })
+)
 
 app.use(helmet())
 app.use(json())
@@ -53,7 +53,7 @@ app.listen(process.env.PORT || 5000, async () => {
   // call and connect to Database
   try {
     await connection.sync()
-    // await reSyncDatabase()
+    await reSyncDatabase()
     console.log('Conexión con la base de datos establecida')
   } catch (error) {
     console.error(error)
@@ -80,6 +80,41 @@ async function reSyncDatabase() {
     await db.Role.create({
       id: 3,
       name: 'Admin'
+    })
+
+    // Libros de prueba
+    await db.Book.create({
+      id: 1,
+      title: 'El princpito',
+      description: 'Vive la historia del principito.',
+      total_pages: 311,
+      isbn: 989723496723,
+      price: 8500,
+      format: '32x52',
+      released_date: new Date(1992, 8, 30)
+    })
+
+    await db.Book.create({
+      id: 2,
+      title: 'La Caperucita Roja',
+      description: 'Vive la historia de la caperucita roja.',
+      total_pages: 167,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
+    })
+
+
+    await db.Book.create({
+      id: 3,
+      title: 'El Oso y la Bestia',
+      description: 'Vive la historia deL Oso y la Bestia.',
+      total_pages: 111,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
     })
 
     console.log('Base de datos resincronizada')

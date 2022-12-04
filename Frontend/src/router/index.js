@@ -48,6 +48,16 @@ const router = createRouter({
       component: () => import("../views/account/RestorePassword.vue"),
     },
     {
+      path: "/search/",
+      name: "SearchBook",
+      component: () => import("../views/book/SearchPage.vue"),
+    },
+    {
+      path: "/book/:id",
+      name: "DetailsBook",
+      component: () => import("../views/book/DetailsPage.vue"),
+    },
+    {
       path: "/:catchAll(.*)",
       name: "not-found",
       component: () => import("../views/NotFoundPage.vue"),

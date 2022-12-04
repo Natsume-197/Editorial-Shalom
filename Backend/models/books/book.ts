@@ -10,41 +10,49 @@ export class Book extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  name!: string;
+  title!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true
   })
-  category!: string;
+  description!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  amount!: number;
+  total_pages!: number;
 
   @Column({
-    type: DataType.BOOLEAN,
+    type: DataType.BIGINT,
     allowNull: false,
-    defaultValue: false
   })
-  available!: Boolean;
+  isbn!: bigint;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  price!: number;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
-    unique: true,
-    defaultValue: false
+    allowNull: true,
   })
-  ISBN!: String;
+  format!: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  released_date!: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW
   })
-  publication!: Date;
+  published_date!: Date;
 
 }

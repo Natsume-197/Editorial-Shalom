@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import axios from 'axios'
 var jwt = require('jsonwebtoken')
 // Models
-import { User } from '../models/user'
+import { User } from '../models/users/user'
 // Validation
 import { userData } from '../validation/validation'
 // Middlewares

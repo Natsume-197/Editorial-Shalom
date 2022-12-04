@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize-typescript'
 
 // Models
-import { User } from '../models/user'
-import { Role } from '../models/role'
-import { Book } from '../models/book' 
+import { User } from '../models/users/user'
+import { Role } from '../models/users/role'
+import { Book } from '../models/books/book' 
 
 require('dotenv').config()
 
