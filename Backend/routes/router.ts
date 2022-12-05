@@ -16,7 +16,7 @@ import {
   sendResetPassword,
   setNewPassword
 } from '../controllers/userController'
-import { createBook, searchBooks } from '../controllers/bookController'
+import { createBook, searchBooks, findBook } from '../controllers/bookController'
 
 export const router = express.Router()
 
@@ -39,6 +39,7 @@ router.patch('/user/:id', updateUser)
 router.delete('/user/:id', deleteUser)
 
 // Book CRUD Routes
+router.get('/book/:id', findBook)
 router.post('/book', createBook)
 
 // Protected Routes

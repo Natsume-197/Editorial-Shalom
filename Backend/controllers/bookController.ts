@@ -28,6 +28,21 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
+export const findBook = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.params.id)
+  try {
+    const book = await Book.findOne({
+      where: { id: req.params.id }
+    })
+    if (!book) throw new NotFound('Libro no válido...')
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha encontrado el libro: '${book.title}' de forma exitosa.`,
+      book: book
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
 
 // CRUD Functions
 // Get all books
@@ -82,20 +97,7 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
     return next(error)
   }
 }
-export const findBook = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const book = await Book.findOne({
-      where: { name: req.params.name }
-    })
-    if (!book) throw new NotFound('Libro no válido...')
-    return res.status(StatusCodes.OK).json({
-      message: `Se ha encontrado el libro: '${req.body.name}' de forma exitosa.`,
-      book: book
-    })
-  } catch (error) {
-    return next(error)
-  }
-}
+
 
 export const findBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {

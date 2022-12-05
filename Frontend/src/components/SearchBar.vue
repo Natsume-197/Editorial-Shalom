@@ -18,6 +18,7 @@
                 </svg>
               </div>
               <input
+                autocomplete="off"
                 class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
                 id="search"
                 type="text"
@@ -45,11 +46,13 @@
               </div>
               <!-- Mostramos el mensaje de "No hay resultados disponibles" si no hay libros en la búsqueda -->
               <div
-                v-else-if="query !== '' && bookArray.length === 0"
+                v-else-if="(query !== '' && bookArray.length === 0)"
                 class="flex justify-start cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
               >
+              
                 {{ noResultsMessage }}
               </div>
+              
             </div>
           </div>
         </div>
@@ -79,28 +82,37 @@ export default {
     },
     itemClicked(item) {
       console.log(item);
-      router.push("/book/" + item.id);
+      
+      router.push("/book/" + item.id).then(() =>{
+        this.$router.go()
+      })
+      this.query = ''
+      this.bookArray = []
     },
     resultQuery() {
-      if (this.query.trim()) {
-        api.get(`search?query=${this.query}`).then((response) => {
-          if (response.data.books) {
-            try {
-              if (response.data.books.length === 0) {
-              this.bookArray = [];
-            }
-            } catch (error) {
-              this.bookArray = [];
-              return 
-            }
+      // Cancelar cualquier búsqueda en curso
+      clearTimeout(this.timeout);
+      // Iniciar un nuevo tiempo de espera
+      this.timeout = setTimeout(() => {
+        if (this.query.trim()) {
+          api.get(`search?query=${this.query}`).then((response) => {
+            if (response.data.books) {
+              try {
+                if (response.data.books.length === 0) {
+                  this.bookArray = [];
+                }
+              } catch (error) {
+                this.bookArray = [];
+                return 
+              }
             
-            var bookArray = response.data.books.slice(0, this.limit);
-            this.bookArray = bookArray;
-          } else {
-            this.bookArray = [];
-          }
-        });
-      }
+              var booksArray = response.data.books.slice(0, this.limit);
+              this.bookArray = booksArray;
+            }
+          });
+        } 
+      }, 50); // Esperar 50 milisegundos antes de realizar la búsqueda
+      
     },
   },
   watch: {

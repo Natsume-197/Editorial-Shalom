@@ -10,6 +10,7 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "axios": "^0.26.1",
+    "chart.js": "^4.0.1",
     "flowbite": "^1.5.4",
     "flowbite-vue": "^0.0.6",
     "pinia": "^2.0.13",

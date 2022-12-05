@@ -34,7 +34,7 @@ const router = createRouter({
     {
       path: "/dashboard",
       name: "BoardPage",
-      component: () => import("../views/BoardPage.vue"),
+      component: () => import("../views/admin/BoardPage.vue"),
       meta: { requireAuth: true },
     },
     {

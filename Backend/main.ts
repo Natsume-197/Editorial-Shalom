@@ -85,8 +85,8 @@ async function reSyncDatabase() {
     // Libros de prueba
     await db.Book.create({
       id: 1,
-      title: 'El princpito',
-      description: 'Vive la historia del principito.',
+      title: 'El Principito',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       total_pages: 311,
       isbn: 989723496723,
       price: 8500,
@@ -97,7 +97,7 @@ async function reSyncDatabase() {
     await db.Book.create({
       id: 2,
       title: 'La Caperucita Roja',
-      description: 'Vive la historia de la caperucita roja.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       total_pages: 167,
       isbn: 634633221123,
       price: 11000,
@@ -109,7 +109,7 @@ async function reSyncDatabase() {
     await db.Book.create({
       id: 3,
       title: 'El Oso y la Bestia',
-      description: 'Vive la historia deL Oso y la Bestia.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       total_pages: 111,
       isbn: 634633221123,
       price: 11000,
@@ -117,6 +117,50 @@ async function reSyncDatabase() {
       released_date: new Date(1911, 5, 21)
     })
 
+    await db.Book.create({
+      id: 4,
+      title: 'La vida de los enanos',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      total_pages: 111,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
+    })
+
+    await db.Book.create({
+      id: 5,
+      title: 'Como si fuera ayer',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      total_pages: 111,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
+    })
+
+    await db.Book.create({
+      id: 6,
+      title: 'Magic For Kids',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      total_pages: 111,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
+    })
+
+    await db.Book.create({
+      id: 7,
+      title: 'Dora la Exploradora',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      total_pages: 111,
+      isbn: 634633221123,
+      price: 11000,
+      format: '15x12',
+      released_date: new Date(1911, 5, 21)
+    })
+  
     console.log('Base de datos resincronizada')
   })
 }

@@ -13,7 +13,7 @@ export class Book extends Model {
   title!: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(500),
     allowNull: false,
   })
   description!: string;

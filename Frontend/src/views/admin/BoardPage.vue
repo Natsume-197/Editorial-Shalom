@@ -14,9 +14,9 @@
 
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue'
-import { userStore } from '../stores/user'
+import { userStore } from '../../stores/user'
 import { useToast } from 'vue-toastification'
-import { api } from '../../utils/axios'
+import { api } from '../../../utils/axios'
 
 const content = ref('You are not logged in!')
 const store = userStore()
