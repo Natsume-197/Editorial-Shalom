@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createI18n } from 'vue-i18n'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import router from './router'
@@ -8,6 +9,17 @@ import 'vue-toastification/dist/index.css'
 import 'animate.css'
 import './assets/tailwind.css'
 import vco from "v-click-outside";
+import FlagIcon from 'vue-flag-icon';
+import messages from "@intlify/unplugin-vue-i18n/messages";
+
+const i18n = createI18n({
+  legacy: false,
+  globalInjection: true, 
+  locale: 'es',
+  fallbackLocale: 'es',
+  availableLocales: ["es", "en"],
+  messages
+})
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
@@ -21,4 +33,6 @@ createApp(App)
     newestOnTop: true
   })
   .use(vco)
+  .use(i18n)
+  .use(FlagIcon)
   .mount('#app')
