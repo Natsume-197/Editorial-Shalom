@@ -19,11 +19,13 @@
     "v-click-outside": "^3.2.0",
     "vue": "^3.2.33",
     "vue-click-outside": "^1.1.0",
+    "vue-cookies": "^1.8.2",
     "vue-flag-icon": "^2.1.0",
     "vue-i18n": "^9.2.2",
     "vue-recaptcha": "^2.0.3",
     "vue-router": "^4.0.14",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

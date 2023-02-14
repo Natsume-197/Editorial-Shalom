@@ -13,4 +13,5 @@ export const userStore = defineStore('user', {
     storage: window.localStorage,
     paths: ['isLoggedIn', 'userInfo']
   }
+  
 })

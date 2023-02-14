@@ -30,13 +30,5 @@ onBeforeMount(() => {
     .then(response => {
       content.value = response.data.message
     })
-    .catch(error => {
-      console.log(error)
-      toast.error(`${error.response.data.message}`, {
-        timeout: 2000,
-        position: 'top-center',
-        icon: true
-      })
-    })
 })
 </script>

@@ -11,6 +11,7 @@ import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
 import FooTerVue from "./components/Footer.vue";
 
+
 export default {
   created() {
     const savedLanguage = localStorage.getItem('language')

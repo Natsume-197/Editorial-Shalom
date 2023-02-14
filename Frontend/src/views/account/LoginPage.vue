@@ -94,9 +94,9 @@ const isAuth = computed(() => store.isLoggedIn)
 
 const router = useRouter();
 
-if(isAuth){
-  router.push('/')
-}
+//if(isAuth){
+//  router.push('/')
+//}
 
 const data = reactive({
   email: "",

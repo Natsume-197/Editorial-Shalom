@@ -53,7 +53,7 @@ app.listen(process.env.PORT || 5000, async () => {
   // call and connect to Database
   try {
     await connection.sync()
-    await reSyncDatabase()
+    //await reSyncDatabase()
     console.log('Conexión con la base de datos establecida')
   } catch (error) {
     console.error(error)

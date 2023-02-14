@@ -65,6 +65,7 @@ const router = createRouter({
   ],
 });
 
+
 // Global Route Guard
 router.beforeEach((to, _from, next) => {
   const store = userStore();
