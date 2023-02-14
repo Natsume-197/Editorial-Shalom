@@ -1,23 +1,33 @@
 import { Request, Response, NextFunction } from 'express'
-// Models
-import { Book } from '../models/books/book'
-// Error Handler
 import { Conflict, NotFound } from '../utils/error'
-// HTTP Codes
 import { StatusCodes } from 'http-status-codes'
-// Extra functions
 import { Op } from 'sequelize'
+import { Book } from '../models/books/book'
+import path from 'path'
 
-export const searchBooks = async (req: Request, res: Response, next: NextFunction) => {
-  
+// Función para subir portada de un libro
+export const uploadCoverBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const books = await Book.findAll(
-      {
-        where: {
-          title: { [Op.iLike]: `%${req.query.query}%` }
-        }
+    if (req.file) {
+      const filePath = path.join(__dirname, req.file.path);
+      console.log(filePath)
+      res.send('Single file uploaded successfully')
+    } else {
+      res.status(400).send('Please upload a valid image')
+    }
+  } catch (error) {
+    return next(error)
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const searchBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const books = await Book.findAll({
+      where: {
+        title: { [Op.iLike]: `%${req.query.query}%` }
       }
-    )
+    })
 
     return res.status(StatusCodes.OK).json({
       message: 'Se han encontrado los siguientes libros',
@@ -62,9 +72,9 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
   try {
     // read from body
     const { title, description, total_pages, isbn, price, format, released_date } = req.body
-    
+
     // check if there is content in request
-    if(Object.keys(req.body).length === 0){
+    if (Object.keys(req.body).length === 0) {
       throw new Conflict('No se ha enviado ningún dato.')
     }
 
@@ -97,7 +107,6 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
     return next(error)
   }
 }
-
 
 export const findBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,9 +1,10 @@
 import { Sequelize } from 'sequelize-typescript'
 
-// Models
 import { User } from '../models/users/user'
 import { Role } from '../models/users/role'
-import { Book } from '../models/books/book' 
+import { Book } from '../models/books/book'
+import { Book_t } from '../models/books/book_t'
+import { Language } from '../models/books/language'
 
 require('dotenv').config()
 
@@ -13,8 +14,8 @@ const connection = new Sequelize({
   username: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
-  models: [User, Role, Book],
+  models: [User, Role, Book, Language, Book_t],
   logging: false
-})  
+})
 
 export default connection

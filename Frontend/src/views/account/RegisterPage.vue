@@ -93,12 +93,33 @@ const submit = () => {
       })
     })
     .catch(error => {
+      if (error.response) {
+        // Si la respuesta de la API tiene un estado, el error provino de la API
+        const status = error.response.status
+        const message = error.response.data.message
+        toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+          timeout: 5000,
+          position: 'top-center',
+          icon: true
+        })
+        console.log(error)
+      } else if (error.request) {
+        // Si la solicitud no pudo completarse, es un error de red
+        toast.error(`Error al enviar la solicitud: Conexión con la API rechazada.`, {
+          timeout: 5000,
+          position: 'top-center',
+          icon: true
+        })
+        console.log(error)
+      } else {
+        // En otros casos, puede haber un error en el código
+        toast.error(`Error al enviar la solicitud: ${message}`, {
+          timeout: 5000,
+          position: 'top-center',
+          icon: true
+        })
+      }
       console.log(error)
-      toast.error(`${error.response.data.message}`, {
-        timeout: 2000,
-        position: 'top-center',
-        icon: true
-      })
     })
 }
 </script>

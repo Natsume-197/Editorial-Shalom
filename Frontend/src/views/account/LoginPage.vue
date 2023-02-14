@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "../../stores/user";
 import { useToast } from "vue-toastification";
@@ -90,6 +90,14 @@ import EyeOn from "../../components/EyeOn.vue";
 import EyeOff from "../../components/EyeOff.vue";
 import Captcha from "../../components/Captcha.vue";
 
+const isAuth = computed(() => store.isLoggedIn)
+
+const router = useRouter();
+
+if(isAuth){
+  router.push('/')
+}
+
 const data = reactive({
   email: "",
   password: "",
@@ -97,7 +105,6 @@ const data = reactive({
 });
 
 const showPass = ref(false);
-const router = useRouter();
 const store = userStore();
 const toast = useToast();
 

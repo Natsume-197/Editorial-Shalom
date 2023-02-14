@@ -18,11 +18,11 @@ const app: Application = express()
 // Middlewares
 app.use(
   cors({
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token', 'Origin'],
     credentials: true,
     origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
     maxAge: 600,
-    exposedHeaders: ['*', 'Authorization']
+    exposedHeaders: ['*', 'Authorization'],
   })
 )
 
@@ -53,7 +53,7 @@ app.listen(process.env.PORT || 5000, async () => {
   // call and connect to Database
   try {
     await connection.sync()
-    // await reSyncDatabase()
+    await reSyncDatabase()
     console.log('Conexión con la base de datos establecida')
   } catch (error) {
     console.error(error)
@@ -66,100 +66,57 @@ async function reSyncDatabase() {
   await connection.sync({ force: true }).then(async () => {
     const db = connection.models
 
-    // Data insertion for roles
+    // Tabla roles
     await db.Role.create({
       id: 1,
-      name: 'User'
+      name: 'Usuario'
     })
 
     await db.Role.create({
       id: 2,
-      name: 'Moderator'
+      name: 'Administrador'
     })
 
-    await db.Role.create({
-      id: 3,
-      name: 'Admin'
+    // Tabla Lenguajes
+    await db.Language.create({
+      id: 1,
+      code: 'es',
+      description: 'Español'
     })
 
-    // Libros de prueba
+    await db.Language.create({
+      id: 2,
+      code: 'en',
+      description: 'Ingles'
+    })
+    
+    // Añadir un libro
     await db.Book.create({
       id: 1,
-      title: 'El Principito',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 311,
-      isbn: 989723496723,
-      price: 8500,
-      format: '32x52',
-      released_date: new Date(1992, 8, 30)
+      isbn: 124125124,
+      price: 3000,
+      released_date: new Date(1911, 5, 21)
     })
 
-    await db.Book.create({
+    await db.Book_t.create({
+      id: 1,
+      id_book: 1,
+      id_language: 1,
+      title: 'Caperucita Roja',
+      description: 'Caperucita Roja era una niña que llevaba una capa roja con una capucha y por eso todos los que la conocían la llamaban así. Vivía con su madre en una casa cerca de un bosque. ',
+      total_pages: 89
+    })
+
+    await db.Book_t.create({
       id: 2,
-      title: 'La Caperucita Roja',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 167,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
+      id_book: 1,
+      id_language: 2,
+      title: 'Little Red Riding Hood',
+      description: 'The story of Little Red Riding Hood is a folktale that was originally penned by Charles Perrault, and made popular by the Brothers Grimm. Its about a little girl, who wears an emblematic red velvet hood, who mistakes a wolf for her grandma!',
+      total_pages: 85
     })
 
 
-    await db.Book.create({
-      id: 3,
-      title: 'El Oso y la Bestia',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 111,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
-    })
-
-    await db.Book.create({
-      id: 4,
-      title: 'La vida de los enanos',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 111,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
-    })
-
-    await db.Book.create({
-      id: 5,
-      title: 'Como si fuera ayer',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 111,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
-    })
-
-    await db.Book.create({
-      id: 6,
-      title: 'Magic For Kids',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 111,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
-    })
-
-    await db.Book.create({
-      id: 7,
-      title: 'Dora la Exploradora',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      total_pages: 111,
-      isbn: 634633221123,
-      price: 11000,
-      format: '15x12',
-      released_date: new Date(1911, 5, 21)
-    })
   
     console.log('Base de datos resincronizada')
   })

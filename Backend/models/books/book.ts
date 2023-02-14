@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
+import { Book_t } from "./book_t";
 
 @Table({
   timestamps: false,
@@ -7,23 +8,12 @@ import { Table, Model, Column, DataType } from "sequelize-typescript";
 })
 export class Book extends Model {
   @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  title!: string;
-
-  @Column({
-    type: DataType.STRING(500),
-    allowNull: false,
-  })
-  description!: string;
-
-  @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    primaryKey: true
   })
-  total_pages!: number;
-
+  id!: number
+  
   @Column({
     type: DataType.BIGINT,
     allowNull: false,
@@ -37,12 +27,6 @@ export class Book extends Model {
   price!: number;
 
   @Column({
-    type: DataType.STRING,
-    allowNull: true,
-  })
-  format!: string;
-
-  @Column({
     type: DataType.DATE,
     allowNull: false,
   })
@@ -54,5 +38,14 @@ export class Book extends Model {
     defaultValue: DataTypes.NOW
   })
   published_date!: Date;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  cover!: string;
+  
+  @HasMany(() => Book_t)
+  book_t!: Book_t[];
 
 }

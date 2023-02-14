@@ -12,6 +12,12 @@ import NavBar from "./components/NavBar.vue";
 import FooTerVue from "./components/Footer.vue";
 
 export default {
+  created() {
+    const savedLanguage = localStorage.getItem('language')
+    if (savedLanguage) {
+      this.$i18n.locale = savedLanguage
+    }  
+  },
   data() {
     return {
       showNavBar: false,

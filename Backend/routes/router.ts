@@ -16,9 +16,11 @@ import {
   sendResetPassword,
   setNewPassword
 } from '../controllers/userController'
-import { createBook, searchBooks, findBook } from '../controllers/bookController'
+import { uploadCoverBook, createBook, searchBooks, findBook } from '../controllers/bookController'
 
 export const router = express.Router()
+const multer  = require('multer')
+const upload = multer({ dest: 'assets/books/covers' })
 
 // Public Routes
 router.post('/register', signUp)
@@ -31,6 +33,7 @@ router.post('/account/resetpassword/:token', setNewPassword)
 
 // Book Related Functions
 router.get('/search', searchBooks)
+router.post('/book/upload/cover', upload.single('image'), uploadCoverBook)
 
 // User CRUD Routes
 router.get('/user', getAllUsers)

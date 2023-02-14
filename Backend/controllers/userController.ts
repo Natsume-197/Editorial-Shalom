@@ -1,20 +1,14 @@
-// Libraries
+import { Authorized, BadRequest, Conflict, NotFound } from '../utils/error'
+import { createToken, maxAge } from '../middleware/createToken'
 import { Request, Response, NextFunction } from 'express'
+import { userData } from '../validation/validation'
+import { StatusCodes } from 'http-status-codes'
 import bcrypt from 'bcrypt'
 import axios from 'axios'
 var jwt = require('jsonwebtoken')
-// Models
-import { User } from '../models/users/user'
-// Validation
-import { userData } from '../validation/validation'
-// Middlewares
-import { createToken, maxAge } from '../middleware/createToken'
-// Error Handler
-import { Authorized, BadRequest, Conflict, NotFound } from '../utils/error'
-// HTTP Codes
-import { StatusCodes } from 'http-status-codes'
-// Email
+
 import { sendConfirmationEmail, sendResetPasswordEmail } from '../services/mailService'
+import { User } from '../models/users/user'
 
 // Only auth Users can access this page
 export const authPage = (_req: Request, res: Response): object => {
@@ -55,7 +49,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
         name: name,
         email: email.toLowerCase(),
         password: encryptedPassword,
-        confirmationToken: randomTokenEmail
+        email_token: randomTokenEmail
       })
 
       // Send verification email to user
@@ -93,7 +87,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     const password: boolean = await bcrypt.compare(req.body.password, user.password)
     if (!password) throw new BadRequest('Correo o contraseña incorrecta...')
 
-    if (user.isVerified === false)
+    if (user.is_verified === false)
       throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
@@ -139,17 +133,17 @@ export const logout = (_req: Request, res: Response, _next: NextFunction) => {
 export const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await User.findOne({
-      where: { confirmationToken: req.params.token }
+      where: { email_token: req.params.token }
     })
 
     // Check if there is any user with the url token
     if (!user) throw new NotFound('Token no válido...')
 
     // Check if user is already verified
-    if (user.isVerified === true)
+    if (user.is_verified === true)
       throw new Conflict('Este correo ya se encuentra verificado. Inicie sesión con normalidad.')
 
-    user.isVerified = true
+    user.is_verified = true
     await user.save()
 
     return res.status(StatusCodes.ACCEPTED).json({
@@ -173,7 +167,7 @@ export const sendResetPassword = async (req: Request, res: Response, next: NextF
     const resetToken: string = jwt.sign({ email: req.body.email }, jwtSecretKey)
 
     // Update user
-    user.resetToken = resetToken
+    user.password_token = resetToken
     await user.save()
 
     // Send reset password email to user
@@ -213,7 +207,7 @@ export const setNewPassword = async (req: Request, res: Response, next: NextFunc
 
       // Update user
       user.password = encryptedPassword
-      user.resetToken = ''
+      user.password_token = ''
       await user.save()
 
       // Response
