@@ -65,7 +65,6 @@ const router = createRouter({
   ],
 });
 
-
 // Global Route Guard
 router.beforeEach((to, _from, next) => {
   const store = userStore();
@@ -79,7 +78,16 @@ router.beforeEach((to, _from, next) => {
       });
     }
   } else {
-    next();
+    // Prevent logged-in users from accessing the login or register pages
+    if (to.name === "Login" || to.name === "Register") {
+      if (store.isLoggedIn) {
+        next({ path: "/" });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
   }
 });
 
