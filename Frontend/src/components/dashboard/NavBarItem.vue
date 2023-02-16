@@ -2,7 +2,7 @@
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
 import { RouterLink } from "vue-router";
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-import { useStyleStore } from "../../stores/styles";
+import { useStyleStore } from "../../stores/style";
 import { useMainStore } from "../../stores/main";
 import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
 import UserAvatarCurrentUser from "../../components/dashboard/UserAvatarCurrentUser.vue";

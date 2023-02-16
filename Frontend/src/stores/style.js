@@ -30,6 +30,7 @@ export const useStyleStore = defineStore("style", {
       }
 
       const style = styles[payload];
+      console.log(style)
 
       for (const key in style) {
         this[`${key}Style`] = style[key];

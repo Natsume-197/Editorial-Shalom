@@ -1,7 +1,7 @@
 <script setup>
 import { mdiLogout, mdiClose } from "@mdi/js";
 import { computed } from "vue";
-import { useStyleStore } from "../../stores/styles.js";
+import { useStyleStore } from "../../stores/style.js";
 import AsideMenuList from "./AsideMenuList.vue";
 import AsideMenuItem from "./AsideMenuItem.vue";
 import BaseIcon from "./minimal/BaseIcon.vue";

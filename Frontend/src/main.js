@@ -1,34 +1,52 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createI18n } from 'vue-i18n'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import App from './App.vue'
-import router from './router'
-import Toast from 'vue-toastification'
-import 'vue-toastification/dist/index.css'
-import 'animate.css'
-import './assets/tailwind.css'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import { createI18n } from "vue-i18n";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import App from "./App.vue";
+import router from "./router";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import "animate.css";
+import "./assets/tailwind.css";
 import messages from "@intlify/unplugin-vue-i18n/messages";
+
+// Dark and light theme dashboard
+import { useStyleStore } from "./stores/style";
+import { darkModeKey, styleKey } from "./config";
+
+const pinia = createPinia();
 
 const i18n = createI18n({
   legacy: false,
-  globalInjection: true, 
-  locale: 'es',
-  fallbackLocale: 'es',
+  globalInjection: true,
+  locale: "es",
+  fallbackLocale: "es",
   availableLocales: ["es", "en"],
-  messages
-})
+  messages,
+});
 
-const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
+pinia.use(piniaPluginPersistedstate);
 
 createApp(App)
   .use(pinia)
   .use(router)
   .use(Toast, {
-    transition: 'Vue-Toastification__fade',
+    transition: "Vue-Toastification__fade",
     maxToasts: 3,
-    newestOnTop: true
+    newestOnTop: true,
   })
   .use(i18n)
-  .mount('#app')
+  .mount("#app");
+
+const styleStore = useStyleStore(pinia);
+
+styleStore.setStyle(localStorage[styleKey] ?? "basic");
+
+/* Dark mode */
+if (
+  (!localStorage[darkModeKey] &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+  localStorage[darkModeKey] === "1"
+) {
+  styleStore.setDarkMode(true);
+}

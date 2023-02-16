@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { RouterLink } from "vue-router";
-import { useStyleStore } from "../../stores/styles";
+import { useStyleStore } from "../../stores/style";
 import { mdiMinus, mdiPlus } from "@mdi/js";
 import { getButtonColor } from "../../colors";
 import BaseIcon from "./minimal/BaseIcon.vue";

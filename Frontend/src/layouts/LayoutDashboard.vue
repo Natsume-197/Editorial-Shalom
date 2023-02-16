@@ -1,5 +1,4 @@
 <template>
-  <div v-if="isAuth">
     <div
     :class="{
       dark: styleStore.darkMode,
@@ -8,7 +7,7 @@
   >
     <div
       :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
-      class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
+      class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100" 
     >
       <NavBar
         :menu="menuNavBar"
@@ -35,7 +34,7 @@
         </NavBarItemPlain>
         <NavBarItemPlain use-margin>
           <FormControl
-            placeholder="Search (ctrl+k)"
+            placeholder="Buscar (ctrl+k)"
             ctrl-k-focus
             transparent
             borderless
@@ -54,35 +53,34 @@
       </FooterBar>
     </div>
   </div>
-  </div>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
 import { computed, onBeforeMount, ref } from "vue";
-import { userStore } from "../../stores/user";
+import { userStore } from "../stores/user";
 import { useToast } from "vue-toastification";
-import { api } from "../../../utils/axios";
+import { api } from "../../utils/axios";
 
 // Components
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
-import FooterBar from "../../components/dashboard/FooterBar.vue";
-import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
-import NavBar from "../../components/dashboard/NavBar.vue";
-import NavBarItemPlain from "../../components/dashboard/NavBarItemPlain.vue";
-import FormControl from "../../components/dashboard/FormControl.vue";
-import AsideMenu from "../../components/dashboard/AsideMenu.vue";
+import FooterBar from "../components/dashboard/FooterBar.vue";
+import BaseIcon from "../components/dashboard/minimal/BaseIcon.vue";
+import NavBar from "../components/dashboard/NavBar.vue";
+import NavBarItemPlain from "../components/dashboard/NavBarItemPlain.vue";
+import FormControl from "../components/dashboard/FormControl.vue";
+import AsideMenu from "../components/dashboard/AsideMenu.vue";
 
 // Assets CSS
-import { useStyleStore } from "../../stores/styles";
-import { useMainStore } from "../../stores/main.js";
+import { useStyleStore } from "../stores/style";
+import { useMainStore } from "../stores/main";
 
 // Navbar and menu content
-import menuNavBar from "./menuNavBar";
-import menuAside from "./menuAside.js";
+import menuNavBar from "../views/admin/menuNavBar";
+import menuAside from "../views/admin/menuAside";
 
 // Actions
-import { logout } from "../../../utils/actions"
+import { logout } from "../../utils/actions"
 
 const router = useRouter();
 const layoutAsidePadding = "xl:pl-60";
@@ -99,6 +97,7 @@ router.beforeEach(() => {
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
     styleStore.setDarkMode();
+    console.log('PRESIONADO')
   }
   if (item.isLogout) {
     logout()
@@ -112,11 +111,9 @@ useMainStore().setUser({
     "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
 });
 
-
 const content = ref("You are not logged in!");
 const store = userStore();
 const toast = useToast();
-const isAuth = computed(() => store.isLoggedIn);
 const user = computed(() => store.userInfo);
 
 onBeforeMount(() => {
