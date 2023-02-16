@@ -31,7 +31,7 @@ export default {
         route.path !== "/login" &&
         route.path !== "/register" &&
         route.path !== "/account/resetPassword" &&
-        // route.path !== "/dashboard" &&
+        route.path !== "/dashboard" &&
         !route.path.includes("/account/resetpassword/")
       ) {
         this.showNavBar = true;

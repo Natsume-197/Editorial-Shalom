@@ -116,3 +116,4 @@ const publicRoutes = reactive([
   { name: "Iniciar Sesión", link: "/login" },
 ]);
 </script>
+
