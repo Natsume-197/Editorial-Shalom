@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useStyleStore } from "../../stores/style";
 import { mdiMinus, mdiPlus } from "@mdi/js";
-import { getButtonColor } from "../../colors";
+import { getButtonColor } from "../../assets/style/colors";
 import BaseIcon from "./minimal/BaseIcon.vue";
 import AsideMenuList from "./AsideMenuList.vue";
 

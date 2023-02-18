@@ -17,7 +17,7 @@
 </template>  
 
 <script setup>
-import { api } from '../../../utils/axios'
+import { api } from '../../utils/axios'
 
 const token = window.location.href.split('/').slice(-2)[0] 
 api.get('account/verify/'+token), async function(req, res){

@@ -62,7 +62,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import { api } from '../../../utils/axios'
+import { api } from '../../utils/axios'
 import EyeOn from '../../components/EyeOn.vue'
 import EyeOff from '../../components/EyeOff.vue'
 

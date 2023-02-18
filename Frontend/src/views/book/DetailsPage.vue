@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { api } from "../../../utils/axios";
+import { api } from "../../utils/axios";
 
 export default {
     

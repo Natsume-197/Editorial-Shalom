@@ -1,5 +1,5 @@
 <script setup>
-import { containerMaxW } from "../../config";
+import { containerMaxW } from "../../assets/style/config";
 </script>
 
 <template>

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import router from "../router";
+import router from "../../router";
 import { api } from "../../utils/axios";
 
 export default {

@@ -60,7 +60,7 @@ import { useRouter } from "vue-router";
 import { computed, onBeforeMount, ref } from "vue";
 import { userStore } from "../stores/user";
 import { useToast } from "vue-toastification";
-import { api } from "../../utils/axios";
+import { api } from "../utils/axios";
 
 // Components
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
@@ -80,7 +80,7 @@ import menuNavBar from "../views/admin/menuNavBar";
 import menuAside from "../views/admin/menuAside";
 
 // Actions
-import { logout } from "../../utils/actions"
+import { logout } from "../utils/actions"
 
 const router = useRouter();
 const layoutAsidePadding = "xl:pl-60";

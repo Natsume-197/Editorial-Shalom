@@ -1,22 +1,21 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { createI18n } from "vue-i18n";
+import { useStyleStore } from "./stores/style";
+import { darkModeKey, styleKey } from "./assets/style/config";
+
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import App from "./App.vue";
 import router from "./router";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import "animate.css";
-import "./assets/tailwind.css";
+import "./assets/css/tailwind.css";
 import messages from "@intlify/unplugin-vue-i18n/messages";
-
-// Dark and light theme dashboard
-import { useStyleStore } from "./stores/style";
-import { darkModeKey, styleKey } from "./config";
-import { useMainStore } from "./stores/main";
 
 const pinia = createPinia();
 
+// Language Configuration
 const i18n = createI18n({
   legacy: false,
   globalInjection: true,
@@ -39,9 +38,7 @@ createApp(App)
   .use(i18n)
   .mount("#app");
 
-/* Init Pinia stores */
 const styleStore = useStyleStore(pinia);
-
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
 
 /* Dark mode */

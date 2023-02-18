@@ -85,18 +85,15 @@ import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "../../stores/user";
 import { useToast } from "vue-toastification";
-import { api } from "../../../utils/axios";
-import EyeOn from "../../components/EyeOn.vue";
-import EyeOff from "../../components/EyeOff.vue";
-import Captcha from "../../components/Captcha.vue";
+import { api } from "../../utils/axios";
+import EyeOn from "../../components/session/EyeOn.vue";
+import EyeOff from "../../components/session/EyeOff.vue";
+import Captcha from "../../components/session/Captcha.vue";
 
 const isAuth = computed(() => store.isLoggedIn)
 
 const router = useRouter();
 
-//if(isAuth){
-//  router.push('/')
-//}
 
 const data = reactive({
   email: "",

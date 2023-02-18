@@ -1,4 +1,4 @@
-import { userStore } from "../src/stores/user";
+import { userStore } from "../stores/user";
 import router from "@/router";
 import { useToast } from "vue-toastification";
 import { api } from "./axios";

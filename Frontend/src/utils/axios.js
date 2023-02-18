@@ -1,6 +1,6 @@
 // Clase que permite la conexión con una o varias APIs
 import axios from 'axios'
-import { userStore } from "../src/stores/user";
+import { userStore } from "../stores/user";
 import { useToast } from 'vue-toastification'
 
 export const BASE_API_URLS = [

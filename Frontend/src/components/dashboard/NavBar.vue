@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { mdiClose, mdiDotsVertical } from "@mdi/js";
-import { containerMaxW } from "../../config";
+import { containerMaxW } from "../../assets/style/config";
 import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue"
 import NavBarMenuList from "../../components/dashboard/NavBarMenuList.vue";
 import NavBarItemPlain from "../../components/dashboard/NavBarItemPlain.vue";

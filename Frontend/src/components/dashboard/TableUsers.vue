@@ -8,7 +8,7 @@ import BaseLevel from "./minimal/BaseLevel.vue";
 import BaseButtons from "./minimal/BaseButtons.vue";
 import BaseButton from "./minimal/BaseButton.vue";
 import UserAvatar from "./UserAvatar.vue";
-import { api } from "../../../utils/axios";
+import { api } from "../../utils/axios";
 import { useToast } from "vue-toastification";
 
 defineProps({
@@ -76,12 +76,10 @@ const checked = (isChecked, client) => {
 };
 
 const currentSelected = (event, client) => {
-  console.log(event)
   currentUser.value = client;
 };
 
 // CRUD
-
 async function deleteUser(id){
   console.log(id);
   try {

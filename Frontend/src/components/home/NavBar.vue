@@ -56,9 +56,9 @@
 </template>
 
 <script setup>
-import SearchBar from "../components/SearchBar.vue";
+import SearchBar from "./SearchBar.vue";
 import { reactive, computed } from "vue";
-import { userStore } from "../stores/user";
+import { userStore } from "../../stores/user";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import { api } from "../../utils/axios";

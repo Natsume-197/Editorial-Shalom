@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { api } from "../../../utils/axios";
+import { api } from "../../utils/axios";
 import { useToast } from "vue-toastification";
 
 const token = window.location.href.split("/").slice(-2)[0];

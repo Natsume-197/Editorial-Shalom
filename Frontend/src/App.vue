@@ -1,15 +1,7 @@
-<template>
-  <main>
-    <NavBar v-show="showNavBar" />
-    <RouterView />
-    <FooTerVue v-show="showFooter" />
-  </main>
-</template>
-
 <script>
 import { RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
-import FooTerVue from "./components/Footer.vue";
+import NavBar from "./components/home/NavBar.vue";
+import FooTerVue from "./components/home/Footer.vue";
 
 
 export default {
@@ -48,3 +40,11 @@ export default {
   },
 };
 </script>
+
+<template>
+  <main>
+    <NavBar v-show="showNavBar" />
+    <RouterView />
+    <FooTerVue v-show="showFooter" />
+  </main>
+</template>
