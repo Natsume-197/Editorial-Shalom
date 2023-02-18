@@ -138,7 +138,7 @@ const submit = async () => {
       if (searchParams.has("redirect")) {
         router.push({ path: `${searchParams.get("redirect")}` });
       } else {
-        router.push({ path: "/dashboard" });
+        router.push({ path: "/" });
 
         toast.success(`${response.data.message}`, {
         timeout: 2000,

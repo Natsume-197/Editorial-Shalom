@@ -14,13 +14,13 @@ import {
   
   export default [
     {
-      to: "/dashboard",
+      to: "/dashboard/inicio",
       icon: mdiMonitor,
-      label: "Dashboard",
+      label: "Inicio",
     },
     {
-      to: "/tables",
-      label: "Tables",
+      to: "/dashboard/tables",
+      label: "Usuario",
       icon: mdiTable,
     },
     {

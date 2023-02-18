@@ -97,7 +97,6 @@ router.beforeEach(() => {
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
     styleStore.setDarkMode();
-    console.log('PRESIONADO')
   }
   if (item.isLogout) {
     logout()

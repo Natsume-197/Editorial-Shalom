@@ -32,9 +32,15 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
-      path: "/dashboard",
+      path: "/dashboard/inicio",
       name: "BoardPage",
       component: () => import("../views/admin/Home.vue"),
+      meta: { requireAuth: true },
+    },
+    {
+      path: "/dashboard/tables",
+      name: "Tables",
+      component: () => import("../views/admin/Tables.vue"),
       meta: { requireAuth: true },
     },
     {

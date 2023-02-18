@@ -107,7 +107,7 @@ const logout = () => {
 // window.location.reload()
 
 const privateRoutes = reactive([
-  { name: "Dashboard", link: "/dashboard" },
+  { name: "Dashboard", link: "/dashboard/inicio" },
   { name: "Perfil", link: "/profile" },
 ]);
 

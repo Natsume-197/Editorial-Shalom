@@ -13,6 +13,7 @@ import messages from "@intlify/unplugin-vue-i18n/messages";
 // Dark and light theme dashboard
 import { useStyleStore } from "./stores/style";
 import { darkModeKey, styleKey } from "./config";
+import { useMainStore } from "./stores/main";
 
 const pinia = createPinia();
 
@@ -38,6 +39,7 @@ createApp(App)
   .use(i18n)
   .mount("#app");
 
+/* Init Pinia stores */
 const styleStore = useStyleStore(pinia);
 
 styleStore.setStyle(localStorage[styleKey] ?? "basic");

@@ -51,6 +51,7 @@ const computedValue = computed({
     emit("update:modelValue", value);
   },
 });
+
 const inputElClass = computed(() => {
   const base = [
     "px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full",

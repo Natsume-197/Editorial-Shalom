@@ -30,10 +30,10 @@ export const useMainStore = defineStore("main", {
 
     fetch(sampleDataKey) {
       axios
-        .get(`data-sources/${sampleDataKey}.json`)
+        .get(`http://localhost:5000/api/user/`)
         .then((r) => {
-          if (r.data && r.data.data) {
-            this[sampleDataKey] = r.data.data;
+          if (r.data && r.data.users) {
+            this[sampleDataKey] = r.data.users;
           }
         })
         .catch((error) => {

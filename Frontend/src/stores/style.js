@@ -29,8 +29,7 @@ export const useStyleStore = defineStore("style", {
         localStorage.setItem(styleKey, payload);
       }
 
-      const style = styles[payload];
-      console.log(style)
+      const style = styles[payload]; // Website Style
 
       for (const key in style) {
         this[`${key}Style`] = style[key];

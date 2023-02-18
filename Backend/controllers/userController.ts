@@ -292,7 +292,7 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 
     // Response
     return res.status(StatusCodes.OK).json({
-      message: `Se ha eliminado el usuario con ID: '${req.body.id}' de forma exitosa.`
+      message: `Se ha eliminado el usuario de forma exitosa.`
     })
   } catch (error) {
     return next(error)
