@@ -1,5 +1,5 @@
 <script setup>
-import { mdiTableBorder, mdiAccountPlus } from "@mdi/js";
+import { mdiTableBorder, mdiExport } from "@mdi/js";
 import SectionMain from "../../../components/dashboard/SectionMain.vue";
 import TableUsers from "../../../components/dashboard/TableUsers.vue";
 import CardBox from "../../../components/dashboard/CardBox.vue";
@@ -16,10 +16,11 @@ import BaseButton from "../../../components/dashboard/minimal/BaseButton.vue";
         title="Tabla Usuarios"
         main
       >
-        <BaseButton
-          target="_blank"
-          :icon="mdiAccountPlus"
-          label="Añadir un usuario"
+
+      <BaseButton
+          target="_white"
+          :icon="mdiExport"
+          label="Exportar..."
           color="contrast"
           rounded-full
           small
