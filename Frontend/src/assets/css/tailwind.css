@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 @import "_scrollbars.css";
 @import "_table.css";
+@import "_checkbox-radio-switch";
 
 @tailwind base;
 @tailwind components;

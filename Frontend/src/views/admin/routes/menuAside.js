@@ -1,12 +1,13 @@
 import {
     mdiBookOpenPageVariant ,
     mdiCogs,
-    mdiSquareEditOutline,
+    mdiBookshelf,
     mdiTable,
     mdiBookPlus,
     mdiCartOutline,
     mdiAccountPlus,
-    mdiViewDashboard
+    mdiViewDashboard,
+    mdiAccountMultipleOutline
   } from "@mdi/js";
   
   export default [
@@ -20,31 +21,32 @@ import {
       label: "Ventas",
     },
     {
-      label: "Registro",
-      icon: mdiSquareEditOutline,
+      label: "Inventario",
+      icon: mdiBookshelf,
       menu: [
         {
-          label: "Libros",
+          label: "Añadir",
           icon: mdiBookPlus
         },
         {
-          label: "Usuarios",
-          icon: mdiAccountPlus
+          label: "Visualizar",
+          icon: mdiBookOpenPageVariant
         },
       ],
     },
     {
-      label: "Tablas",
+      label: "Usuarios",
       icon: mdiTable,
       menu: [
         {
-          label: "Libros",
-          icon: mdiBookPlus
+          to: "/dashboard/usuarios/agregar",
+          label: "Agregar",
+          icon: mdiAccountPlus
         },
         {
-          to: "/dashboard/tables",
-          label: "Usuarios",
-          icon: mdiAccountPlus
+          to: "/dashboard/usuarios/visualizar",
+          label: "Visualizar",
+          icon: mdiAccountMultipleOutline
         },
       ],
     },

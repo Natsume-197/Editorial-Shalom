@@ -68,7 +68,6 @@ const computedType = computed(() => {
   if (is.value === "button") {
     return props.type ?? "button";
   }
-
   return null;
 });
 

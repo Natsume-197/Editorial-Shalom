@@ -26,7 +26,7 @@ const asideMenuItemActiveStyle = computed(() =>
   hasColor.value ? "" : styleStore.asideMenuItemActiveStyle
 );
 
-const isDropdownActive = ref(false);
+let isDropdownActive = ref(false);
 
 const componentClass = computed(() => [
   props.isDropdownList ? "py-3 px-6 text-sm" : "py-3",
@@ -39,9 +39,11 @@ const hasDropdown = computed(() => !!props.item.menu);
 
 const menuClick = (event) => {
   emit("menu-click", event, props.item);
-
+  
   if (hasDropdown.value) {
+    
     isDropdownActive.value = !isDropdownActive.value;
+    
   }
 };
 </script>
@@ -57,6 +59,7 @@ const menuClick = (event) => {
       class="flex cursor-pointer"
       :class="componentClass"
       @click="menuClick"
+      
     >
     
       <BaseIcon
@@ -84,7 +87,7 @@ const menuClick = (event) => {
       />
     </component>
     
-    <AsideMenuList
+    <AsideMenuList 
       v-if="hasDropdown"
       :menu="item.menu"
       :class="[
@@ -92,6 +95,7 @@ const menuClick = (event) => {
         isDropdownActive ? 'block dark:bg-slate-800/50' : 'hidden',
       ]"
       is-dropdown-list
+
     />
   </li>
  

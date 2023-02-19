@@ -24,6 +24,7 @@ const menuClick = (event, item) => {
       :item="item"
       :is-dropdown-list="isDropdownList"
       @menu-click="menuClick"
+      
     />
   </ul>
 </template>

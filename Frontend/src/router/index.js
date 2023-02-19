@@ -38,9 +38,15 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
-      path: "/dashboard/tables",
-      name: "Tables",
-      component: () => import("../views/admin/Tables.vue"),
+      path: "/dashboard/usuarios/visualizar",
+      name: "UsersVisualization",
+      component: () => import("../views/admin/users/Visualization.vue"),
+      meta: { requireAuth: true },
+    },
+    {
+      path: "/dashboard/usuarios/agregar",
+      name: "UsersFormAdd",
+      component: () => import("../views/admin/users/FormAddUser.vue"),
       meta: { requireAuth: true },
     },
     {

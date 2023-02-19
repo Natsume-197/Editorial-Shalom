@@ -28,7 +28,8 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
     if (error) throw new BadRequest(error.details[0].message)
 
     // read from body
-    const { name, email, password } = req.body
+    const { name, second_name, email, password, address, cellphone, is_verified, is_admin } =
+      req.body
 
     // check if user already exists
     const oldUser = await User.findOne({
@@ -46,29 +47,62 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
       const randomTokenEmail: string = jwt.sign({ email: email }, jwtSecretKey)
 
-      // create user
-      const user = await User.create({
-        name: name,
-        email: email.toLowerCase(),
-        password: encryptedPassword,
-        email_token: randomTokenEmail,
-        user_roles: {
-          id_role: 1,
-        },
-      },
-      {include : User_role})
+      const roles = [1]
+      if (is_admin) {
+        roles.push(2)
+      }
+      const userRoles = roles.map(roleId => ({ id_role: roleId }))
 
-      // Send verification email to user
-      await sendConfirmationEmail(name, email.toLowerCase(), randomTokenEmail)
+      if (is_verified === true) {
+        const user = await User.create(
+          {
+            name: name,
+            second_name: second_name,
+            address: address,
+            email: email.toLowerCase(),
+            password: encryptedPassword,
+            cellphone: cellphone,
+            email_token: randomTokenEmail,
+            is_verified: true,
+            user_roles: userRoles
+          },
+          { include: User_role }
+        )
 
-      // Save the User
-      await user.save()
+        await user.save()
 
-      // Response
-      return res.status(StatusCodes.CREATED).json({
-        message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
-        user: user
-      })
+        return res.status(StatusCodes.CREATED).json({
+          message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
+          user: user
+        })
+        
+      } else {
+        const userRoles = roles.map(roleId => ({ id_role: roleId }))
+
+        const user = await User.create(
+          {
+            name: name,
+            second_name: second_name,
+            address: address,
+            email: email.toLowerCase(),
+            password: encryptedPassword,
+            cellphone: cellphone,
+            email_token: randomTokenEmail,
+            is_verified: false,
+            user_roles: userRoles
+          },
+          { include: User_role }
+        )
+        // Send verification email to user
+        await sendConfirmationEmail(name, email.toLowerCase(), randomTokenEmail)
+        await user.save()
+
+        // Response
+        return res.status(StatusCodes.CREATED).json({
+          message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
+          user: user
+        })
+      }
     }
   } catch (error) {
     return next(error)
@@ -106,15 +140,16 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     if (!responseGoogleCaptcha.data.success)
       throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
-    
-    
+
     // Create Token with role permissions
     const user_role = await User_role.findAll({
       where: { id_user: user.id },
-      include: [{
-        model: Role,
-        required: true
-       }]
+      include: [
+        {
+          model: Role,
+          required: true
+        }
+      ]
     })
 
     const list_roles = user_role.map(user_role => user_role.id_role)

@@ -51,14 +51,21 @@
             </label>
           </div>
 
-          <router-link to="/account/resetPassword" class="text-sm hover:underline">
+          <router-link
+            to="/account/resetPassword"
+            class="text-sm hover:underline"
+          >
             ¿Has olvidado tu contraseña?
           </router-link>
         </div>
 
-        <div class="mt-6 flex items-center justify-between ">
-          <div class="flex items-center relative left-1/2 -translate-x-1/2 ">
-            <Captcha name="recaptcha" @verify="onVerifyRecaptcha" @expired="onExpireRecaptcha"/>
+        <div class="mt-6 flex items-center justify-between">
+          <div class="flex items-center relative left-1/2 -translate-x-1/2">
+            <Captcha
+              name="recaptcha"
+              @verify="onVerifyRecaptcha"
+              @expired="onExpireRecaptcha"
+            />
           </div>
         </div>
 
@@ -90,37 +97,36 @@ import EyeOn from "../../components/session/EyeOn.vue";
 import EyeOff from "../../components/session/EyeOff.vue";
 import Captcha from "../../components/session/Captcha.vue";
 
-const isAuth = computed(() => store.isLoggedIn)
+const isAuth = computed(() => store.isLoggedIn);
 
 const router = useRouter();
-
 
 const data = reactive({
   email: "",
   password: "",
-  recaptcha: ""
+  recaptcha: "",
 });
 
 const showPass = ref(false);
 const store = userStore();
 const toast = useToast();
 
-let tokenCaptcha = ''
+let tokenCaptcha = "";
 
 var onVerifyRecaptcha = (recaptchaToken) => {
-  tokenCaptcha = recaptchaToken
-}
+  tokenCaptcha = recaptchaToken;
+};
 
-var onExpireRecaptcha = (recaptchaToken)=> {
-  tokenCaptcha = ''
-}
+var onExpireRecaptcha = (recaptchaToken) => {
+  tokenCaptcha = "";
+};
 
 const submit = async () => {
   api
     .post("/login", {
       email: data.email,
       password: data.password,
-      recaptcha: tokenCaptcha
+      recaptcha: tokenCaptcha,
     })
     .then((response) => {
       store.$patch((state) => {
@@ -138,19 +144,11 @@ const submit = async () => {
         router.push({ path: "/" });
 
         toast.success(`${response.data.message}`, {
-        timeout: 4000,
-        position: "top-right",
-        icon: true,
-      });
+          timeout: 4000,
+          position: "top-right",
+          icon: true,
+        });
       }
     })
-    .catch((error) => {
-      console.log(error);
-      toast.error(`${error.response.data.message}`, {
-        timeout: 4000,
-        position: "top-right",
-        icon: true,
-      });
-    });
 };
 </script>

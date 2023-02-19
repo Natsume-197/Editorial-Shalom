@@ -2,6 +2,12 @@
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { useMainStore } from "../../stores/main";
 import FormControlIcon from "../dashboard/minimal/FormControlIcon.vue";
+
+import EyeOn from "../session/EyeOn.vue";
+import EyeOff from "../session/EyeOff.vue";
+
+const showPass = ref(false);
+
 const props = defineProps({
   name: {
     type: String,
@@ -43,7 +49,9 @@ const props = defineProps({
   borderless: Boolean,
   transparent: Boolean,
   ctrlKFocus: Boolean,
+  isPassword: Boolean,
 });
+
 const emit = defineEmits(["update:modelValue", "setRef"]);
 const computedValue = computed({
   get: () => props.modelValue,
@@ -69,6 +77,7 @@ const computedType = computed(() => (props.options ? "select" : props.type));
 const controlIconH = computed(() =>
   props.type === "textarea" ? "h-full" : "h-12"
 );
+
 const mainStore = useMainStore();
 const selectEl = ref(null);
 const textareaEl = ref(null);
@@ -114,7 +123,9 @@ if (props.ctrlKFocus) {
       v-model="computedValue"
       :name="name"
       :class="inputElClass"
+      :type="computedType"
     >
+    
       <option
         v-for="option in options"
         :key="option.id ?? option"
@@ -123,6 +134,7 @@ if (props.ctrlKFocus) {
         {{ option.label ?? option }}
       </option>
     </select>
+
     <textarea
       v-else-if="computedType === 'textarea'"
       :id="id"
@@ -131,7 +143,9 @@ if (props.ctrlKFocus) {
       :name="name"
       :placeholder="placeholder"
       :required="required"
+      :type="computedType"
     />
+
     <input
       v-else
       :id="id"
@@ -146,5 +160,16 @@ if (props.ctrlKFocus) {
       :class="inputElClass"
     />
     <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
+
+    <template v-if="isPassword">
+      <div
+        class="absolute top-4 right-4 z-10 text-gray-500 dark:text-slate-400"
+        @click="showPass = !showPass"
+        
+      >
+        <EyeOff v-if="showPass" />
+        <EyeOn v-else />
+      </div>
+    </template>
   </div>
 </template>
