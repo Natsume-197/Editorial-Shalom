@@ -6,6 +6,7 @@ import { mdiMinus, mdiPlus } from "@mdi/js";
 import { getButtonColor } from "../../assets/style/colors";
 import BaseIcon from "./minimal/BaseIcon.vue";
 import AsideMenuList from "./AsideMenuList.vue";
+import BaseDivider from "./minimal/BaseDivider.vue"
 
 const props = defineProps({
   item: {
@@ -57,6 +58,7 @@ const menuClick = (event) => {
       :class="componentClass"
       @click="menuClick"
     >
+    
       <BaseIcon
         v-if="item.icon"
         :path="item.icon"
@@ -81,6 +83,7 @@ const menuClick = (event) => {
         w="w-12"
       />
     </component>
+    
     <AsideMenuList
       v-if="hasDropdown"
       :menu="item.menu"
@@ -91,4 +94,7 @@ const menuClick = (event) => {
       is-dropdown-list
     />
   </li>
+ 
+  <BaseDivider v-if="item.isDivider" nav-bar/>
+  <template v-if="item.isDivider" nav-bar><br/></template>
 </template>

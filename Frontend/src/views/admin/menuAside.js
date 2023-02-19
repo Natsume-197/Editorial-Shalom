@@ -1,15 +1,14 @@
 import {
     mdiAccountCircle,
     mdiMonitor,
-    mdiGithub,
+    mdiBookOpenPageVariant ,
     mdiLock,
-    mdiAlertCircle,
+    mdiCogs,
     mdiSquareEditOutline,
     mdiTable,
-    mdiViewList,
-    mdiTelevisionGuide,
-    mdiResponsive,
-    mdiPalette,
+    mdiBookPlus,
+    mdiCartOutline,
+    mdiAccountPlus,
   } from "@mdi/js";
   
   export default [
@@ -19,61 +18,50 @@ import {
       label: "Inicio",
     },
     {
-      to: "/dashboard/tables",
-      label: "Usuario",
-      icon: mdiTable,
+      icon: mdiCartOutline,
+      label: "Ventas",
     },
     {
-      to: "/forms",
-      label: "Forms",
+      label: "Registro",
       icon: mdiSquareEditOutline,
-    },
-    {
-      to: "/ui",
-      label: "UI",
-      icon: mdiTelevisionGuide,
-    },
-    {
-      to: "/responsive",
-      label: "Responsive",
-      icon: mdiResponsive,
-    },
-    {
-      to: "/",
-      label: "Styles",
-      icon: mdiPalette,
-    },
-    {
-      to: "/profile",
-      label: "Profile",
-      icon: mdiAccountCircle,
-    },
-    {
-      to: "/login",
-      label: "Login",
-      icon: mdiLock,
-    },
-    {
-      to: "/error",
-      label: "Error",
-      icon: mdiAlertCircle,
-    },
-    {
-      label: "Dropdown",
-      icon: mdiViewList,
       menu: [
         {
-          label: "Item One",
+          label: "Libros",
+          icon: mdiBookPlus
         },
         {
-          label: "Item Two",
+          label: "Usuarios",
+          icon: mdiAccountPlus
         },
       ],
     },
     {
+      label: "Tablas",
+      icon: mdiTable,
+      menu: [
+        {
+          label: "Libros",
+          icon: mdiBookPlus
+        },
+        {
+          to: "/dashboard/tables",
+          label: "Usuarios",
+          icon: mdiAccountPlus
+        },
+      ],
+    },
+    {
+      isDivider: true,
+    },
+    {
       href: "https://github.com/justboil/admin-one-vue-tailwind",
-      label: "GitHub",
-      icon: mdiGithub,
+      label: "Manual",
+      icon: mdiBookOpenPageVariant ,
       target: "_blank",
+    },
+    {
+      to: "/error",
+      label: "Ajustes",
+      icon: mdiCogs,
     },
   ];

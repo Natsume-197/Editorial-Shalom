@@ -9,6 +9,7 @@ import {
     mdiLogout,
     mdiThemeLightDark,
     mdiGithub,
+    mdiHome
   } from "@mdi/js";
   
   export default [
@@ -66,15 +67,10 @@ import {
       isToggleLightDark: true,
     },
     {
-      icon: mdiGithub,
-      label: "GitHub",
+      icon: mdiHome ,
+      label: "Pagina Principal",
       isDesktopNoLabel: true,
-      href: "https://github.com/justboil/admin-one-vue-tailwind",
-    },
-    {
-      icon: mdiLogout,
-      label: "Log out",
-      isDesktopNoLabel: true,
-      isLogout: true,
+      href: "/",
+      
     },
   ];

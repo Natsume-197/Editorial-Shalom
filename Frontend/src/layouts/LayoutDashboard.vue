@@ -33,12 +33,7 @@
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
         <NavBarItemPlain use-margin>
-          <FormControl
-            placeholder="Buscar (ctrl+k)"
-            ctrl-k-focus
-            transparent
-            borderless
-          />
+
         </NavBarItemPlain>
       </NavBar>
       <AsideMenu
@@ -103,17 +98,16 @@ const menuClick = (event, item) => {
   }
 };
 
+const store = userStore();
 useMainStore().setUser({
-  name: "Natsume",
+  name: store.userInfo.name,
   email: "john@example.com",
   avatar:
     "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
 });
 
 const content = ref("You are not logged in!");
-const store = userStore();
 const toast = useToast();
-const user = computed(() => store.userInfo);
 
 onBeforeMount(() => {
   api.get("/dashboard").then((response) => {

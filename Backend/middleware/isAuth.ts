@@ -18,12 +18,9 @@ export const isAuth = (req: any, res: Response, next: NextFunction): void => {
   try {
     const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
     const decoded = jwt.verify(token, jwtSecretKey)
-    req.user = decoded
-
-    // Role validation
-    console.log(decoded)
-
-
+    req.body = decoded
+    console.log(req.body)
+    
     return next()
   } catch (error) {
     //next(error)
