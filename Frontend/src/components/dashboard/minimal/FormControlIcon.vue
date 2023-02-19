@@ -1,15 +1,25 @@
 <script setup>
-import BaseIcon from "../minimal/BaseIcon.vue";
+import BaseIcon from '../minimal/BaseIcon.vue'
 defineProps({
   icon: {
     type: String,
-    default: null,
+    default: null
   },
   h: {
     type: String,
-    default: null,
+    default: null
   },
-});
+  isRight: Boolean,
+  clickable: Boolean,
+  textColor: {
+    type: String,
+    default: 'text-gray-500'
+  }
+})
+const emit = defineEmits(['icon-click'])
+const iconClick = e => {
+  emit('icon-click', e)
+}
 </script>
 
 <template>
@@ -17,6 +27,12 @@ defineProps({
     :path="icon"
     w="w-10"
     :h="h"
-    class="absolute top-0 left-0 z-10 pointer-events-none text-gray-500 dark:text-slate-400"
+    class="absolute top-0 z-10"
+    :class="[
+      isRight ? 'right-0' : 'left-0',
+      clickable ? 'cursor-pointer' : 'pointer-events-none',
+      textColor
+    ]"
+    @click.prevent="iconClick"
   />
 </template>

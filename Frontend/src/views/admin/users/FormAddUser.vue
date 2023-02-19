@@ -19,7 +19,7 @@ import FormCheckRadioGroup from "../../../components/dashboard/FormCheckRadioGro
 import { reactive, ref } from "vue";
 import { registerUser } from "../../../utils/actions";
 
-const showPass = ref(false);
+const passShowHideClicked = ref(false);
 
 const data = reactive({
   name: "",
@@ -68,12 +68,12 @@ const submitForm = async () => {
 
         <FormField>
           <FormControl
-            :type="showPass ? 'text' : 'password'"
             v-model="data.password"
             placeholder="Contraseña"
+            type="password"
             :icon="mdiLock"
-            required
-            isPassword
+            name="password"
+            @right-icon-click="passShowHideClicked = true"
           />
         </FormField>
 

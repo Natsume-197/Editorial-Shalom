@@ -281,7 +281,7 @@ async function deleteUser(id) {
       
     </table>
     <template v-if="filteredItems.length === 0">
-      <CardBoxComponentEmpty>No hay datos...</CardBoxComponentEmpty>
+      <CardBoxComponentEmpty></CardBoxComponentEmpty>
     </template>
     <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
       <BaseLevel>

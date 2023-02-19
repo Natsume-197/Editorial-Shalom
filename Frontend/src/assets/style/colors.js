@@ -136,3 +136,15 @@ export const getButtonColor = (
 
   return base;
 };
+
+export const controlTextColor = (error, success) => {
+  if (error) {
+    return 'text-red-600'
+  }
+
+  if (success) {
+    return 'text-emerald-600'
+  }
+
+  return null
+}

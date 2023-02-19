@@ -2,11 +2,9 @@
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { useMainStore } from "../../stores/main";
 import FormControlIcon from "../dashboard/minimal/FormControlIcon.vue";
+import { controlTextColor } from "../../assets/style/colors";
+import { mdiAsterisk, mdiLockOff } from "@mdi/js";
 
-import EyeOn from "../session/EyeOn.vue";
-import EyeOff from "../session/EyeOff.vue";
-
-const showPass = ref(false);
 
 const props = defineProps({
   name: {
@@ -45,6 +43,10 @@ const props = defineProps({
     type: [String, Number, Boolean, Array, Object],
     default: "",
   },
+  iconRight: {
+    type: String,
+    default: null,
+  },
   required: Boolean,
   borderless: Boolean,
   transparent: Boolean,
@@ -52,7 +54,11 @@ const props = defineProps({
   isPassword: Boolean,
 });
 
-const emit = defineEmits(["update:modelValue", "setRef"]);
+const textColor = computed(() => {
+  return controlTextColor(props.error, props.success);
+});
+
+const emit = defineEmits(["update:modelValue", "setRef", "right-icon-click"]);
 const computedValue = computed({
   get: () => props.modelValue,
   set: (value) => {
@@ -71,12 +77,59 @@ const inputElClass = computed(() => {
   if (props.icon) {
     base.push("pl-10");
   }
+
+  if (computedIconRight.value) {
+    base.push("pr-10");
+  }
+
   return base;
 });
-const computedType = computed(() => (props.options ? "select" : props.type));
+
+const computedType = computed(() => {
+  if (props.options && props.type !== 'list') {
+    return 'select'
+  }
+  if (props.buttonLabel || props.buttonIcon) {
+    return 'button'
+  }
+  if (props.type === 'password' && passwordIsOpen.value) {
+    return 'text'
+  }
+  return props.type
+})
+
+const computedIconRight = computed(() => {
+  if (props.error) {
+    return mdiAlertCircle;
+  }
+  if (props.success) {
+    return mdiCheckCircle;
+  }
+  if (props.iconRight) {
+    return props.iconRight;
+  }
+  if (props.type === "password") {
+    return passwordIsOpen.value ? mdiLockOff : mdiAsterisk;
+  }
+  if (props.type === "list") {
+    return mdiUnfoldMoreHorizontal;
+  }
+  return null;
+});
+
 const controlIconH = computed(() =>
   props.type === "textarea" ? "h-full" : "h-12"
 );
+
+// Password hide/show
+const passwordIsOpen = ref(false);
+const rightIconClickable = computed(() => props.type === "password");
+const openPasswordToggle = e => {
+  if (rightIconClickable.value) {
+    passwordIsOpen.value = !passwordIsOpen.value
+    emit('right-icon-click', e)
+  }
+}
 
 const mainStore = useMainStore();
 const selectEl = ref(null);
@@ -125,7 +178,6 @@ if (props.ctrlKFocus) {
       :class="inputElClass"
       :type="computedType"
     >
-    
       <option
         v-for="option in options"
         :key="option.id ?? option"
@@ -160,16 +212,14 @@ if (props.ctrlKFocus) {
       :class="inputElClass"
     />
     <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
-
-    <template v-if="isPassword">
-      <div
-        class="absolute top-4 right-4 z-10 text-gray-500 dark:text-slate-400"
-        @click="showPass = !showPass"
-        
-      >
-        <EyeOff v-if="showPass" />
-        <EyeOn v-else />
-      </div>
-    </template>
+    <FormControlIcon
+      v-if="computedIconRight"
+      :icon="computedIconRight"
+      :h="controlIconH"
+      :text-color="textColor"
+      :clickable="rightIconClickable"
+      is-right
+      @icon-click="openPasswordToggle"
+    />
   </div>
 </template>
