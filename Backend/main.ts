@@ -53,7 +53,7 @@ app.listen(process.env.PORT || 5000, async () => {
   // call and connect to Database
   try {
     await connection.sync()
-    //await reSyncDatabase()
+    // await reSyncDatabase()
     console.log('Conexión con la base de datos establecida')
   } catch (error) {
     console.error(error)
@@ -116,8 +116,14 @@ async function reSyncDatabase() {
       total_pages: 85
     })
 
+    /* 
+    await db.User.create({
+      id: 1,
+      name: "Jonathan",
+      second_name: "Ariza",
+      isNaN
+    })*/
 
-  
-    console.log('Base de datos resincronizada')
+    console.log('Base de datos sincronizada desde cero')
   })
 }

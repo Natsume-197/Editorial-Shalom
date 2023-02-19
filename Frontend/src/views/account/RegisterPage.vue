@@ -63,8 +63,8 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { api } from '../../utils/axios'
-import EyeOn from '../../components/EyeOn.vue'
-import EyeOff from '../../components/EyeOff.vue'
+import EyeOn from '../../components/session/EyeOn.vue'
+import EyeOff from '../../components/session/EyeOff.vue'
 
 const data = reactive({
   name: '',

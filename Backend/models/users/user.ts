@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany, HasOne, BelongsToMany, ForeignKey } from "sequelize-typescript";
+import { User_role } from "./user_role";
+import { Role } from "./role"
 
 @Table({
   timestamps: false,
@@ -7,6 +9,14 @@ import { Table, Model, Column, DataType } from "sequelize-typescript";
 })
 
 export class User extends Model {
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  })
+  id!: number
+
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -83,5 +93,8 @@ export class User extends Model {
     unique: true,
   })
   password_token!: String;
+
+  @HasMany(() => User_role)
+  user_roles!: User_role[];
   
 }

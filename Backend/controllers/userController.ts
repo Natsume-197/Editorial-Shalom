@@ -9,6 +9,8 @@ var jwt = require('jsonwebtoken')
 
 import { sendConfirmationEmail, sendResetPasswordEmail } from '../services/mailService'
 import { User } from '../models/users/user'
+import { User_role } from '../models/users/user_role'
+import { Role } from '../models/users/role'
 
 // Only auth Users can access this page
 export const authPage = (_req: Request, res: Response): object => {
@@ -49,8 +51,12 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
         name: name,
         email: email.toLowerCase(),
         password: encryptedPassword,
-        email_token: randomTokenEmail
-      })
+        email_token: randomTokenEmail,
+        user_roles: {
+          id_role: 1,
+        },
+      },
+      {include : User_role})
 
       // Send verification email to user
       await sendConfirmationEmail(name, email.toLowerCase(), randomTokenEmail)
@@ -100,9 +106,18 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     if (!responseGoogleCaptcha.data.success)
       throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    
+    
+    // Create Token with role permissions
+    const user_role = await User_role.findOne({
+      where: { id_user: user.id },
+      include: [{
+        model: Role,
+        required: true
+       }]
+    })
 
-    // Create Token
-    const token = createToken(user.id)
+    const token = createToken(user.id, user_role?.role.name)
     res.cookie('access_token', token, {
       httpOnly: true,
       secure: true,
@@ -191,7 +206,7 @@ export const setNewPassword = async (req: Request, res: Response, next: NextFunc
 
     // Find user
     const user = await User.findOne({
-      where: { resetToken: req.params.token }
+      where: { password_token: req.params.token }
     })
 
     if (!user) throw new NotFound('Token de recuperación de contraseña no válido')

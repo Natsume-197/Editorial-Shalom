@@ -1,13 +1,12 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript'
+import { Table, Model, Column, DataType, HasMany, BelongsToMany} from 'sequelize-typescript'
+import { User_role } from './user_role'
+import { User } from './user'
 
 @Table({
   timestamps: false,
   tableName: 'Role'
 })
 export class Role extends Model {
-    //static associate(models){
-    //    Role.belongsTo()
-    //  }
 
   @Column({
     type: DataType.INTEGER,
@@ -20,5 +19,12 @@ export class Role extends Model {
   })
   name!: string
 
+  @Column({
+    type: DataType.STRING
+  })
+  description!: string
 
+  @HasMany(() => User_role)
+  user_roles!: User_role[];
+ 
 }
