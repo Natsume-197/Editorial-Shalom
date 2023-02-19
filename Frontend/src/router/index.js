@@ -32,6 +32,11 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
+    path: "/dashboard/",
+    redirect: "/dashboard/inicio",
+    meta: { requireAuth: true },
+    },
+    {
       path: "/dashboard/inicio",
       name: "BoardPage",
       component: () => import("../views/admin/Home.vue"),
