@@ -9,19 +9,24 @@ dotenv.config()
 export const isAuth = (req: any, res: Response, next: NextFunction): void => {
   const authHeader: string | undefined = req.headers['cookie']
   const token = authHeader ? authHeader && authHeader.split('=')[1] : ''
-  
-  if (!token){
+
+  if (!token) {
     res.clearCookie('access_token')
     throw new Authorized('No hay token...')
   }
-    
+
   try {
     const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
     const decoded = jwt.verify(token, jwtSecretKey)
     req.body = decoded
-    console.log(req.body)
-    
-    return next()
+    const roles = (<any>decoded).roles
+
+    // Role validation
+    if (roles.includes(1)) {
+      return next()
+    } else {
+      throw new Authorized('Acceso denegado. No autorizado...')
+    }
   } catch (error) {
     //next(error)
     if (error.message === 'jwt expired') {
@@ -32,10 +37,4 @@ export const isAuth = (req: any, res: Response, next: NextFunction): void => {
       throw new Authorized('Token invalido... Se ha cerrado la sesión.')
     }
   }
-  
-
-
-
 }
-
-

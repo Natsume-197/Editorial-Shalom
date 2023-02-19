@@ -89,16 +89,16 @@ const logout = () => {
       router.push("/");
       // Notify
       toast.success(`${response.data.message}`, {
-        timeout: 2000,
-        position: "top-center",
+        timeout: 4000,
+        position: "top-right",
         icon: true,
       });
     })
     .catch((error) => {
       console.log(error);
       toast.error(`${error.response.data.message}`, {
-        timeout: 2000,
-        position: "top-center",
+        timeout: 4000,
+        position: "top-right",
         icon: true,
       });
     });

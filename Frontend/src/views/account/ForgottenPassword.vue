@@ -52,16 +52,16 @@ const submit = async () => {
       router.push({ path: "/" });
 
       toast.success(`${response.data.message}`, {
-        timeout: 2000,
-        position: "top-center",
+        timeout: 5000,
+        position: "top-right",
         icon: true,
       });
     })
     .catch((error) => {
       console.log(error);
       toast.error(`${error.response.data.message}`, {
-        timeout: 2000,
-        position: "top-center",
+        timeout: 5000,
+        position: "top-right",
         icon: true,
       });
     });

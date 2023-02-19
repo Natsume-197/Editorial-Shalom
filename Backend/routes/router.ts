@@ -2,6 +2,8 @@
 import express from 'express'
 // Middlewares
 import { isAuth } from '../middleware/isAuth'
+import { isAuthAdmin } from '../middleware/isAuthAdmin'
+
 // Controllers
 import {
   authPage,
@@ -36,10 +38,10 @@ router.get('/search', searchBooks)
 router.post('/book/upload/cover', upload.single('image'), uploadCoverBook)
 
 // User CRUD Routes
-router.get('/user', getAllUsers)
-router.get('/user/:id', getUser)
-router.patch('/user/:id', updateUser)
-router.delete('/user/:id', deleteUser)
+router.get('/user', isAuthAdmin, getAllUsers)
+router.get('/user/:id',isAuthAdmin, getUser)
+router.patch('/user/:id', isAuthAdmin, updateUser)
+router.delete('/user/:id', isAuthAdmin, deleteUser)
 
 // Book CRUD Routes
 router.get('/book/:id', findBook)
@@ -47,4 +49,4 @@ router.post('/book', createBook)
 
 // Protected Routes
 router.get('/logout', isAuth, logout)
-router.get('/dashboard', isAuth, authPage)
+router.get('/dashboard', isAuthAdmin, authPage)

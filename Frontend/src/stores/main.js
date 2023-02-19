@@ -30,7 +30,7 @@ export const useMainStore = defineStore("main", {
 
     fetch(sampleDataKey) {
       axios
-        .get(`http://localhost:5000/api/user/`)
+        .get(`http://localhost:5000/api/user/`, { withCredentials: true })
         .then((r) => {
           if (r.data && r.data.users) {
             this[sampleDataKey] = r.data.users;

@@ -89,8 +89,8 @@ export default {
     async resetPassword() {
       if (this.password !== this.confirmPassword) {
         toast.error("Las contraseñas no coinciden", {
-          timeout: 2000,
-          position: "top-center",
+          timeout: 4000,
+          position: "top-right",
           icon: true,
         });
         return;
@@ -105,8 +105,8 @@ export default {
         this.$router.push("/login");
 
         toast.success(`${response.data.message}`, {
-          timeout: 2000,
-          position: "top-center",
+          timeout: 4000,
+          position: "top-left",
           icon: true,
         });
       } catch (error) {

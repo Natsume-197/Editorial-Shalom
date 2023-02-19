@@ -5,6 +5,7 @@ import { useStyleStore } from "../../stores/style.js";
 import AsideMenuList from "./AsideMenuList.vue";
 import AsideMenuItem from "./AsideMenuItem.vue";
 import BaseIcon from "./minimal/BaseIcon.vue";
+import logoShalom from "../../assets/icons/favicon.svg";
 
 defineProps({
   menu: {
@@ -47,9 +48,14 @@ const asideLgCloseClick = (event) => {
         class="flex flex-row h-14 items-center justify-between dark:bg-slate-900"
       >
         <div
-          class="text-center flex-1 lg:text-left lg:pl-6 xl:text-center xl:pl-0"
+          class="text-center  lg:text-left lg:pl-6 xl:text-center xl:pl-4 md:space-x-2" 
         >
-          <b class="font-black">Editorial Shalom</b>
+          <img
+            class="lg:inline-block h-10"
+            :src="logoShalom"
+            alt="logo-shalom"
+          />
+          <b class="font-black"> Editorial Shalom</b>
         </div>
         <button
           class="hidden lg:inline-block xl:hidden p-3"

@@ -109,7 +109,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     
     
     // Create Token with role permissions
-    const user_role = await User_role.findOne({
+    const user_role = await User_role.findAll({
       where: { id_user: user.id },
       include: [{
         model: Role,
@@ -117,7 +117,9 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
        }]
     })
 
-    const token = createToken(user.id, user_role?.role.name)
+    const list_roles = user_role.map(user_role => user_role.id_role)
+
+    const token = createToken(user.id, list_roles)
     res.cookie('access_token', token, {
       httpOnly: true,
       secure: true,

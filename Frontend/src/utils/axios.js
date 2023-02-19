@@ -27,7 +27,7 @@ api.interceptors.response.use(
 
       toast.error(`${error.response.data.message}`, {
         timeout: 5000,
-        position: 'top-center',
+        position: 'top-right',
         icon: true
       })
 

@@ -71,8 +71,8 @@ import { useStyleStore } from "../stores/style";
 import { useMainStore } from "../stores/main";
 
 // Navbar and menu content
-import menuNavBar from "../views/admin/menuNavBar";
-import menuAside from "../views/admin/menuAside";
+import menuNavBar from "../views/admin/routes/menuNavBar";
+import menuAside from "../views/admin/routes/menuAside";
 
 // Actions
 import { logout } from "../utils/actions"

@@ -88,7 +88,7 @@ const submit = () => {
       router.push('/login')
       toast.success(`Se ha registrado de forma exitosa. Verifique su correo a través del enlace de verificación enviado al mismo.`, {
         timeout: 6000,
-        position: 'top-center',
+        position: 'top-right',
         icon: true
       })
     })
@@ -99,7 +99,7 @@ const submit = () => {
         const message = error.response.data.message
         toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
           timeout: 5000,
-          position: 'top-center',
+          position: 'top-right',
           icon: true
         })
         console.log(error)
@@ -107,7 +107,7 @@ const submit = () => {
         // Si la solicitud no pudo completarse, es un error de red
         toast.error(`Error al enviar la solicitud: Conexión con la API rechazada.`, {
           timeout: 5000,
-          position: 'top-center',
+          position: 'top-right',
           icon: true
         })
         console.log(error)
@@ -115,7 +115,7 @@ const submit = () => {
         // En otros casos, puede haber un error en el código
         toast.error(`Error al enviar la solicitud: ${message}`, {
           timeout: 5000,
-          position: 'top-center',
+          position: 'top-right',
           icon: true
         })
       }

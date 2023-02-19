@@ -1,20 +1,18 @@
 import {
-    mdiAccountCircle,
-    mdiMonitor,
     mdiBookOpenPageVariant ,
-    mdiLock,
     mdiCogs,
     mdiSquareEditOutline,
     mdiTable,
     mdiBookPlus,
     mdiCartOutline,
     mdiAccountPlus,
+    mdiViewDashboard
   } from "@mdi/js";
   
   export default [
     {
       to: "/dashboard/inicio",
-      icon: mdiMonitor,
+      icon: mdiViewDashboard,
       label: "Inicio",
     },
     {
