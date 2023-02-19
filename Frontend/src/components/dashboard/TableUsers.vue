@@ -20,6 +20,7 @@ const mainStore = useMainStore();
 mainStore.fetch("clients");
 
 const items = computed(() => mainStore.clients);
+console.log(items.value)
 
 const toast = useToast();
 const isModalActive = ref(false);
