@@ -95,6 +95,7 @@ const computedType = computed(() => {
   if (props.type === 'password' && passwordIsOpen.value) {
     return 'text'
   }
+
   return props.type
 })
 

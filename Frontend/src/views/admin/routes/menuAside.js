@@ -25,6 +25,7 @@ import {
       icon: mdiBookshelf,
       menu: [
         {
+          to: "/dashboard/inventario/agregar",
           label: "Añadir",
           icon: mdiBookPlus
         },

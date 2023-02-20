@@ -6,6 +6,63 @@ import { api } from "./axios";
 const store = userStore();
 const toast = useToast();
 
+const registerBook = async (data) => {
+  console.log(data)
+
+  await api
+    .post("/register", {
+      name: data.name,
+      second_name: data.second_name,
+      email: data.email,
+      password: data.password,
+      address: data.address,
+      cellphone: data.cellphone,
+      is_verified: data.is_verified,
+      is_admin: data.is_admin,
+    })
+    .then((response) => {
+      console.log(response)
+      toast.success(`Se ha registrado de forma exitosa.`, {
+        timeout: 5000,
+        position: "top-right",
+        icon: true,
+      });
+    })
+    .catch((error) => {
+      console.log(error)
+      if (error.response) {
+        // Si la respuesta de la API tiene un estado, el error provino de la API
+        const status = error.response.status;
+        const message = error.response.data.message;
+        toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+        console.log(error);
+      } else if (error.request) {
+        // Si la solicitud no pudo completarse, es un error de red
+        toast.error(
+          `Error al enviar la solicitud: Conexión con la API rechazada.`,
+          {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          }
+        );
+        console.log(error);
+      } else {
+        // En otros casos, puede haber un error en el código
+        toast.error(`Error al enviar la solicitud: ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+      }
+      console.log(error);
+    });
+};
+
 const registerUser = async (data) => {
   if (data.switch.includes("isVerified")) {
     data.is_verified = true;
@@ -106,4 +163,4 @@ const logout = () => {
     });
 };
 
-export { logout, registerUser };
+export { logout, registerUser, registerBook };

@@ -2,6 +2,8 @@
 import { computed, useSlots } from "vue";
 import CardBoxComponentBody from "./CardBoxComponentBody.vue";
 import CardBoxComponentFooter from "./CardBoxComponentFooter.vue";
+import Accordion from "./Accordion.vue";
+import BaseDivider from "./minimal/BaseDivider.vue";
 
 const props = defineProps({
   rounded: {
@@ -17,6 +19,14 @@ const props = defineProps({
   isForm: Boolean,
   isHoverable: Boolean,
   isModal: Boolean,
+  isAccordion: {
+    type: Boolean,
+    default: null,
+  },
+  accordionTitle:{
+    type: String,
+    default: null
+  }
 });
 
 const emit = defineEmits(["submit"]);
@@ -45,20 +55,53 @@ const submit = (event) => {
 </script>
 
 <template>
-  <component
-    :is="isForm ? 'form' : 'div'"
-    :class="componentClass"
-    class="bg-white flex"
-    @submit="submit"
-  >
-    <slot v-if="hasComponentLayout" />
-    <template v-else>
-      <CardBoxComponentBody :no-padding="hasTable">
-        <slot />
-      </CardBoxComponentBody>
-      <CardBoxComponentFooter v-if="hasFooterSlot">
-        <slot name="footer" />
-      </CardBoxComponentFooter>
-    </template>
-  </component>
+  <template v-if="isAccordion">
+    <Accordion class="">
+      <template v-slot:title>
+        <span class="font-semibold text-xl">{{ props.accordionTitle }}</span>
+       
+      </template>
+
+      <template v-slot:content>
+        <component
+          :is="isForm ? 'form' : 'div'"
+          :class="componentClass"
+          class="bg-white flex"
+          @submit="submit"
+        >
+         
+          <slot v-if="hasComponentLayout" />
+          
+          <template v-else>
+            
+            <CardBoxComponentBody :no-padding="hasTable">
+              <slot />
+            </CardBoxComponentBody>
+            
+            <CardBoxComponentFooter v-if="hasFooterSlot">
+              <slot name="footer" />
+            </CardBoxComponentFooter>
+          </template>
+        </component>
+      </template>
+    </Accordion>
+  </template>
+  <template v-else>
+    <component
+      :is="isForm ? 'form' : 'div'"
+      :class="componentClass"
+      class="bg-white flex "
+      @submit="submit"
+    >
+      <slot v-if="hasComponentLayout" />
+      <template v-else>
+        <CardBoxComponentBody :no-padding="hasTable">
+          <slot />
+        </CardBoxComponentBody>
+        <CardBoxComponentFooter v-if="hasFooterSlot">
+          <slot name="footer" />
+        </CardBoxComponentFooter>
+      </template>
+    </component>
+  </template>
 </template>

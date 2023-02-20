@@ -55,6 +55,12 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
+      path: "/dashboard/inventario/agregar",
+      name: "InventoryFormAdd",
+      component: () => import("../views/admin/inventory/FormAddItem.vue"),
+      meta: { requireAuth: true },
+    },
+    {
       path: "/account/resetPassword",
       name: "Form-PasswordReset",
       component: () => import("../views/account/ForgottenPassword.vue"),
