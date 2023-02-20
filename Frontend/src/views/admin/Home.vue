@@ -5,7 +5,7 @@ import { userStore } from "../../stores/user";
 import LayoutDashboard from "../../layouts/LayoutDashboard.vue";
 import SectionMain from "../../components/dashboard/SectionMain.vue";
 import SectionTitleLineWithButton from "../../components/dashboard/SectionTitleLineWithButton.vue";
-import CardBoxWidget from "../../components/dashboard/CardBoxWidget.vue";
+import CardBoxWidget from "../../components/dashboard/cardbox/CardBoxWidget.vue";
 import {
   mdiChartTimelineVariant,
   mdiAccountMultiple,

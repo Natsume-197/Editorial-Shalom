@@ -2,8 +2,8 @@
 import { computed, useSlots } from "vue";
 import CardBoxComponentBody from "./CardBoxComponentBody.vue";
 import CardBoxComponentFooter from "./CardBoxComponentFooter.vue";
-import Accordion from "./Accordion.vue";
-import BaseDivider from "./minimal/BaseDivider.vue";
+import Accordion from "../Accordion.vue";
+import BaseDivider from "../minimal/BaseDivider.vue";
 
 const props = defineProps({
   rounded: {

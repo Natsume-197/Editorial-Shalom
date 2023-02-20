@@ -1,16 +1,16 @@
 <script setup>
 import { mdiBallotOutline, mdiFileUploadOutline } from "@mdi/js";
 import SectionMain from "../../../components/dashboard/SectionMain.vue";
-import CardBox from "../../../components/dashboard/CardBox.vue";
+import CardBox from "../../../components/dashboard/cardbox/CardBox.vue";
 import LayoutAuthenticated from "../../../layouts/LayoutDashboard.vue";
 import SectionTitleLineWithButton from "../../../components/dashboard/SectionTitleLineWithButton.vue";
 import BaseButton from "../../../components/dashboard/minimal/BaseButton.vue";
-import FormField from "../../../components/dashboard/FormField.vue";
+import FormField from "../../../components/dashboard/form/FormField.vue";
 import BaseDivider from "../../../components/dashboard/minimal/BaseDivider.vue";
 import BaseButtons from "../../../components/dashboard/minimal/BaseButtons.vue";
-import FormControl from "../../../components/dashboard/FormControl.vue";
-import FormCheckRadioGroup from "../../../components/dashboard/FormCheckRadioGroup.vue";
-import FormFilePicker from "../../../components/dashboard/FormFilePicker.vue";
+import FormControl from "../../../components/dashboard/form/FormControl.vue";
+import FormCheckRadioGroup from "../../../components/dashboard/form/FormCheckRadioGroup.vue";
+import FormFilePicker from "../../../components/dashboard/form/FormFilePicker.vue";
 import CoverBook from "../../../assets/images/placeholderCoverBook.png";
 import { reactive, ref } from "vue";
 import { registerBook } from "../../../utils/actions";

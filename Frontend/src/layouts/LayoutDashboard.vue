@@ -61,10 +61,10 @@ import { api } from "../utils/axios";
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
 import FooterBar from "../components/dashboard/FooterBar.vue";
 import BaseIcon from "../components/dashboard/minimal/BaseIcon.vue";
-import NavBar from "../components/dashboard/NavBar.vue";
-import NavBarItemPlain from "../components/dashboard/NavBarItemPlain.vue";
-import FormControl from "../components/dashboard/FormControl.vue";
-import AsideMenu from "../components/dashboard/AsideMenu.vue";
+import NavBar from "../components/dashboard/navbar/NavBar.vue";
+import NavBarItemPlain from "../components/dashboard/navbar/NavBarItemPlain.vue";
+import FormControl from "../components/dashboard/form/FormControl.vue";
+import AsideMenu from "../components/dashboard/asideMenu/AsideMenu.vue";
 
 // Assets CSS
 import { useStyleStore } from "../stores/style";

@@ -1,18 +1,18 @@
 <script setup>
 import { computed, ref, watch } from "vue";
-import { useMainStore } from "../../stores/main";
+import { useMainStore } from "../../../stores/main";
 import { mdiEye, mdiTrashCan, mdiTextSearch } from "@mdi/js";
-import CardBoxModal from "./CardBoxModal.vue";
-import TableCheckboxCell from "./TableCheckboxCell.vue";
-import BaseLevel from "./minimal/BaseLevel.vue";
-import BaseButtons from "./minimal/BaseButtons.vue";
-import BaseButton from "./minimal/BaseButton.vue";
-import UserAvatar from "./UserAvatar.vue";
-import { api } from "../../utils/axios";
+import CardBoxModal from "../cardbox/CardBoxModal.vue";
+import TableCheckboxCell from "../TableCheckboxCell.vue";
+import BaseLevel from "../minimal/BaseLevel.vue";
+import BaseButtons from "../minimal/BaseButtons.vue";
+import BaseButton from "../minimal/BaseButton.vue";
+import UserAvatar from "../UserAvatar.vue";
+import { api } from "../../../utils/axios";
 import { useToast } from "vue-toastification";
-import FormControl from "./FormControl.vue";
-import CardBoxComponentEmpty from "./CardBoxComponentEmpty.vue"
-import CardBox from "./CardBox.vue"
+import FormControl from "../form/FormControl.vue";
+import CardBoxComponentEmpty from "../cardbox/CardBoxComponentEmpty.vue"
+import CardBox from "../cardbox/CardBox.vue"
 defineProps({
   checkable: Boolean,
 });

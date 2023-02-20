@@ -2,12 +2,12 @@
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
 import { RouterLink } from "vue-router";
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-import { useStyleStore } from "../../stores/style";
-import { useMainStore } from "../../stores/main";
-import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
-import UserAvatarCurrentUser from "../../components/dashboard/UserAvatarCurrentUser.vue";
-import NavBarMenuList from "../dashboard/NavBarMenuList.vue";
-import BaseDivider from "../dashboard/minimal/BaseDivider.vue";
+import { useStyleStore } from "../../../stores/style";
+import { useMainStore } from "../../../stores/main";
+import BaseIcon from "../minimal/BaseIcon.vue";
+import UserAvatarCurrentUser from "../UserAvatarCurrentUser.vue";
+import NavBarMenuList from "./NavBarMenuList.vue";
+import BaseDivider from "../minimal/BaseDivider.vue";
 
 const props = defineProps({
   item: {

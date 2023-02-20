@@ -7,15 +7,15 @@ import {
   mdiPhone,
 } from "@mdi/js";
 import SectionMain from "../../../components/dashboard/SectionMain.vue";
-import CardBox from "../../../components/dashboard/CardBox.vue";
+import CardBox from "../../../components/dashboard/cardbox/CardBox.vue";
 import LayoutAuthenticated from "../../../layouts/LayoutDashboard.vue";
 import SectionTitleLineWithButton from "../../../components/dashboard/SectionTitleLineWithButton.vue";
 import BaseButton from "../../../components/dashboard/minimal/BaseButton.vue";
-import FormField from "../../../components/dashboard/FormField.vue";
+import FormField from "../../../components/dashboard/form/FormField.vue";
 import BaseDivider from "../../../components/dashboard/minimal/BaseDivider.vue";
 import BaseButtons from "../../../components/dashboard/minimal/BaseButtons.vue";
-import FormControl from "../../../components/dashboard/FormControl.vue";
-import FormCheckRadioGroup from "../../../components/dashboard/FormCheckRadioGroup.vue";
+import FormControl from "../../../components/dashboard/form/FormControl.vue";
+import FormCheckRadioGroup from "../../../components/dashboard/form/FormCheckRadioGroup.vue";
 import { reactive, ref } from "vue";
 import { registerUser } from "../../../utils/actions";
 

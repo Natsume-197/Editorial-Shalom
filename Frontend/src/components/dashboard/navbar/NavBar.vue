@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import { mdiClose, mdiDotsVertical } from "@mdi/js";
-import { containerMaxW } from "../../assets/style/config";
-import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue"
-import NavBarMenuList from "../../components/dashboard/NavBarMenuList.vue";
-import NavBarItemPlain from "../../components/dashboard/NavBarItemPlain.vue";
+import { containerMaxW } from "../../../assets/style/config";
+import BaseIcon from "../minimal/BaseIcon.vue"
+import NavBarMenuList from "./NavBarMenuList.vue";
+import NavBarItemPlain from "./NavBarItemPlain.vue";
 
 defineProps({
   menu: {

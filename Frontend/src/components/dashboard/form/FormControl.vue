@@ -1,8 +1,8 @@
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-import { useMainStore } from "../../stores/main";
-import FormControlIcon from "../dashboard/minimal/FormControlIcon.vue";
-import { controlTextColor } from "../../assets/style/colors";
+import { useMainStore } from "../../../stores/main";
+import FormControlIcon from "../minimal/FormControlIcon.vue";
+import { controlTextColor } from "../../../assets/style/colors";
 import { mdiAsterisk, mdiLockOff } from "@mdi/js";
 
 

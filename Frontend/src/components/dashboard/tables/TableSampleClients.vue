@@ -1,13 +1,13 @@
 <script setup>
 import { computed, ref } from "vue";
-import { useMainStore } from "../../stores/main";
+import { useMainStore } from "../../../stores/main";
 import { mdiEye, mdiTrashCan } from "@mdi/js";
-import CardBoxModal from "./CardBoxModal.vue";
-import TableCheckboxCell from "./TableCheckboxCell.vue";
-import BaseLevel from "./minimal/BaseLevel.vue";
-import BaseButtons from "./minimal/BaseButtons.vue";
-import BaseButton from "./minimal/BaseButton.vue";
-import UserAvatar from "./UserAvatar.vue";
+import CardBoxModal from "../cardbox/CardBoxModal.vue";
+import TableCheckboxCell from "../TableCheckboxCell.vue";
+import BaseLevel from "../minimal/BaseLevel.vue";
+import BaseButtons from "../minimal/BaseButtons.vue";
+import BaseButton from "../minimal/BaseButton.vue";
+import UserAvatar from "../UserAvatar.vue";
 
 defineProps({
   checkable: Boolean,

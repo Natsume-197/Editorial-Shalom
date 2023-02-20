@@ -1,7 +1,7 @@
 <script setup>
 import { mdiCloudArrowUpOutline } from '@mdi/js'
 import { computed, ref, watch } from 'vue'
-import BaseButton from './minimal/BaseButton.vue'
+import BaseButton from '../minimal/BaseButton.vue'
 
 const props = defineProps({
   modelValue: {
