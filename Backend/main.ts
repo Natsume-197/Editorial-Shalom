@@ -13,6 +13,12 @@ import connection from './database/db_posgres'
 // Router
 import { router } from './routes/router'
 
+import { faker } from '@faker-js/faker';
+
+import bcrypt from 'bcrypt'
+import { User_role } from './models/users/user_role'
+import { User } from './models/users/user'
+
 const app: Application = express()
 
 // Middlewares
@@ -49,12 +55,12 @@ app.get('/*', (_req, res) => {
 // Starting the Server
 app.listen(process.env.PORT || 5000, async () => {
   console.log('==================================================')
-  console.log(`Servidor disponible`)
+  console.log(`Servidor web (API) disponible`)
   // call and connect to Database
   try {
     await connection.sync()
-    // await reSyncDatabase()
-    console.log('Conexión con la base de datos establecida')
+    console.log(`Base de datos disponible`)
+    await reSyncDatabase()
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -65,65 +71,92 @@ async function reSyncDatabase() {
   // Force drop and resync
   await connection.sync({ force: true }).then(async () => {
     const db = connection.models
+    console.log(`Sincronizando base de datos...`)
 
-    // Tabla roles
-    await db.Role.create({
-      id: 1,
-      name: 'Usuario'
-    })
-
-    await db.Role.create({
-      id: 2,
-      name: 'Administrador'
-    })
-
-    // Tabla Lenguajes
-    await db.Language.create({
-      id: 1,
-      code: 'es',
-      description: 'Español'
-    })
-
-    await db.Language.create({
-      id: 2,
-      code: 'en',
-      description: 'Ingles'
-    })
-    
-    // Añadir un libro
-    await db.Book.create({
-      id: 1,
-      isbn: 124125124,
-      price: 3000,
-      released_date: new Date(1911, 5, 21)
-    })
-
-    await db.Book_t.create({
-      id: 1,
-      id_book: 1,
-      id_language: 1,
-      title: 'Caperucita Roja',
-      description: 'Caperucita Roja era una niña que llevaba una capa roja con una capucha y por eso todos los que la conocían la llamaban así. Vivía con su madre en una casa cerca de un bosque. ',
-      total_pages: 89
-    })
-
-    await db.Book_t.create({
-      id: 2,
-      id_book: 1,
-      id_language: 2,
-      title: 'Little Red Riding Hood',
-      description: 'The story of Little Red Riding Hood is a folktale that was originally penned by Charles Perrault, and made popular by the Brothers Grimm. Its about a little girl, who wears an emblematic red velvet hood, who mistakes a wolf for her grandma!',
-      total_pages: 85
-    })
-
-    /* 
-    await db.User.create({
-      id: 1,
-      name: "Jonathan",
-      second_name: "Ariza",
-      isNaN
-    })*/
+    // Add content to each table
+    await addRoles(db)
+    await addLanguages(db)
+    await addUsers()
 
     console.log('Base de datos sincronizada desde cero')
   })
+}
+
+async function addRoles(db){
+  await db.Role.create({
+    id: 1,
+    name: 'Usuario'
+  })
+  await db.Role.create({
+    id: 2,
+    name: 'Administrador'
+  })
+}
+
+async function addLanguages(db){
+  await db.Language.create({
+    id: 1,
+    code: 'es',
+    description: 'Español'
+  })
+
+  await db.Language.create({
+    id: 2,
+    code: 'en',
+    description: 'Ingles'
+  })
+}
+
+async function addUsers(){
+   // Usuario administrador
+   let roles = [1, 2]
+   let userRoles = roles.map(roleId => ({ id_role: roleId }))
+
+   const password = "admin123"
+   const salt: string = await bcrypt.genSalt(10)
+   const encryptedPassword: string = await bcrypt.hash(password, salt)
+
+   const user = await User.create(
+     {
+       name: 'Administrator',
+       second_name: '',
+       address: '',
+       email: 'jonathan.197ariza@gmail.com'.toLowerCase(),
+       password: encryptedPassword,
+       cellphone: '',
+       email_token: '',
+       is_verified: true,
+       user_roles: userRoles
+     },
+     { include: User_role }
+   )
+
+   await user.save()
+
+   // Usuarios prueba
+   roles = [1]
+   userRoles = roles.map(roleId => ({ id_role: roleId }))
+   for (let i = 1; i <= 30; i++) {
+     const password = faker.internet.password();
+     const salt: string = await bcrypt.genSalt(10);
+     const encryptedPassword: string = await bcrypt.hash(password, salt);
+ 
+     const user = await User.create(
+       {
+         name: faker.name.firstName(),
+         second_name: faker.name.lastName(),
+         address: faker.address.streetAddress(),
+         email: faker.internet.email().toLowerCase(),
+         password: encryptedPassword,
+         cellphone: faker.phone.number(),
+         email_token: faker.random.numeric(10),
+         is_verified: true,
+         user_roles: userRoles,
+       },
+       { include: User_role }
+     );
+ 
+     await user.save();
+   }
+   
 }

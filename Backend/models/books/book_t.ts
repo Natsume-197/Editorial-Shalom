@@ -46,9 +46,4 @@ export class Book_t extends Model {
   })
   description!: string
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false
-  })
-  total_pages!: number
 }

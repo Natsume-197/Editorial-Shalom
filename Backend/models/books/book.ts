@@ -45,6 +45,12 @@ export class Book extends Model {
   })
   cover!: string;
   
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  total_pages!: number
+  
   @HasMany(() => Book_t)
   book_t!: Book_t[];
 

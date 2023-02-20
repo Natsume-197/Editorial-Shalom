@@ -11,14 +11,7 @@ const registerBook = async (data) => {
 
   await api
     .post("/register", {
-      name: data.name,
-      second_name: data.second_name,
-      email: data.email,
-      password: data.password,
-      address: data.address,
-      cellphone: data.cellphone,
-      is_verified: data.is_verified,
-      is_admin: data.is_admin,
+    
     })
     .then((response) => {
       console.log(response)
