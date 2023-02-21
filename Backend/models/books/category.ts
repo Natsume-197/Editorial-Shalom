@@ -24,4 +24,8 @@ export class Category extends Model {
     allowNull: true
   })
   description!: string
+
+  @HasMany(() => Book)
+  book!: Book[];
+
 }

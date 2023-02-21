@@ -18,7 +18,7 @@ import {
   sendResetPassword,
   setNewPassword
 } from '../controllers/userController'
-import { uploadCoverBook, createBook, searchBooks, findBook } from '../controllers/bookController'
+import { uploadCoverBook, createBook, searchBooks, findBook, getCategories } from '../controllers/bookController'
 
 export const router = express.Router()
 const multer  = require('multer')
@@ -35,6 +35,7 @@ router.post('/account/resetpassword/:token', setNewPassword)
 
 // Book Related Functions
 router.get('/search', searchBooks)
+router.get('/book/category', getCategories)
 router.post('/book/upload/cover', upload.single('image'), uploadCoverBook)
 
 // User CRUD Routes
@@ -45,7 +46,7 @@ router.delete('/user/:id', isAuthAdmin, deleteUser)
 
 // Book CRUD Routes
 router.get('/book/:id', findBook)
-router.post('/book', createBook)
+router.post('/book', isAuthAdmin, createBook)
 
 // Protected Routes
 router.get('/logout', isAuth, logout)

@@ -7,7 +7,8 @@ import {
     mdiCartOutline,
     mdiAccountPlus,
     mdiViewDashboard,
-    mdiAccountMultipleOutline
+    mdiAccountMultipleOutline,
+    mdiTune
   } from "@mdi/js";
   
   export default [
@@ -32,6 +33,10 @@ import {
         {
           label: "Visualizar",
           icon: mdiBookOpenPageVariant
+        },
+        {
+          label: "Parametrización",
+          icon: mdiTune
         },
       ],
     },

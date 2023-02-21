@@ -18,7 +18,6 @@ export const isAuthAdmin = (req: any, res: Response, next: NextFunction): void =
   try {
     const jwtSecretKey: string = process.env.SECRET_KEY ? process.env.SECRET_KEY : ''
     const decoded = jwt.verify(token, jwtSecretKey)
-    req.body = decoded
     const roles = (<any>decoded).roles
     
     // Role validation Admin

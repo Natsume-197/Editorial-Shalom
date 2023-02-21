@@ -13,11 +13,15 @@ import connection from './database/db_posgres'
 // Router
 import { router } from './routes/router'
 
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker'
 
 import bcrypt from 'bcrypt'
 import { User_role } from './models/users/user_role'
 import { User } from './models/users/user'
+import { Book } from './models/books/book'
+import { Book_t } from './models/books/book_t'
+import { Category } from './models/books/category'
+import { Language } from './models/books/language'
 
 const app: Application = express()
 
@@ -28,7 +32,7 @@ app.use(
     credentials: true,
     origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
     maxAge: 600,
-    exposedHeaders: ['*', 'Authorization'],
+    exposedHeaders: ['*', 'Authorization']
   })
 )
 
@@ -74,15 +78,66 @@ async function reSyncDatabase() {
     console.log(`Sincronizando base de datos...`)
 
     // Add content to each table
+    await addCategoriesBook(db)
     await addRoles(db)
     await addLanguages(db)
-    await addUsers()
+    await addBooks(db, 30)
+    await addUsers(5)
 
     console.log('Base de datos sincronizada desde cero')
   })
 }
 
-async function addRoles(db){
+async function addBooks(db, amount) {
+  for (let i = 1; i <= amount; i++) {
+    const book = await Book.create(
+      {
+        isbn: faker.random.numeric(10),
+        id_category: faker.datatype.number({ min: 1, max: 3 }),
+        released_date: faker.date.recent(),
+        published_date: faker.date.recent(10),
+        total_pages: faker.random.numeric(3),
+        price: faker.finance.amount(30000, 110000, 0),
+        units_available: faker.datatype.number({ min: 1, max: 100 }),
+        book_t: [
+          {
+            id_language: 1,
+            title: faker.lorem.words(),
+            description: 'Descripcion español ' + faker.lorem.words(30)
+          },
+          {
+            id_language: 2,
+            title: faker.lorem.words(),
+            description: 'Descripcion ingles ' + faker.lorem.words(30)
+          }
+        ]
+      },
+      { include: Book_t }
+    )
+    await book.save()
+  }
+}
+
+async function addCategoriesBook(db) {
+  await db.Category.create({
+    id: 1,
+    name: 'Ingles'
+  })
+  await db.Category.create({
+    id: 2,
+    name: 'Lectoescritura'
+  })
+  await db.Category.create({
+    id: 3,
+    name: 'Integrados'
+  })
+  await db.Category.create({
+    id: 4,
+    name: 'Matemáticas'
+  })
+}
+
+async function addRoles(db) {
   await db.Role.create({
     id: 1,
     name: 'Usuario'
@@ -93,7 +148,7 @@ async function addRoles(db){
   })
 }
 
-async function addLanguages(db){
+async function addLanguages(db) {
   await db.Language.create({
     id: 1,
     code: 'es',
@@ -107,56 +162,55 @@ async function addLanguages(db){
   })
 }
 
-async function addUsers(){
-   // Usuario administrador
-   let roles = [1, 2]
-   let userRoles = roles.map(roleId => ({ id_role: roleId }))
+async function addUsers(amount) {
+  // Usuario administrador
+  let roles = [1, 2]
+  let userRoles = roles.map(roleId => ({ id_role: roleId }))
 
-   const password = "admin123"
-   const salt: string = await bcrypt.genSalt(10)
-   const encryptedPassword: string = await bcrypt.hash(password, salt)
+  const password = 'admin123'
+  const salt: string = await bcrypt.genSalt(10)
+  const encryptedPassword: string = await bcrypt.hash(password, salt)
 
-   const user = await User.create(
-     {
-       name: 'Administrator',
-       second_name: '',
-       address: '',
-       email: 'jonathan.197ariza@gmail.com'.toLowerCase(),
-       password: encryptedPassword,
-       cellphone: '',
-       email_token: '',
-       is_verified: true,
-       user_roles: userRoles
-     },
-     { include: User_role }
-   )
+  const user = await User.create(
+    {
+      name: 'Administrator',
+      second_name: '',
+      address: '',
+      email: 'jonathan.197ariza@gmail.com'.toLowerCase(),
+      password: encryptedPassword,
+      cellphone: '',
+      email_token: '',
+      is_verified: true,
+      user_roles: userRoles
+    },
+    { include: User_role }
+  )
 
-   await user.save()
+  await user.save()
 
-   // Usuarios prueba
-   roles = [1]
-   userRoles = roles.map(roleId => ({ id_role: roleId }))
-   for (let i = 1; i <= 30; i++) {
-     const password = faker.internet.password();
-     const salt: string = await bcrypt.genSalt(10);
-     const encryptedPassword: string = await bcrypt.hash(password, salt);
- 
-     const user = await User.create(
-       {
-         name: faker.name.firstName(),
-         second_name: faker.name.lastName(),
-         address: faker.address.streetAddress(),
-         email: faker.internet.email().toLowerCase(),
-         password: encryptedPassword,
-         cellphone: faker.phone.number(),
-         email_token: faker.random.numeric(10),
-         is_verified: true,
-         user_roles: userRoles,
-       },
-       { include: User_role }
-     );
- 
-     await user.save();
-   }
-   
+  // Usuarios prueba
+  roles = [1]
+  userRoles = roles.map(roleId => ({ id_role: roleId }))
+  for (let i = 1; i <= amount; i++) {
+    const password = faker.internet.password()
+    const salt: string = await bcrypt.genSalt(10)
+    const encryptedPassword: string = await bcrypt.hash(password, salt)
+
+    const user = await User.create(
+      {
+        name: faker.name.firstName(),
+        second_name: faker.name.lastName(),
+        address: faker.address.streetAddress(),
+        email: faker.internet.email().toLowerCase(),
+        password: encryptedPassword,
+        cellphone: faker.phone.number(),
+        email_token: faker.random.numeric(10),
+        is_verified: true,
+        user_roles: userRoles
+      },
+      { include: User_role }
+    )
+
+    await user.save()
+  }
 }

@@ -10,7 +10,8 @@ export class Book_t extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
   })
   id!: number
 

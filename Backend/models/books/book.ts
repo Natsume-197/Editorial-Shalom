@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
-import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany, ForeignKey } from "sequelize-typescript";
 import { Book_t } from "./book_t";
+import { Category } from "./category";
 
 @Table({
   timestamps: false,
@@ -10,7 +11,8 @@ export class Book extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   })
   id!: number
   
@@ -25,6 +27,12 @@ export class Book extends Model {
     allowNull: false,
   })
   price!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  units_available!: number
 
   @Column({
     type: DataType.DATE,
@@ -47,9 +55,17 @@ export class Book extends Model {
   
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: true
   })
   total_pages!: number
+  
+  @ForeignKey(() => Category)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  id_category!: number
+
   
   @HasMany(() => Book_t)
   book_t!: Book_t[];

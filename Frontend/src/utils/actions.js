@@ -6,15 +6,24 @@ import { api } from "./axios";
 const store = userStore();
 const toast = useToast();
 
-const registerBook = async (data) => {
-  console.log(data)
 
+const registerBook = async (data) => {
   await api
-    .post("/register", {
-    
+    .post("/book", {
+      title: data.title,
+      isbn: data.isbn,
+      description: data.description,
+      category: data.category,
+      released_date: data.released_date,
+      total_page: data.total_pages,
+      price: data.price,
+      available_units: data.available_units,
+      title_english: data.title_english,
+      description_english: data.description_english,
+      file: data.file,
     })
     .then((response) => {
-      console.log(response)
+      console.log(response);
       toast.success(`Se ha registrado de forma exitosa.`, {
         timeout: 5000,
         position: "top-right",
@@ -22,7 +31,7 @@ const registerBook = async (data) => {
       });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       if (error.response) {
         // Si la respuesta de la API tiene un estado, el error provino de la API
         const status = error.response.status;
@@ -81,7 +90,7 @@ const registerUser = async (data) => {
       is_admin: data.is_admin,
     })
     .then((response) => {
-      console.log(response)
+      console.log(response);
       toast.success(`Se ha registrado de forma exitosa.`, {
         timeout: 5000,
         position: "top-right",
@@ -89,7 +98,7 @@ const registerUser = async (data) => {
       });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       if (error.response) {
         // Si la respuesta de la API tiene un estado, el error provino de la API
         const status = error.response.status;

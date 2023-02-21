@@ -5,7 +5,6 @@ import FormControlIcon from "../minimal/FormControlIcon.vue";
 import { controlTextColor } from "../../../assets/style/colors";
 import { mdiAsterisk, mdiLockOff } from "@mdi/js";
 
-
 const props = defineProps({
   name: {
     type: String,
@@ -86,18 +85,18 @@ const inputElClass = computed(() => {
 });
 
 const computedType = computed(() => {
-  if (props.options && props.type !== 'list') {
-    return 'select'
+  if (props.options && props.type !== "list") {
+    return "select";
   }
   if (props.buttonLabel || props.buttonIcon) {
-    return 'button'
+    return "button";
   }
-  if (props.type === 'password' && passwordIsOpen.value) {
-    return 'text'
+  if (props.type === "password" && passwordIsOpen.value) {
+    return "text";
   }
 
-  return props.type
-})
+  return props.type;
+});
 
 const computedIconRight = computed(() => {
   if (props.error) {
@@ -125,12 +124,12 @@ const controlIconH = computed(() =>
 // Password hide/show
 const passwordIsOpen = ref(false);
 const rightIconClickable = computed(() => props.type === "password");
-const openPasswordToggle = e => {
+const openPasswordToggle = (e) => {
   if (rightIconClickable.value) {
-    passwordIsOpen.value = !passwordIsOpen.value
-    emit('right-icon-click', e)
+    passwordIsOpen.value = !passwordIsOpen.value;
+    emit("right-icon-click", e);
   }
-}
+};
 
 const mainStore = useMainStore();
 const selectEl = ref(null);
@@ -179,6 +178,7 @@ if (props.ctrlKFocus) {
       :class="inputElClass"
       :type="computedType"
     >
+      <option value="" disabled selected>Seleccione una categoría...</option>
       <option
         v-for="option in options"
         :key="option.id ?? option"

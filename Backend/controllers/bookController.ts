@@ -4,17 +4,100 @@ import { StatusCodes } from 'http-status-codes'
 import { Op } from 'sequelize'
 import { Book } from '../models/books/book'
 import path from 'path'
+import { Book_t } from '../models/books/book_t'
+import { Category } from '../models/books/category'
 
 // Función para subir portada de un libro
 export const uploadCoverBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.file) {
-      const filePath = path.join(__dirname, req.file.path);
+      const filePath = path.join(__dirname, req.file.path)
       console.log(filePath)
       res.send('Single file uploaded successfully')
     } else {
       res.status(400).send('Please upload a valid image')
     }
+  } catch (error) {
+    return next(error)
+  }
+}
+
+// Recolección de información
+export const getCategories = async (_req: Request, res: Response, next: NextFunction) => {
+  try {
+    const categories = await Category.findAll()
+    return res.status(StatusCodes.OK).json({
+      categories: categories
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+// Funciones CRUD
+export const createBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // read from body
+    console.log(req.body)
+    const {
+      title,
+      isbn,
+      description,
+      category,
+      released_date,
+      total_pages,
+      price,
+      available_units,
+      title_english,
+      description_english,
+      file
+    } = req.body
+
+    // check if there is content in request
+    if (Object.keys(req.body).length === 0) {
+      throw new Conflict('No se ha enviado ningún dato.')
+    }
+
+    // check if book already exists
+    const oldBook = await Book.findOne({
+      where: { isbn: isbn }
+    })
+    if (oldBook) {
+      throw new Conflict('Este ISBN ya está en uso...')
+    }
+
+    // Create book
+    const book = await Book.create(
+      {
+        isbn: isbn,
+        id_category: category,
+        released_date: released_date,
+        published_date: Date.now(),
+        total_pages: total_pages,
+        price: price,
+        units_available: available_units,
+        book_t: [
+          {
+            id_language: 1,
+            title: title,
+            description: description
+          },
+          {
+            id_language: 2,
+            title: title_english,
+            description: description_english
+          }
+        ]
+      },
+      { include: Book_t }
+    )
+
+    await book.save()
+
+    return res.status(StatusCodes.CREATED).json({
+      message: `Se ha creado el libro: '${req.body.name}' de forma exitosa.`,
+      book: book
+    })
   } catch (error) {
     return next(error)
   }
@@ -62,46 +145,6 @@ export const getAllBooks = async (_req: Request, res: Response, next: NextFuncti
     return res.status(StatusCodes.OK).json({
       message: 'Libros encontrados',
       books: books
-    })
-  } catch (error) {
-    return next(error)
-  }
-}
-
-export const createBook = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    // read from body
-    const { title, description, total_pages, isbn, price, format, released_date } = req.body
-
-    // check if there is content in request
-    if (Object.keys(req.body).length === 0) {
-      throw new Conflict('No se ha enviado ningún dato.')
-    }
-
-    // check if book already exists
-    const oldBook = await Book.findOne({
-      where: { isbn: isbn }
-    })
-    if (oldBook) {
-      throw new Conflict('Este ISBN ya está en uso...')
-    }
-
-    // Create book
-    const book = await Book.create({
-      title: title,
-      description: description,
-      total_pages: total_pages,
-      isbn: isbn,
-      price: price,
-      format: format,
-      released_date: released_date
-    })
-
-    await book.save()
-
-    return res.status(StatusCodes.CREATED).json({
-      message: `Se ha creado el libro: '${req.body.name}' de forma exitosa.`,
-      book: book
     })
   } catch (error) {
     return next(error)

@@ -12,27 +12,40 @@ import FormControl from "../../../components/dashboard/form/FormControl.vue";
 import FormCheckRadioGroup from "../../../components/dashboard/form/FormCheckRadioGroup.vue";
 import FormFilePicker from "../../../components/dashboard/form/FormFilePicker.vue";
 import CoverBook from "../../../assets/images/placeholderCoverBook.png";
-import { reactive, ref } from "vue";
+import { reactive, computed, onMounted, ref } from "vue";
 import { registerBook } from "../../../utils/actions";
+import { api } from "../../../utils/axios";
 
-const selectOptions = [
-  { id: 1, label: "Matemáticas" },
-  { id: 2, label: "Integrados" },
-  { id: 3, label: "Español" },
-  { id: 4, label: "Inglés" },
-];
+let state = reactive({
+  categories: { id: 1, label: "Matemáticas" },
+});
 
 const form = reactive({
   title: "",
   isbn: "",
   description: "",
-  category: selectOptions[0],
+  category: "",
   released_date: Date,
   price: null,
   available_units: null,
   title_english: "",
   description_english: "",
   file: null,
+});
+
+onMounted(() => {
+  api.get("/book/category").then((response) => {
+    state.categories = response.data.categories
+      .map((category) => {
+        return {
+          id: category.id,
+          label:
+            category.name.charAt(0).toUpperCase() +
+            category.name.slice(1).toLowerCase(),
+        };
+      })
+      .sort((a, b) => (a.label > b.label ? 1 : -1));
+  });
 });
 
 const data = reactive({
@@ -66,7 +79,6 @@ const submitForm = async () => {
         main
       >
       </SectionTitleLineWithButton>
-
       <form @submit.prevent="submitForm" class="grid gap-4 mb-6 xl:grid-cols-3">
         <CardBox class="col-span-2 h-min">
           <FormField label="Datos Básicos">
@@ -77,7 +89,6 @@ const submitForm = async () => {
             />
             <FormControl v-model="form.isbn" placeholder="ISBN" />
           </FormField>
-
           <FormField label="" help="Máximo 700 caracteres">
             <FormControl
               type="textarea"
@@ -85,10 +96,12 @@ const submitForm = async () => {
               v-model="form.description"
             />
           </FormField>
-
           <FormField>
             <FormField label="Categoría">
-              <FormControl v-model="form.category" :options="selectOptions" />
+              <FormControl
+                v-model="form.category"
+                :options="state.categories"
+              />
             </FormField>
             <FormField label="Fecha de lanzamiento" horizontal>
               <FormControl type="date" v-model="form.released_date" />
@@ -114,11 +127,9 @@ const submitForm = async () => {
             <FormField label="">
               <FormControl
                 v-model="form.title_english"
-                required
                 placeholder="Título en inglés"
               />
             </FormField>
-
             <FormField label="" help="Máximo 700 caracteres">
               <FormControl
                 type="textarea"
@@ -128,7 +139,6 @@ const submitForm = async () => {
             </FormField>
           </CardBox>
         </CardBox>
-
         <div class="">
           <CardBox class="h-min">
             <FormField label="Portada del libro">
@@ -147,7 +157,6 @@ const submitForm = async () => {
               <br />
               <br />
             </template>
-
             <FormField label="Subida de archivos">
               <CardBox class="mt-4 flex-col items-center">
                 <BaseButtons class="">
@@ -171,7 +180,6 @@ const submitForm = async () => {
               </CardBox>
             </FormField>
           </CardBox>
-
           <CardBox class="mt-4 flex-col items-center">
             <FormField>
               <BaseButtons>
