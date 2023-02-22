@@ -52,6 +52,12 @@ export class Book extends Model {
     allowNull: true,
   })
   cover!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  preview!: string;
   
   @Column({
     type: DataType.INTEGER,

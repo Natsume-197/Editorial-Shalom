@@ -81,7 +81,7 @@ async function reSyncDatabase() {
     await addCategoriesBook(db)
     await addRoles(db)
     await addLanguages(db)
-    await addBooks(db, 30)
+    await addBooks(db, 15)
     await addUsers(5)
 
     console.log('Base de datos sincronizada desde cero')

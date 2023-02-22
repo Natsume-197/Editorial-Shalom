@@ -16,9 +16,7 @@ import { reactive, computed, onMounted, ref } from "vue";
 import { registerBook } from "../../../utils/actions";
 import { api } from "../../../utils/axios";
 
-let state = reactive({
-  categories: { id: 1, label: "Matemáticas" },
-});
+let state = reactive({});
 
 const form = reactive({
   title: "",
@@ -31,6 +29,8 @@ const form = reactive({
   title_english: "",
   description_english: "",
   file: null,
+  cover: null,
+  pdf: null,
 });
 
 onMounted(() => {
@@ -60,13 +60,32 @@ const handleFileChange = (event) => {
     reader.onload = (e) => {
       data.preview = e.target.result;
     };
-    //this.image=input.files[0];
+    form.cover = input.files[0];
     reader.readAsDataURL(input.files[0]);
   }
 };
 
 const submitForm = async () => {
-  await registerBook(form);
+  let formData = new FormData();
+  formData.append("title", form.title);
+  formData.append("isbn", form.isbn);
+  formData.append("description", form.description);
+  formData.append("category", form.category.id);
+  formData.append("released_date", form.released_date);
+  formData.append("price", form.price);
+  formData.append("available_units", form.available_units);
+  formData.append("title_english", form.title_english);
+  formData.append("description_english", form.description_english);
+
+  if (form.cover) {
+    formData.append("image", form.cover);
+  }
+
+  if (form.pdf) {
+    formData.append("pdf", form.pdf);
+  }
+
+  await registerBook(formData);
 };
 </script>
 
@@ -140,41 +159,55 @@ const submitForm = async () => {
           </CardBox>
         </CardBox>
         <div class="">
-          <CardBox class="h-min">
-            <FormField label="Portada del libro">
+          <CardBox class="w-full">
+            <FormField label="Previsualización">
               <img
                 :src="data.preview"
                 class="img-fluid object-contain h-82 w-86"
               />
             </FormField>
+            <BaseDivider />
 
             <template v-if="form.file">
               <span
-                class="inline-flex px-4 py-2 justify-center bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
+                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
               >
                 {{ form?.file?.name }}
               </span>
-              <br />
-              <br />
             </template>
+
+            <template v-if="form.file && !form.pdf">
+              <BaseDivider />
+            </template>
+            <template v-if="form.pdf && form.file"> <br /><br /> </template>
+
+            <template v-if="form.pdf">
+              <span
+                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
+              >
+                {{ form?.pdf?.name }}
+              </span>
+              <br />
+              <BaseDivider />
+            </template>
+
             <FormField label="Subida de archivos">
               <CardBox class="mt-4 flex-col items-center">
                 <BaseButtons class="">
                   <FormFilePicker
                     class=""
                     v-model="form.file"
-                    label="Imagen"
+                    label="Portada"
                     outline
                     noWrap
                     @change="handleFileChange"
                   />
                   <FormFilePicker
-                    class=""
-                    v-model="form.file"
+                    v-model="form.pdf"
                     label="Preview"
                     outline
+                    accept=".pdf"
                     :icon="mdiFileUploadOutline"
-                    @change="handleFileChange"
                   />
                 </BaseButtons>
               </CardBox>

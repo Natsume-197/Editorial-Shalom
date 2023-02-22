@@ -7,21 +7,6 @@ import path from 'path'
 import { Book_t } from '../models/books/book_t'
 import { Category } from '../models/books/category'
 
-// Función para subir portada de un libro
-export const uploadCoverBook = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    if (req.file) {
-      const filePath = path.join(__dirname, req.file.path)
-      console.log(filePath)
-      res.send('Single file uploaded successfully')
-    } else {
-      res.status(400).send('Please upload a valid image')
-    }
-  } catch (error) {
-    return next(error)
-  }
-}
-
 // Recolección de información
 export const getCategories = async (_req: Request, res: Response, next: NextFunction) => {
   try {
@@ -37,8 +22,17 @@ export const getCategories = async (_req: Request, res: Response, next: NextFunc
 // Funciones CRUD
 export const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // read from body
-    console.log(req.body)
+    let cover = ''
+    let preview = ''
+
+    if(req.files?.image[0]){
+      cover = req.files.image[0].filename
+    }
+
+    if(req.files?.pdf[0]){
+      preview = req.files.pdf[0].filename
+    }
+
     const {
       title,
       isbn,
@@ -49,8 +43,7 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
       price,
       available_units,
       title_english,
-      description_english,
-      file
+      description_english
     } = req.body
 
     // check if there is content in request
@@ -76,6 +69,8 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
         total_pages: total_pages,
         price: price,
         units_available: available_units,
+        cover: cover,
+        preview: preview,
         book_t: [
           {
             id_language: 1,

@@ -9,19 +9,12 @@ const toast = useToast();
 
 const registerBook = async (data) => {
   await api
-    .post("/book", {
-      title: data.title,
-      isbn: data.isbn,
-      description: data.description,
-      category: data.category,
-      released_date: data.released_date,
-      total_page: data.total_pages,
-      price: data.price,
-      available_units: data.available_units,
-      title_english: data.title_english,
-      description_english: data.description_english,
-      file: data.file,
-    })
+    .post("/book", data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    )
     .then((response) => {
       console.log(response);
       toast.success(`Se ha registrado de forma exitosa.`, {
