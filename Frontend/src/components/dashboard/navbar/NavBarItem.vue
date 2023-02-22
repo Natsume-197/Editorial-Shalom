@@ -48,7 +48,8 @@ const componentClass = computed(() => {
 });
 
 const itemLabel = computed(() =>
-  props.item.isCurrentUser ? useMainStore().userName : props.item.label
+
+  props.item.isCurrentUser ? "¡Hola, "+useMainStore().userName+"!" : props.item.label
 );
 
 const isDropdownActive = ref(false);

@@ -48,10 +48,10 @@ const asideLgCloseClick = (event) => {
         class="flex flex-row h-14 items-center justify-between dark:bg-slate-900"
       >
         <div
-          class="text-center  lg:text-left lg:pl-6 xl:text-center xl:pl-4 md:space-x-2" 
+          class="text-center lg:inline-block text-sm lg:text-left lg:pl-6 xl:text-center xl:pl-4 md:space-x-2" 
         >
           <img
-            class="lg:inline-block h-10"
+            class="lg:inline-block h-12"
             :src="logoShalom"
             alt="logo-shalom"
           />

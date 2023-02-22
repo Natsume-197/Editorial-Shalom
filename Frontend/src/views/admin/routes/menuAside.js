@@ -8,7 +8,9 @@ import {
     mdiAccountPlus,
     mdiViewDashboard,
     mdiAccountMultipleOutline,
-    mdiTune
+    mdiTune,
+    mdiAccount,
+    mdiPencilBoxOutline
   } from "@mdi/js";
   
   export default [
@@ -16,6 +18,11 @@ import {
       to: "/dashboard/inicio",
       icon: mdiViewDashboard,
       label: "Inicio",
+    },
+    {
+      to: "/dashboard/diseño",
+      icon: mdiPencilBoxOutline,
+      label: "Diseño",
     },
     {
       icon: mdiCartOutline,
@@ -66,7 +73,12 @@ import {
       target: "_blank",
     },
     {
-      to: "/error",
+      to: "/dashboard/perfil",
+      label: "Perfil",
+      icon: mdiAccount,
+    },
+    {
+      to: "/dashboard/ajustes",
       label: "Ajustes",
       icon: mdiCogs,
     },

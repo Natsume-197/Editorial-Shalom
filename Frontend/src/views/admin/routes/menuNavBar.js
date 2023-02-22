@@ -4,18 +4,15 @@ import {
     mdiCloud,
     mdiCrop,
     mdiAccount,
-    mdiCogOutline,
-    mdiEmail,
     mdiLogout,
     mdiThemeLightDark,
-    mdiGithub,
     mdiHome
   } from "@mdi/js";
   
   export default [
     {
       icon: mdiMenu,
-      label: "Sample menu",
+      label: "Funciones adicionales",
       menu: [
         {
           icon: mdiClockOutline,
@@ -39,23 +36,15 @@ import {
       menu: [
         {
           icon: mdiAccount,
-          label: "My Profile",
+          label: "Mi Perfil",
           to: "/profile",
-        },
-        {
-          icon: mdiCogOutline,
-          label: "Settings",
-        },
-        {
-          icon: mdiEmail,
-          label: "Messages",
         },
         {
           isDivider: true,
         },
         {
           icon: mdiLogout,
-          label: "Log Out",
+          label: "Cerrar Sesión",
           isLogout: true,
         },
       ],
