@@ -30,7 +30,7 @@ export const useMainStore = defineStore("main", {
 
     async fetch(sampleDataKey) {
       await axios
-        .get(`http://localhost:5000/api/user/`, { withCredentials: true })
+        .get(`${import.meta.env.VITE_API_URL_SHALOM }/user`, { withCredentials: true })
         .then((r) => {
           if (r.data && r.data.users) {
             this[sampleDataKey] = r.data.users;
