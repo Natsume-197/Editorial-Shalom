@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Request, Response, NextFunction } from 'express'
 import { Conflict, NotFound } from '../utils/error'
 import { StatusCodes } from 'http-status-codes'

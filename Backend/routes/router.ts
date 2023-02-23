@@ -1,3 +1,4 @@
+// @ts-ignore
 // Libraries
 import express from 'express'
 // Middlewares
@@ -18,7 +19,7 @@ import {
   sendResetPassword,
   setNewPassword
 } from '../controllers/userController'
-import { uploadCoverBook, createBook, searchBooks, findBook, getCategories } from '../controllers/bookController'
+import { createBook, searchBooks, findBook, getCategories } from '../controllers/bookController'
 
 export const router = express.Router()
 

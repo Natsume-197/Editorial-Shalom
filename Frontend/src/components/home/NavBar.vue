@@ -7,6 +7,7 @@ import { userStore } from "../../stores/user";
 import { api } from "../../utils/axios";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
+import BaseDivider from "../dashboard/minimal/BaseDivider.vue";
 
 const toast = useToast();
 const store = userStore();
@@ -117,7 +118,7 @@ const user = computed(() => store.userInfo);
           </button>
         </div>
         <div
-          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="flex-1 flex items-right justify-center sm:items-stretch sm:justify-start"
         >
           <a href="#" class="flex-shrink-0 flex items-center">
             <img
@@ -131,6 +132,7 @@ const user = computed(() => store.userInfo);
               alt="Workflow"
             />
           </a>
+          <p class="ml-4 mt-1 text-2xl sm:hidden">Editorial Shalom</p>
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4 text-center">
               <a
@@ -157,7 +159,7 @@ const user = computed(() => store.userInfo);
           </div>
         </div>
 
-        <div class="relative text-lg w-36">
+        <div class="relative hidden sm:block text-xl font-semibold w-40">
           <button
             class="flex items-center justify-between px-3 py-2 bg-white w-full border border-gray-500 rounded-lg"
             @click="data.isOptionsExpanded = !data.isOptionsExpanded"
@@ -196,7 +198,7 @@ const user = computed(() => store.userInfo);
           >
             <ul
               v-show="data.isOptionsExpanded"
-              class="absolute left-0 right-0 mb-4 mt-1 bg-white divide-y rounded-lg shadow-lg overflow-hidden"
+              class="absolute left-0 right-0 mb-4 mt-1 text-xl font-semibold bg-white divide-y rounded-lg shadow-lg overflow-hidden"
             >
               <li
                 v-for="locale in $i18n.availableLocales"
@@ -235,20 +237,20 @@ const user = computed(() => store.userInfo);
               <div v-if="user.roles.includes(2)">
                 <router-link
                   to="/dashboard/inicio"
-                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
                   >{{ $t("navbar.homepage.dashboard") }}</router-link
                 >
               </div>
-              <div v-if="user.roles.includes(1) && !user.roles.includes(2) ">
+              <div v-if="user.roles.includes(1) && !user.roles.includes(2)">
                 <router-link
                   to="/profile"
-                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
                   >{{ $t("navbar.homepage.profile") }}</router-link
                 >
               </div>
               <button
                 @click="logout"
-                class="bg-rose-500 text-white hover:bg-rose-700 px-3 py-2 rounded-md text-lg font-medium ml-auto"
+                class="bg-rose-500 text-white hover:bg-rose-700 px-3 py-2 rounded-md text-xl font-semibold ml-auto"
               >
                 {{ $t("navbar.homepage.logout") }}
               </button>
@@ -261,24 +263,63 @@ const user = computed(() => store.userInfo);
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
           href="#"
-          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
           >{{ $t("navbar.homepage.home") }}</a
         >
         <a
           href="#"
-          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
           >{{ $t("navbar.homepage.books") }}</a
         >
         <a
           href="#"
-          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
           >{{ $t("navbar.homepage.aboutus") }}</a
         >
         <a
           href="#"
-          class="text-gray-800 hover:border-sky-500 block px-3 py-2 rounded-md text-base font-medium"
+          class="text-gray-800 hover:border-sky-500 block px-3 py-2 rounded-md text-xl font-semibold"
           >{{ $t("navbar.homepage.contact") }}</a
         >
+
+        <BaseDivider />
+
+        <div v-if="!isAuth">
+          <router-link
+            to="/register"
+            class="text-gray-800 hover:border-sky-500 block px-3 py-2 rounded-md text-xl font-semibold"
+            >{{ $t("navbar.homepage.register") }}</router-link
+          >
+          <router-link
+            to="/login"
+            class="bg-sky-500 text-white hover:bg-sky-700 block px-3 py-2 rounded-md text-xl font-semibold"
+            >{{ $t("navbar.homepage.login") }}</router-link
+          >
+        </div>
+        <div v-else>
+          <div v-if="user.roles.includes(1)">
+            <div v-if="user.roles.includes(2)">
+              <router-link
+                to="/dashboard/inicio"
+                class="text-gray-800 block px-3 py-2 rounded-md text-xl font-semibold"
+                >{{ $t("navbar.homepage.dashboard") }}</router-link
+              >
+            </div>
+            <div v-if="user.roles.includes(1) && !user.roles.includes(2)">
+              <router-link
+                to="/profile"
+                class="text-gray-800 block px-3 py-2 rounded-md text-xl font-semibold"
+                >{{ $t("navbar.homepage.profile") }}</router-link
+              >
+            </div>
+            <a
+              @click="logout"
+              class="bg-rose-500 text-white hover:bg-rose-700 block px-3 py-2 rounded-md text-xl font-semibold"
+            >
+              {{ $t("navbar.homepage.logout") }}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>

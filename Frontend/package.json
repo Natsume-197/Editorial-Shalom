@@ -17,6 +17,7 @@
     "numeral": "^2.0.6",
     "pinia": "^2.0.13",
     "pinia-plugin-persistedstate": "^1.5.1",
+    "tw-elements": "^1.0.0-beta1",
     "vue": "^3.2.33",
     "vue-i18n": "^9.2.2",
     "vue-recaptcha": "^2.0.3",

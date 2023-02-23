@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Authorized, BadRequest, Conflict, NotFound } from '../utils/error'
 import { createToken, maxAge } from '../middleware/createToken'
 import { Request, Response, NextFunction } from 'express'
