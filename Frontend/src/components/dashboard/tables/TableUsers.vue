@@ -225,9 +225,7 @@ async function deleteUser(id) {
               :username="client.name"
               class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
             />
-          </td>
-          
-          
+          </td>          
           <td data-label="Name">
             <div class="text-center">
             {{ client.name }}

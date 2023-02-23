@@ -94,6 +94,12 @@ export class User extends Model {
   })
   password_token!: String;
 
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  last_password_update!: String;
+
   @HasMany(() => User_role)
   user_roles!: User_role[];
   

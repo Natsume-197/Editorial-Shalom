@@ -118,8 +118,12 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     // Check if user already exists
     const user = await User.findOne({
-      where: { email: req.body.email }
+      where: { email: req.body.email },
+      include: User_role
     })
+
+    console.log(user)
+
 
     if (!user) throw new NotFound('Este correo no se encuentra registrado...')
 
@@ -162,10 +166,16 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
       sameSite: 'none'
     })
 
+    const data_user = {
+      name: user.name,
+      email: user.email,
+      roles: user?.user_roles
+    }
+    
     // Response
     return res.status(StatusCodes.OK).json({
-      message: `Bienvenido ${user.name}!`,
-      user: user,
+      message: `Ha iniciado sesión, ${user.name}`,
+      user: data_user,
       token: token
     })
   } catch (error) {

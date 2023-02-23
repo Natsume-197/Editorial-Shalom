@@ -1,14 +1,5 @@
 # Sistema de información Editorial Shalom
 
-## Características
-- Basado en Tailwind CSS para un diseño responsive.
-- Autenticación JWT usando HTTP Only Cookie.
-- Página de registro e inicio de sesión.
-- Separación de funciones por perfiles.
-- Soporte de notificaciones en pantalla.
-- Rutas protegidas por perfil.
-- Conexión con base de datos Postgresql.
-
 ## ¿Cómo montarlo localmente?
 
 ### Requerimientos

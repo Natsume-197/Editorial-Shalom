@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, reactive, watch } from "vue";
 import { useMainStore } from "../../stores/main";
 import { userStore } from "../../stores/user";
 import LayoutDashboard from "../../layouts/LayoutDashboard.vue";
@@ -8,12 +8,25 @@ import CardBox from "../../components/dashboard/cardbox/CardBox.vue";
 import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
 import BaseButton from "../../components/dashboard/minimal/BaseButton.vue";
 import SectionTitleLineWithButton from "../../components/dashboard/SectionTitleLineWithButton.vue";
-import { mdiCheckDecagram, mdiAccount, mdiPencil, mdiCloudLock } from "@mdi/js";
+import {
+  mdiCheckDecagram,
+  mdiAccount,
+  mdiPencil,
+  mdiCloudLock,
+  mdiCamera,
+} from "@mdi/js";
 import BaseButtons from "../../components/dashboard/minimal/BaseButtons.vue";
 import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
+import UserAvatarCurrentUser from "../../components/dashboard/UserAvatarCurrentUser.vue";
+import FormFilePicker from "../../components/dashboard/form/FormFilePicker.vue";
+import CardBoxModal from "../../components/dashboard/cardbox/CardBoxModal.vue"
+import FormField from "../../components/dashboard/form/FormField.vue";
+import FormControl from "../../components/dashboard/form/FormControl.vue";
 
 const isAuth = computed(() => store.isLoggedIn);
 const store = userStore();
+const isModalActivePassword = ref(false);
+const isModalActiveEmail = ref(false);
 
 const mainStore = useMainStore();
 mainStore.fetch("clients");
@@ -29,15 +42,87 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
     loadingComplete.value = true;
   }
 });
+
+// Email change handler
+const email_data = reactive({
+  new_email: ''
+});
+
+let passwordNotMatch = ref(true)
+
+// Password change handler
+const password_data = reactive({
+  current_password: '',
+  new_password: ''
+});
+
+const checkPasswords = async () => {
+    if (current_password != new_password){ 
+        passwordNotMatch = true;
+        return;
+    }else{
+        passwordNotMatch = false;
+    }
+}
+
 </script>
 
 <template>
   <div v-if="isAuth">
     <LayoutDashboard>
       <SectionMain>
+        <CardBoxModal
+          v-model="isModalActivePassword"
+          buttonLabel="Actualizar"
+          has-cancel
+          title="Cambio de contraseña"
+        >
+          <FormField label="Contraseña actual">
+            <FormControl
+              type="address"
+              placeholder="Contraseña..."
+              :icon="mdiMapMarker"
+              required
+              v-model="password_data.current_password"
+            />
+          </FormField>
+          <FormField label="Nueva contraseña">
+            <FormControl
+              type="address"
+              placeholder="Contraseña"
+              :icon="mdiMapMarker"
+              required
+              v-model="password_data.new_password"
+            />
+          </FormField>
+          <FormField>
+            <FormControl
+              type="address"
+              placeholder="Confirmar contraseña"
+              :icon="mdiMapMarker"
+              required
+            />
+          </FormField>
+        </CardBoxModal>
+
+        <CardBoxModal
+          v-model="isModalActiveEmail"
+          buttonLabel="Actualizar"
+          has-cancel
+          title="Cambio de correo"
+        >
+          <FormField label="Nuevo correo">
+            <FormControl
+              type="address"
+              placeholder="Correo"
+              :icon="mdiMapMarker"
+              required
+            />
+          </FormField>
+        </CardBoxModal>
+
         <SectionTitleLineWithButton :icon="mdiAccount" title="Perfil" main>
         </SectionTitleLineWithButton>
-
         <template v-if="!loadingComplete">
           <!-- indicador de carga -->
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6"></div>
@@ -64,19 +149,21 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
             </svg>
           </div>
         </template>
-
         <template v-else>
           <!-- datos una vez cargados -->
-
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+          <div class="grid grid-cols-1 xl:grid-cols- 1gap-6 mb-6">
             <CardBox flex="flex-row" class="items-center">
               <div class="flex justify-start items-start">
-                <UserAvatarCurrentUserWithUpload
-                  class="w-24 h-24 md:w-36 md:h-36 mr-6"
-                />
+                <UserAvatarCurrentUser
+                  class="relative w-24 h-24 md:w-32 md:h-32 mr-6"
+                >
+                  <div class="absolute right-0 bottom-0">
+                    <FormFilePicker :icon="mdiCamera" roundedFull />
+                  </div>
+                </UserAvatarCurrentUser>
                 <div class="flex-1">
                   <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center mb-3">
+                    <div class="flex justify-start items-center">
                       <h1 class="text-2xl mr-1.5">
                         {{ mainStore.userName }}
                       </h1>
@@ -93,12 +180,18 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
                       rounded-full
                     />
                   </div>
+                  <BaseButtons class="flex items-left text-gray-400 text-2x4">
+                    <BaseIcon
+                      class="mt-3"
+                      :path="mdiAccount"
+                      :size="small ? 14 : 16"
+                    />Cuenta Administrador
+                  </BaseButtons>
 
-                  <BaseButtons class="text-gray-500">
-                    Cuenta administrador
-                  </BaseButtons>
-                  <BaseButtons class="mt-6" class-addon="mr-9 last:mr-0 mb-3">
-                  </BaseButtons>
+                  <div
+                    class="mt-3 ml-1"
+                    class-addon="mr-9 last:mr-0 mb-3"
+                  ></div>
                 </div>
               </div>
             </CardBox>
@@ -110,10 +203,30 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
           <CardBox class="mb-6">
             <div class="flex items-center justify-between">
               <p>
-                Contraseña cambiada hace
+                Correo cambiado hace
                 <b>15 días</b>
               </p>
-              <BaseButton label="Cambiar contraseña" color="lightDark" small />
+              <BaseButton
+                label="Cambiar correo"
+                color="lightDark"
+                small
+                @click="isModalActiveEmail = true"
+                class="w-40"
+              />
+            </div>
+            <BaseDivider />
+            <div class="flex items-center justify-between">
+              <p>
+                Contraseña cambiado hace
+                <b>10 días</b>
+              </p>
+              <BaseButton
+                label="Cambiar contraseña"
+                color="lightDark"
+                class="w-40"
+                small
+                @click="isModalActivePassword = true"
+              />
             </div>
           </CardBox>
         </template>

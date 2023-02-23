@@ -5,7 +5,8 @@ export const userStore = defineStore('user', {
     isLoggedIn: false,
     userInfo: {
       name: null,
-      email: null
+      email: null,
+      roles: null
     }
   }),
   persist: {

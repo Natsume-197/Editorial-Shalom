@@ -1,3 +1,19 @@
 {
-    "welcomeMsg": "Welcome"
+  "navbar": {
+    "languages": {
+      "english": "English",
+      "spanish": "Spanish"
+    },
+    "homepage": {
+      "home": "Home",
+      "books": "Books",
+      "aboutus": "About us",
+      "contact": "Contact",
+      "register": "Sign up",
+      "login": "Log in",
+      "logout": "Logout",
+      "dashboard": "Dashboard",
+      "profile": "Profile"
+    }
+  }
 }

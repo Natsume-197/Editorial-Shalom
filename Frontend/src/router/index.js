@@ -8,7 +8,7 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: HomePage,
+      component: () => import("../views/principal/HomePage.vue"),
     },
     {
       path: "/register",
@@ -89,7 +89,7 @@ const router = createRouter({
     {
       path: "/:catchAll(.*)",
       name: "not-found",
-      component: () => import("../views/NotFoundPage.vue"),
+      component: () => import("../views/principal/NotFoundPage.vue"),
     },
   ],
 });

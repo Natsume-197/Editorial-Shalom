@@ -24,7 +24,8 @@ export default {
         route.path !== "/register" &&
         route.path !== "/account/resetPassword" &&
         !route.path.startsWith("/dashboard") &&
-        !route.path.includes("/account/resetpassword/")
+        !route.path.includes("/account/resetpassword/")  &&
+        route.path !== "/"
       ) {
         this.showNavBar = true;
         this.showFooter = true;

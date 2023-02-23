@@ -134,6 +134,7 @@ const submit = async () => {
         state.userInfo = {
           name: response.data.user.name,
           email: response.data.user.email,
+          roles: response.data.user.roles.map(roles => roles.id_role)
         };
       });
 
@@ -145,7 +146,7 @@ const submit = async () => {
 
         toast.success(`${response.data.message}`, {
           timeout: 4000,
-          position: "top-right",
+          position: "bottom-right",
           icon: true,
         });
       }

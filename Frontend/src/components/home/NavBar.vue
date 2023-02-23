@@ -81,6 +81,7 @@ const logout = () => {
         state.userInfo = {
           name: null,
           email: null,
+          roles: null
         };
       });
       // clear the browser localStorage
@@ -90,7 +91,7 @@ const logout = () => {
       // Notify
       toast.success(`${response.data.message}`, {
         timeout: 4000,
-        position: "top-right",
+        position: "bottom-right",
         icon: true,
       });
     })
@@ -98,7 +99,7 @@ const logout = () => {
       console.log(error);
       toast.error(`${error.response.data.message}`, {
         timeout: 4000,
-        position: "top-right",
+        position: "bottom-right",
         icon: true,
       });
     });

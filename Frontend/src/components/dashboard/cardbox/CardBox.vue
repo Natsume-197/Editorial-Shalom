@@ -23,10 +23,10 @@ const props = defineProps({
     type: Boolean,
     default: null,
   },
-  accordionTitle:{
+  accordionTitle: {
     type: String,
-    default: null
-  }
+    default: null,
+  },
 });
 
 const emit = defineEmits(["submit"]);
@@ -59,7 +59,6 @@ const submit = (event) => {
     <Accordion class="">
       <template v-slot:title>
         <span class="font-semibold text-xl">{{ props.accordionTitle }}</span>
-       
       </template>
 
       <template v-slot:content>
@@ -69,15 +68,13 @@ const submit = (event) => {
           class="bg-white flex"
           @submit="submit"
         >
-         
           <slot v-if="hasComponentLayout" />
-          
+
           <template v-else>
-            
             <CardBoxComponentBody :no-padding="hasTable">
               <slot />
             </CardBoxComponentBody>
-            
+
             <CardBoxComponentFooter v-if="hasFooterSlot">
               <slot name="footer" />
             </CardBoxComponentFooter>
@@ -90,7 +87,7 @@ const submit = (event) => {
     <component
       :is="isForm ? 'form' : 'div'"
       :class="componentClass"
-      class="bg-white flex "
+      class="bg-white flex"
       @submit="submit"
     >
       <slot v-if="hasComponentLayout" />

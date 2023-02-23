@@ -10,7 +10,8 @@ import {
     mdiAccountMultipleOutline,
     mdiTune,
     mdiAccount,
-    mdiPencilBoxOutline
+    mdiPencilBoxOutline,
+    mdiClipboardTextClockOutline
   } from "@mdi/js";
   
   export default [
@@ -62,6 +63,10 @@ import {
           icon: mdiAccountMultipleOutline
         },
       ],
+    },
+    {
+      label: "Auditoría",
+      icon: mdiClipboardTextClockOutline,
     },
     {
       isDivider: true,
