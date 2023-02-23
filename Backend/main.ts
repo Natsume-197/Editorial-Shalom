@@ -22,6 +22,8 @@ import { Book } from './models/books/book'
 import { Book_t } from './models/books/book_t'
 import { Category } from './models/books/category'
 import { Language } from './models/books/language'
+import { ModelCtor, Model } from 'sequelize'
+
 
 const app: Application = express()
 
@@ -81,14 +83,14 @@ async function reSyncDatabase() {
     await addCategoriesBook(db)
     await addRoles(db)
     await addLanguages(db)
-    await addBooks(db, 15)
+    await addBooks(15)
     await addUsers(5)
 
     console.log('Base de datos sincronizada desde cero')
   })
 }
 
-async function addBooks(db, amount) {
+async function addBooks(amount: number) {
   for (let i = 1; i <= amount; i++) {
     const book = await Book.create(
       {
@@ -118,7 +120,7 @@ async function addBooks(db, amount) {
   }
 }
 
-async function addCategoriesBook(db) {
+async function addCategoriesBook(db: { [x: string]: ModelCtor<Model<any, any>>; Category?: any }) {
   await db.Category.create({
     id: 1,
     name: 'Ingles'
@@ -137,7 +139,7 @@ async function addCategoriesBook(db) {
   })
 }
 
-async function addRoles(db) {
+async function addRoles(db: { [x: string]: ModelCtor<Model<any, any>>; Role?: any }) {
   await db.Role.create({
     id: 1,
     name: 'Usuario'
@@ -148,7 +150,7 @@ async function addRoles(db) {
   })
 }
 
-async function addLanguages(db) {
+async function addLanguages(db: { [x: string]: ModelCtor<Model<any, any>>; Language?: any }) {
   await db.Language.create({
     id: 1,
     code: 'es',
@@ -162,7 +164,7 @@ async function addLanguages(db) {
   })
 }
 
-async function addUsers(amount) {
+async function addUsers(amount: number) {
   // Usuario administrador
   let roles = [1, 2]
   let userRoles = roles.map(roleId => ({ id_role: roleId }))

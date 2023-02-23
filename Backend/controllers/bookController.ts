@@ -26,12 +26,12 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
     let cover = ''
     let preview = ''
 
-    if(req.files?.image[0]){
-      cover = req.files.image[0].filename
+    if ((req as any).files?.image[0]) {
+      cover = (req as any).files.image[0].filename
     }
 
-    if(req.files?.pdf[0]){
-      preview = req.files.pdf[0].filename
+    if ((req as any).files?.pdf[0]) {
+      preview = (req as any).files.pdf[0].filename
     }
 
     const {
@@ -121,13 +121,16 @@ export const findBook = async (req: Request, res: Response, next: NextFunction) 
   console.log(req.params.id)
   try {
     const book = await Book.findOne({
-      where: { id: req.params.id }
+      where: { id: req.params.id },
+      include: Book_t
     })
     if (!book) throw new NotFound('Libro no válido...')
-    return res.status(StatusCodes.OK).json({
-      message: `Se ha encontrado el libro: '${book.title}' de forma exitosa.`,
-      book: book
-    })
+    return res.status(StatusCodes.OK).json(
+      {
+        book: book,
+      },
+      
+    )
   } catch (error) {
     return next(error)
   }

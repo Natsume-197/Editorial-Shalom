@@ -26,7 +26,7 @@ export const router = express.Router()
 const multer  = require('multer')
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req: any, file: { mimetype: string }, cb: (arg0: null, arg1: string) => void) {
     let uploadPath = 'assets/books';
     if (file.mimetype === 'application/pdf') {
       uploadPath = path.join(uploadPath, 'previews');
