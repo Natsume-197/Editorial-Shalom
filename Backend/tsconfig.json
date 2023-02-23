@@ -23,7 +23,9 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noEmit": false,
+    "noEmitOnError": false,
   },
   "include": ["./**/*"],
   "exclude": ["node_modules", "client"]
