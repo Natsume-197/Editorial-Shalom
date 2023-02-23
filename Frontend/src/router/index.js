@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "../views/HomePage.vue";
 import { userStore } from "../stores/user";
 
 const router = createRouter({
@@ -28,7 +27,7 @@ const router = createRouter({
     {
       path: "/profile",
       name: "Profile",
-      component: () => import("../views/ProfilePage.vue"),
+      component: () => import("../views/principal/ProfilePage.vue"),
       meta: { requireAuth: true },
     },
     {
@@ -62,7 +61,7 @@ const router = createRouter({
     },
     {
       path: "/dashboard/perfil",
-      name: "Profile",
+      name: "ProfileAdmin",
       component: () => import("../views/admin/Profile.vue"),
       meta: { requireAuth: true },
     },

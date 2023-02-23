@@ -1,75 +1,42 @@
-<template>
-  <div
-    class="bg-gray-900 text-gray-100 py-3.5 px-6 shadow md:flex justify-between"
-  >
-    <router-link to="/" class="flex items-center">
-      <img width="30" height="30" src="/favicon.svg" />
-      <h1 class="text-xl">Editorial Shalom</h1>
-    </router-link>
-    <div
-      v-if="isAuth"
-      class="md:flex md:items-center md:px-0 text-center md:pb-0 md:static bg-gray-900 md:w-auto w-full duration-500 ease-in"
-    >
-      <div
-        v-for="(link, index) in privateRoutes"
-        :key="index"
-        class="md:mx-4 md:my-0 my-4 text-xl"
-      >
-        <router-link
-          :to="link.link"
-          class="hover:text-green-400 hover:underline"
-          >{{ link.name }}</router-link
-        >
-      </div>
-      <button
-        @click="logout"
-        class="inline-flex items-center justify-center py-1.5 px-4 bg-red-600 border border-transparent rounded-md font-semibold capitalize text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition"
-      >
-        Cerrar Sesión
-      </button>
-    </div>
-    <div
-      v-else
-      class="md:flex md:items-center md:px-0 text-center md:pb-0 md:static bg-gray-900 md:w-auto w-full duration-500 ease-in"
-    >
-      <div
-        v-for="(link, index) in publicRoutes"
-        :key="index"
-        class="md:mx-4 md:my-0 my-4 text-xl"
-      >
-        <router-link
-          :to="link.link"
-          :class="{
-            'hover:text-green-400 hover:underline':
-              link.name === 'Iniciar Sesión',
-            'bg-green-400 hover:bg-green-600 duration-300 font-sm text-white rounded-md py-1.5 px-4 font-bold':
-              link.name === 'Registro',
-          }"
-          >{{ link.name }}</router-link
-        >
-      </div>
-      <div class="px-6">
-        <SearchBar />
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
-import SearchBar from "./SearchBar.vue";
-import { reactive, computed } from "vue";
+import { mdiTranslate } from "@mdi/js";
+import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
+import { ref, reactive, computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { userStore } from "../../stores/user";
-import { useRouter } from "vue-router";
-import { useToast } from "vue-toastification";
 import { api } from "../../utils/axios";
+import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
 
+const toast = useToast();
 const store = userStore();
 const router = useRouter();
 
-const isAuth = computed(() => store.isLoggedIn);
-const user = computed(() => store.userInfo);
+const i18nLocale = useI18n();
+const { t } = useI18n();
 
-const toast = useToast();
+let locale = "";
+let isMenuOpen = ref(false);
+let translate = computed(() => {
+  return {
+    es: t("navbar.languages.spanish"),
+    en: t("navbar.languages.english"),
+  };
+});
+
+const data = reactive({
+  isOptionsExpanded: false,
+  selectedOption: translate.value[i18nLocale.locale.value],
+});
+
+const setOption = (option) => {
+  data.selectedOption = translate.value[option];
+  data.isOptionsExpanded = false;
+  localStorage.setItem("language", option);
+  window.location.reload();
+};
+
+const isAuth = computed(() => store.isLoggedIn);
 
 const logout = () => {
   api
@@ -81,7 +48,7 @@ const logout = () => {
         state.userInfo = {
           name: null,
           email: null,
-          roles: null
+          roles: null,
         };
       });
       // clear the browser localStorage
@@ -104,17 +71,215 @@ const logout = () => {
       });
     });
 };
-// Forced the page to Reload
-// window.location.reload()
-
-const privateRoutes = reactive([
-  { name: "Dashboard", link: "/dashboard/inicio" },
-  { name: "Perfil", link: "/profile" },
-]);
-
-const publicRoutes = reactive([
-  { name: "Registro", link: "/register" },
-  { name: "Iniciar Sesión", link: "/login" },
-]);
+const user = computed(() => store.userInfo);
 </script>
 
+<template>
+  <nav class="bg-white shadow-lg">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-20">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            @click="isMenuOpen = !isMenuOpen"
+          >
+            <span class="sr-only">Abrir Menú</span>
+            <svg
+              class="block h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            <svg
+              class="hidden h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+        >
+          <a href="#" class="flex-shrink-0 flex items-center">
+            <img
+              class="block lg:hidden h-8 w-auto"
+              src="../../assets/icons/favicon.svg"
+              alt="Workflow"
+            />
+            <img
+              class="hidden lg:block h-8 w-auto"
+              src="../../assets/icons/favicon.svg"
+              alt="Workflow"
+            />
+          </a>
+          <div class="hidden sm:block sm:ml-6">
+            <div class="flex space-x-4 text-center">
+              <a
+                href="#"
+                class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-xl font-semibold"
+                >{{ $t("navbar.homepage.home") }}</a
+              >
+              <a
+                href="#"
+                class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                >{{ $t("navbar.homepage.books") }}</a
+              >
+              <a
+                href="#"
+                class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                >{{ $t("navbar.homepage.aboutus") }}</a
+              >
+              <a
+                href="#"
+                class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                >{{ $t("navbar.homepage.contact") }}</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="relative text-lg w-36">
+          <button
+            class="flex items-center justify-between px-3 py-2 bg-white w-full border border-gray-500 rounded-lg"
+            @click="data.isOptionsExpanded = !data.isOptionsExpanded"
+            @blur="data.isOptionsExpanded = false"
+          >
+            <BaseIcon
+              :path="mdiTranslate"
+              w="w-10 md:w-5"
+              h="h-10 md:h-5"
+              size="24"
+              class="md:mr-2"
+            />
+            <span>{{ data.selectedOption }}</span>
+            <svg
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-4 w-4 transform transition-transform duration-200 ease-in-out"
+              :class="data.isOptionsExpanded ? 'rotate-180' : 'rotate-0'"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <transition
+            enter-active-class="transform transition duration-500 ease-custom"
+            enter-class="-translate-y-1/2 scale-y-0 opacity-0"
+            enter-to-class="translate-y-0 scale-y-100 opacity-100"
+            leave-active-class="transform transition duration-300 ease-custom"
+            leave-class="translate-y-0 scale-y-100 opacity-100"
+            leave-to-class="-translate-y-1/2 scale-y-0 opacity-0"
+          >
+            <ul
+              v-show="data.isOptionsExpanded"
+              class="absolute left-0 right-0 mb-4 mt-1 bg-white divide-y rounded-lg shadow-lg overflow-hidden"
+            >
+              <li
+                v-for="locale in $i18n.availableLocales"
+                :value="locale"
+                :key="locale"
+                class="ml-6"
+                @mousedown.prevent="setOption(locale)"
+              >
+                {{ translate[locale] }}
+              </li>
+            </ul>
+          </transition>
+        </div>
+
+        <div v-if="!isAuth">
+          <div
+            class="hidden sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+          >
+            <router-link
+              to="/register"
+              class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+              >{{ $t("navbar.homepage.register") }}</router-link
+            >
+            <router-link
+              to="/login"
+              class="bg-sky-500 text-white hover:bg-sky-700 px-3 py-2 rounded-md text-lg font-medium ml-auto"
+              >{{ $t("navbar.homepage.login") }}</router-link
+            >
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="user.roles.includes(1)">
+            <div
+              class="hidden sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+            >
+              <div v-if="user.roles.includes(2)">
+                <router-link
+                  to="/dashboard/inicio"
+                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+                  >{{ $t("navbar.homepage.dashboard") }}</router-link
+                >
+              </div>
+              <div v-if="user.roles.includes(1) && !user.roles.includes(2) ">
+                <router-link
+                  to="/profile"
+                  class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+                  >{{ $t("navbar.homepage.profile") }}</router-link
+                >
+              </div>
+              <button
+                @click="logout"
+                class="bg-rose-500 text-white hover:bg-rose-700 px-3 py-2 rounded-md text-lg font-medium ml-auto"
+              >
+                {{ $t("navbar.homepage.logout") }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sm:hidden" :class="{ block: isMenuOpen, hidden: !isMenuOpen }">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a
+          href="#"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          >{{ $t("navbar.homepage.home") }}</a
+        >
+        <a
+          href="#"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          >{{ $t("navbar.homepage.books") }}</a
+        >
+        <a
+          href="#"
+          class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+          >{{ $t("navbar.homepage.aboutus") }}</a
+        >
+        <a
+          href="#"
+          class="text-gray-800 hover:border-sky-500 block px-3 py-2 rounded-md text-base font-medium"
+          >{{ $t("navbar.homepage.contact") }}</a
+        >
+      </div>
+    </div>
+  </nav>
+</template>
