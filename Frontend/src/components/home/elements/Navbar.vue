@@ -1,14 +1,12 @@
 <script setup>
-import { mdiTranslate } from "@mdi/js";
-import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
-import { ref, reactive, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { userStore } from "../../stores/user";
-import { api } from "../../utils/axios";
+import { userStore } from "../../../stores/user";
+import { api } from "../../../utils/axios";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
-import BaseDivider from "../dashboard/minimal/BaseDivider.vue";
-import LanguageChooser from "./elements/LanguageChooser.vue";
+import BaseDivider from "../../dashboard/minimal/BaseDivider.vue";
+import LanguageChooser from "../elements/LanguageChooser.vue";
 
 const toast = useToast();
 const store = userStore();
