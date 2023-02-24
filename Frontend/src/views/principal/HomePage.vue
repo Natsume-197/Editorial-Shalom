@@ -1,7 +1,11 @@
 <script setup>
-import Navbar from '../../components/home/NavBar.vue';
+import Navbar from "../../components/home/NavBar.vue";
+import Showcase from "../../components/home/Showcase.vue";
 </script>
 
 <template>
-  <Navbar/>
+  <div class="">
+    <Navbar />
+    <Showcase />
+  </div>
 </template>

@@ -76,7 +76,7 @@ const user = computed(() => store.userInfo);
 </script>
 
 <template>
-  <nav class="bg-white shadow-lg">
+  <nav class="bg-white shadow-lg ">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-20">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -132,7 +132,7 @@ const user = computed(() => store.userInfo);
               alt="Workflow"
             />
           </a>
-          <p class="ml-4 mt-1 text-2xl sm:hidden">Editorial Shalom</p>
+          <p class="ml-4 mt-1 text-2xl  sm:hidden">Editorial Shalom</p>
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4 text-center">
               <a
@@ -172,7 +172,7 @@ const user = computed(() => store.userInfo);
               size="24"
               class="md:mr-2"
             />
-            <span>{{ data.selectedOption }}</span>
+            <span class="">{{ data.selectedOption }}</span>
             <svg
               fill="none"
               viewBox="0 0 24 24"
@@ -204,7 +204,7 @@ const user = computed(() => store.userInfo);
                 v-for="locale in $i18n.availableLocales"
                 :value="locale"
                 :key="locale"
-                class="ml-6"
+                class="ml-6  z-40 cursor-wait"
                 @mousedown.prevent="setOption(locale)"
               >
                 {{ translate[locale] }}
@@ -259,8 +259,8 @@ const user = computed(() => store.userInfo);
         </div>
       </div>
     </div>
-    <div class="sm:hidden" :class="{ block: isMenuOpen, hidden: !isMenuOpen }">
-      <div class="px-2 pt-2 pb-3 space-y-1">
+    <div class="sm:hidden " :class="{ block: isMenuOpen, hidden: !isMenuOpen }">
+      <div class="px-2 pt-2 pb-3 space-y-1  ">
         <a
           href="#"
           class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
