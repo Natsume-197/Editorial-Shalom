@@ -1,5 +1,5 @@
 <script setup>
-import Navbar from "../../components/home/NavBar.vue";
+import Navbar from "../../components/home/Navbar.vue";
 import Showcase from "../../components/home/Showcase.vue";
 import Footer from "../../components/home/Footer.vue";
 </script>
@@ -7,7 +7,7 @@ import Footer from "../../components/home/Footer.vue";
 <template>
   <div class="">
     <Navbar />
-    <Showcase />
+    <Showcase class="" />
     <Footer />
   </div>
 </template>

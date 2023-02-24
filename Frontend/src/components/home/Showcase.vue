@@ -43,7 +43,7 @@ const carouselItems = [
   <div class="main-section-categories block bg-cyan-500 pt-8 pb-8">
     <div class="tabs text-center">
       <TabGroup>
-        <TabList class="space-x-10 mb-8">
+        <TabList class="space-x-10 mb-8 mt-24">
           <Tab
             v-for="category in categories"
             as="template"
@@ -64,13 +64,11 @@ const carouselItems = [
           </Tab>
         </TabList>
         <div class="content-tabs">
-          <TabPanels class="sm:mx-52 md:mx-20 lg:mx-52">
+          <TabPanels class="m-2 sm:mx-52 md:mx-20 lg:mx-52">
             <TabPanel>
               <swiper-container
-                :modules="modules"
-                navigation="{
-                  'nextEl': .swiper-button-next,
-                  'prevEl': .swiper-button-prev
+                :pagination="{
+                  type: 'bullets'
                 }"
                 :autoplay="{
                   delay: 3500,
@@ -94,8 +92,6 @@ const carouselItems = [
                     spaceBetween: 50,
                   },
                 }"
-                @progress="onProgress"
-                @slidechange="onSlideChange"
                 grid-col="4"
               >
                 <swiper-slide
@@ -105,24 +101,24 @@ const carouselItems = [
                 >
                   <router-link to="/book">
                     <div
-                      class="px-6 h-96 pt-6 pb-4 bg-white rounded-xl transform transition-all shadow-xl overflow-hidden"
+                      class="px-2 h-80 sm:px-6 sm:h-96 sm:pt-6 sm:pb-4 bg-white rounded-xl transform transition-all shadow-xl overflow-hidden"
                     >
                       <!-- Image -->
 
                       <img
-                        class="w-full h-60 object-contain rounded-xl transition delay-100 hover:rotate-6 mb-4 duration-300"
+                        class="w-full mt-1 h-60 object-contain rounded-xl transition delay-100 hover:rotate-6 mb-2 sm:mb-6 duration-300"
                         :src="item.imageSrc"
                         alt=""
                       />
-                      <div class="sm:p-4">
+                      <div class="sm:p-2">
                         <!-- Heading -->
-                        <h2 class="text-sm sm:font-bold sm:text-lg">
+                        <h2 class="text-sm sm:text-lg">
                           {{ item.title }}
                         </h2>
                       </div>
                     </div>
                   </router-link>
-                  <br />
+                  <br /><br /><br />
                 </swiper-slide>
               </swiper-container>
             </TabPanel>

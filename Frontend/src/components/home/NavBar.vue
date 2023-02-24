@@ -14,8 +14,6 @@ const toast = useToast();
 const store = userStore();
 const router = useRouter();
 
-
-
 let locale = "";
 let isMenuOpen = ref(false);
 
@@ -58,10 +56,11 @@ const user = computed(() => store.userInfo);
 </script>
 
 <template>
-  <nav class="bg-white shadow-lg  ">
-    <div class="mx-auto px-2 sm:px-6 lg:px-8">
-      <div class="relative flex items-center justify-between h-20">
-        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+  <header>
+  <nav class="bg-white shadow-lg fixed w-full z-10">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8 ">
+      <div class="relative flex items-center justify-between h-20 ">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden ">
           <button
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
             @click="isMenuOpen = !isMenuOpen"
@@ -100,7 +99,7 @@ const user = computed(() => store.userInfo);
           </button>
         </div>
         <div
-          class="flex-1 flex items-right justify-center sm:items-stretch sm:justify-start"
+          class="flex-1 flex items-right justify-center sm:items-stretch sm:justify-start "
         >
           <a href="#" class="flex-shrink-0 flex items-center">
             <img
@@ -254,4 +253,5 @@ const user = computed(() => store.userInfo);
       </div>
     </div>
   </nav>
+</header>
 </template>
