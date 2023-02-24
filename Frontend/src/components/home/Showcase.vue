@@ -40,7 +40,7 @@ const carouselItems = [
 </script>
 
 <template>
-  <div  class="main-section-categories block bg-cyan-500 pt-8 pb-8">
+  <div class="main-section-categories block bg-cyan-500 pt-8 pb-8">
     <div class="tabs text-center">
       <TabGroup>
         <TabList class="space-x-10 mb-8">
@@ -61,9 +61,7 @@ const carouselItems = [
             >
               {{ category }}
             </button>
-            
           </Tab>
-          
         </TabList>
         <div class="content-tabs">
           <TabPanels class="sm:mx-52 md:mx-20 lg:mx-52">
@@ -100,33 +98,33 @@ const carouselItems = [
                 @slidechange="onSlideChange"
                 grid-col="4"
               >
-              
                 <swiper-slide
                   v-for="(item, index) in carouselItems"
                   :key="index"
                   class=""
                 >
-                  <div
-                    class="px-8 h-96 pt-8 pb-6 bg-white rounded-xl transform transition-all shadow-xl"
-                  >
-                    <!-- Image -->
-                    <img
-                      class="w-full h-60 object-contain rounded-xl transition delay-100 hover:rotate-6 mb-4 duration-300"
-                      :src="item.imageSrc"
-                      alt=""
-                    />
-                    <div class="sm:p-4">
-                      <!-- Heading -->
-                      <h2 class="text-sm sm:font-bold sm:text-lg">
-                        {{ item.title }}
-                      </h2>
+                  <router-link to="/book">
+                    <div
+                      class="px-6 h-96 pt-6 pb-4 bg-white rounded-xl transform transition-all shadow-xl overflow-hidden"
+                    >
+                      <!-- Image -->
+
+                      <img
+                        class="w-full h-60 object-contain rounded-xl transition delay-100 hover:rotate-6 mb-4 duration-300"
+                        :src="item.imageSrc"
+                        alt=""
+                      />
+                      <div class="sm:p-4">
+                        <!-- Heading -->
+                        <h2 class="text-sm sm:font-bold sm:text-lg">
+                          {{ item.title }}
+                        </h2>
+                      </div>
                     </div>
-                  </div>
-                  <br /><br />
+                  </router-link>
+                  <br />
                 </swiper-slide>
-                
               </swiper-container>
-              
             </TabPanel>
             <TabPanel>Content 2</TabPanel>
           </TabPanels>

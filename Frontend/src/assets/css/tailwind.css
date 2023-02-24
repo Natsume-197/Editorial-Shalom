@@ -11,11 +11,11 @@
 
 * {
   margin: 0;
-  padding: 0;
+  padding:0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
 :root {
-  --swiper-theme-color: #000;
+  --swiper-theme-color: rgb(161, 159, 159);
 }
 
