@@ -102,12 +102,12 @@ const user = computed(() => store.userInfo);
           <a href="#" class="flex-shrink-0 flex items-center">
             <img
               class="block lg:hidden h-8 w-auto"
-              src="../../assets/icons/favicon.svg"
+              src="../../../assets/icons/favicon.svg"
               alt="Workflow"
             />
             <img
               class="hidden lg:block h-8 w-auto"
-              src="../../assets/icons/favicon.svg"
+              src="../../../assets/icons/favicon.svg"
               alt="Workflow"
             />
           </a>
