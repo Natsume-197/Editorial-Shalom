@@ -104,13 +104,13 @@ async function addBooks(amount: number) {
         book_t: [
           {
             id_language: 1,
-            title: faker.lorem.words(),
-            description: 'Descripcion español ' + faker.lorem.words(30)
+            title: faker.lorem.words(5),
+            description: 'Español:' + faker.lorem.words(30)
           },
           {
             id_language: 2,
-            title: faker.lorem.words(),
-            description: 'Descripcion ingles ' + faker.lorem.words(30)
+            title: faker.lorem.words(5),
+            description: 'English: ' + faker.lorem.words(30)
           }
         ]
       },

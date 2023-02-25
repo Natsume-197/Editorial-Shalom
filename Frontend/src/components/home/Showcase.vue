@@ -80,8 +80,8 @@ const carouselItems = [
                     spaceBetween: 20,
                   },
                   '640': {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+                    slidesPerView: 3,
+                    spaceBetween: 40,
                   },
                   '768': {
                     slidesPerView: 3,

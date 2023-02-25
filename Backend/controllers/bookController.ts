@@ -4,7 +4,6 @@ import { Conflict, NotFound } from '../utils/error'
 import { StatusCodes } from 'http-status-codes'
 import { Op } from 'sequelize'
 import { Book } from '../models/books/book'
-import path from 'path'
 import { Book_t } from '../models/books/book_t'
 import { Category } from '../models/books/category'
 
@@ -99,6 +98,25 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
   }
 }
 
+export const findBook = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.params.id)
+  try {
+    const book = await Book.findOne({
+      where: { id: req.params.id },
+      include: [Book_t, Category]
+    })
+    if (!book) throw new NotFound('Libro no válido...')
+    return res.status(StatusCodes.OK).json(
+      {
+        book: book,
+      },
+      
+    )
+  } catch (error) {
+    return next(error)
+  }
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const searchBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -112,25 +130,6 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
       message: 'Se han encontrado los siguientes libros',
       books: books
     })
-  } catch (error) {
-    return next(error)
-  }
-}
-
-export const findBook = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.params.id)
-  try {
-    const book = await Book.findOne({
-      where: { id: req.params.id },
-      include: Book_t
-    })
-    if (!book) throw new NotFound('Libro no válido...')
-    return res.status(StatusCodes.OK).json(
-      {
-        book: book,
-      },
-      
-    )
   } catch (error) {
     return next(error)
   }

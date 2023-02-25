@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { Table, Model, Column, DataType, HasMany, ForeignKey } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { Book_t } from "./book_t";
 import { Category } from "./category";
 
@@ -72,6 +72,8 @@ export class Book extends Model {
   })
   id_category!: number
 
+  @BelongsTo(() => Category)
+  category!: Category;
   
   @HasMany(() => Book_t)
   book_t!: Book_t[];

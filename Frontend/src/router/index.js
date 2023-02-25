@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { userStore } from "../stores/user";
+import { api } from "../utils/axios";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,9 +32,9 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
-    path: "/dashboard/",
-    redirect: "/dashboard/inicio",
-    meta: { requireAuth: true },
+      path: "/dashboard/",
+      redirect: "/dashboard/inicio",
+      meta: { requireAuth: true },
     },
     {
       path: "/dashboard/inicio",
@@ -81,9 +82,9 @@ const router = createRouter({
       component: () => import("../views/book/SearchPage.vue"),
     },
     {
-      path: "/book/:id",
+      path: "/book/:id/:name?",
       name: "DetailsBook",
-      component: () => import("../views/book/DetailsPage.vue"),
+      component: () => import("../views/principal/DetailsPage.vue"),
     },
     {
       path: "/:catchAll(.*)",
@@ -94,7 +95,7 @@ const router = createRouter({
 });
 
 // Global Route Guard
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const store = userStore();
   if (to.matched.some((record) => record.meta.requireAuth)) {
     if (store.isLoggedIn) {
@@ -107,14 +108,39 @@ router.beforeEach((to, _from, next) => {
     }
   } else {
     // Prevent logged-in users from accessing the login or register pages
-    if (to.name === "Login" || to.name === "Register") {
-      if (store.isLoggedIn) {
-        next({ path: "/" });
+    if (to.name === "DetailsBook") {
+      const response = await api.get("/book/" + to.params.id)
+
+      //console.log("Received name:", to.params.name)
+      //console.log("Original title:", response.data.book.book_t[0].title)
+      //console.log("Fixed title:", response.data.book.book_t[0].title.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+      
+      const id_book = to.params.id
+      const received_title = to.params.name
+      const original_title = response.data.book.book_t[0].title.toLowerCase()
+      const fixed_title = original_title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+
+      if (to.params.name) {
+          if (received_title === fixed_title) {
+            next();
+          }else{
+            router.push(`book/${id_book}/${fixed_title}`)
+            next();
+          }
+        }else{
+          router.push(`book/${id_book}/${fixed_title}`)
+          next();
+        }
+    } else {
+      if (to.name === "Login" || to.name === "Register") {
+        if (store.isLoggedIn) {
+          next({ path: "/" });
+        } else {
+          next();
+        }
       } else {
         next();
       }
-    } else {
-      next();
     }
   }
 });
