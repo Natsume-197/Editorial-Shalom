@@ -7,6 +7,7 @@ import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import BaseDivider from "../../dashboard/minimal/BaseDivider.vue";
 import LanguageChooser from "../elements/LanguageChooser.vue";
+import SearchBar from "./SearchBar.vue";
 
 const toast = useToast();
 const store = userStore();
@@ -55,10 +56,13 @@ const user = computed(() => store.userInfo);
 
 <template>
   <header>
-    <nav class="bg-white shadow-lg fixed w-full">
+    <nav class="bg-white shadow-lg fixed w-full z-30 top-0 inset-x-0 ">
       <div class="px-2 sm:px-6 lg:px-8">
+        
         <div class="relative flex items-center justify-between h-20">
+          
           <div class="absolute flex items-center sm:hidden">
+            
             <button
               class="inline-flex  items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               @click="isMenuOpen = !isMenuOpen"
@@ -96,6 +100,7 @@ const user = computed(() => store.userInfo);
               </svg>
             </button>
           </div>
+          
           <div
             class="flex-1 flex items-right justify-center items-stretch sm:justify-start"
           >
@@ -134,10 +139,14 @@ const user = computed(() => store.userInfo);
                   >{{ $t("navbar.homepage.contact") }}</router-link
                 >
               </div>
+              
             </div>
+            
           </div>
 
+          
           <LanguageChooser class="hidden" />
+          
 
           <div v-if="!isAuth">
             <div
@@ -182,7 +191,8 @@ const user = computed(() => store.userInfo);
                 </button>
               </div>
             </div>
-          </div>
+          </div>          <SearchBar class=""/>
+
         </div>
       </div>
       <div
@@ -252,7 +262,9 @@ const user = computed(() => store.userInfo);
 
           <LanguageChooser class="p-1" />
         </div>
+        
       </div>
+      
     </nav>
   </header>
 </template>

@@ -32,7 +32,7 @@ const data = reactive({
     isbn: response.data.book.isbn,
     total_pages: response.data.book.total_pages,
     category: response.data.book.category.name,
-    price: response.data.book.price,
+    price: response.data.book.price.toLocaleString('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits:0,  useGrouping: true }),
     released_date: new Date(response.data.book.released_date).toLocaleString().split(",")[0]
 })
 
@@ -91,7 +91,7 @@ const closeModal = () => {
           </div>
           <div class="flex">
             <span class="title-font font-medium text-2xl text-gray-900"
-              >${{ data.price }} (COP)</span
+              >{{ data.price }} (COP)</span
             >
             <button
               class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"

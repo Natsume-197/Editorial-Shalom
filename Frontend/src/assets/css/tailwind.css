@@ -34,4 +34,8 @@
   --swiper-pagination-bullet-vertical-gap: 6px;
 }
 
+input:focus {
+  box-shadow: none !important;
+}
+
 

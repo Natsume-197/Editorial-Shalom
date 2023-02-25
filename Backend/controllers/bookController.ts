@@ -117,13 +117,12 @@ export const findBook = async (req: Request, res: Response, next: NextFunction) 
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const searchBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const books = await Book.findAll({
+    const books = await Book_t.findAll({
       where: {
         title: { [Op.iLike]: `%${req.query.query}%` }
-      }
+      },
     })
 
     return res.status(StatusCodes.OK).json({
@@ -134,6 +133,9 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
     return next(error)
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // CRUD Functions
 // Get all books

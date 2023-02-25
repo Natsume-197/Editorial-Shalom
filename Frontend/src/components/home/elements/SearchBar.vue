@@ -1,128 +1,137 @@
 <template>
-  <form @submit.prevent="">
-    <div class="x-4 py-2 w-80 h-16">
-      <div class="flex-1">
-        <div class="">
-          <div class="bg-white absolute shadow-md rounded-lg px-3 py-2 mb-4">
-            <div class="flex items-center bg-gray-200 rounded-md">
-              <div class="pl-2">
-                <svg
-                  class="fill-current text-gray-500 w-6 h-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    class="heroicon-ui"
-                    d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
-                  />
-                </svg>
-              </div>
-              <input
-                autocomplete="off"
-                class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
-                id="search"
-                type="text"
-                placeholder="Buscar libros..."
-                @keypress.enter="submit()"
-                v-model="query"
-              />
-            </div>
-            <div class="text-sm w-80">
-              <div
-                v-if="bookArray && bookArray.length > 0 "
-                class="flex justify-start cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
-                v-for="(item, index) in bookArray"
-              >
-                <span class="bg-green-400 h-2 w-2 m-2 rounded-full"></span>
-                <div
-                  @click="itemClicked(item)"
-                  class="flex-grow font-medium px-2"
-                >
-                  {{ item.title }}
-                </div>
-                <div class="text-sm font-normal text-gray-500 tracking-wide">
-                  Infantil
-                </div>
-              </div>
-              <!-- Mostramos el mensaje de "No hay resultados disponibles" si no hay libros en la búsqueda -->
-              <div
-                v-else-if="(query !== '' && bookArray.length === 0)"
-                class="flex justify-start cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
-              >
-              
-                {{ noResultsMessage }}
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+<div class="right search p-6">
+  <form>
+    <input type="search" placeholder="Buscar libros...">
   </form>
+</div>
+
 </template>
 
-<script>
-import router from "../../router";
-import { api } from "../../utils/axios";
+<style>
+.right {
+  float: right
+}
 
-export default {
-  data() {
-    return {
-      query: '',
-      limit: 5,
-      bookArray: [],
-      noResultsMessage: "No hay resultados disponibles",
-    };
-  },
-  methods: {
-    submit() {
-      //if you want to send any data into server before redirection then you can do it here
-      this.$router.push("/search/?query=" + this.query);
-      this.query = "";
-    },
-    itemClicked(item) {
-      console.log(item);
-      
-      router.push("/book/" + item.id).then(() =>{
-        this.$router.go()
-      })
-      this.query = ''
-      this.bookArray = []
-    },
-    resultQuery() {
-      // Cancelar cualquier búsqueda en curso
-      clearTimeout(this.timeout);
-      // Iniciar un nuevo tiempo de espera
-      this.timeout = setTimeout(() => {
-        if (this.query.trim()) {
-          api.get(`search?query=${this.query}`).then((response) => {
-            if (response.data.books) {
-              try {
-                if (response.data.books.length === 0) {
-                  this.bookArray = [];
-                }
-              } catch (error) {
-                this.bookArray = [];
-                return 
-              }
-            
-              var booksArray = response.data.books.slice(0, this.limit);
-              this.bookArray = booksArray;
-            }
-          });
-        } 
-      }, 50); // Esperar 50 milisegundos antes de realizar la búsqueda
-      
-    },
-  },
-  watch: {
-    query(val) {
-      if (val) {
-        this.resultQuery();
-      } else {
-        this.bookArray = [];
-      }
-    },
-  },
-};
-</script>
+put[type=search]::-webkit-search-decoration,
+.search input[type=search]::-webkit-search-cancel-button {
+  display: none;
+  
+}
+
+
+
+
+.search input[type=search] {
+  outline: none;
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  font-family: inherit;
+  font-size: 100%;
+  background: transparent url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEzOSAxMzkiIGhlaWdodD0iMTM5cHgiIGlkPSJGaW5kIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMzkgMTM5IiB3aWR0aD0iMTM5cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0xMjcuNTU4LDExMS45NjFMMTAwLjI0OSw4NC42NWM0LjY0LTcuMzg3LDcuMzMzLTE2LjExOCw3LjMzMy0yNS40ODhjMC0yNi41MDktMjEuNDktNDcuOTk2LTQ3Ljk5OC00Ny45OTYgIGMtMjYuNTA4LDAtNDcuOTk2LDIxLjQ4Ny00Ny45OTYsNDcuOTk2YzAsMjYuNTEsMjEuNDg3LDQ3Ljk5NSw0Ny45OTYsNDcuOTk1YzEwLjE5NywwLDE5LjY0Mi0zLjE4OCwyNy40MTQtOC42MDVsMjYuOTg0LDI2Ljk4NiAgYzEuODc1LDEuODczLDQuMzMzLDIuODA2LDYuNzg4LDIuODA2YzIuNDU4LDAsNC45MTMtMC45MzMsNi43OTEtMi44MDZDMTMxLjMwOCwxMjEuNzg3LDEzMS4zMDgsMTE1LjcxMSwxMjcuNTU4LDExMS45NjF6ICAgTTU5LjU4NCw5MS42MDdjLTE3LjkxNywwLTMyLjQ0My0xNC41MjUtMzIuNDQzLTMyLjQ0M1M0MS42NjcsMjYuNzIsNTkuNTg0LDI2LjcyYzE3LjkxOCwwLDMyLjQ0MywxNC41MjYsMzIuNDQzLDMyLjQ0NCAgUzc3LjUwMiw5MS42MDcsNTkuNTg0LDkxLjYwN3oiLz48L3N2Zz4=') no-repeat 0 center;
+  position: absolute;
+  top: 6px;
+  right: 0;
+  background-size: 30px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: transparent;
+  padding: 10px;
+  width: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  z-index: 30;
+  -webkit-transition: all .7s;
+  -moz-transition: all .7s;
+  transition: all .7s;
+  background-color: white;
+}
+
+.search input[type=search]:focus {
+  width: 270px;
+  padding-left: 30px;
+  background: none;
+  border-bottom: 3px solid #333;
+  color: #333;
+  cursor: auto;
+  background: white;
+
+}
+
+@media (min-width: 200px) {
+  .search input[type=search]:focus {
+    width: 275px;
+    }
+}
+
+@media (min-width: 300px) {
+  .search input[type=search]:focus {
+    width: 268px;
+    }
+}
+
+@media (min-width: 370px) {
+  .search input[type=search]:focus {
+    width: 275px;
+    }
+}
+
+@media (min-width: 390px) {
+  .search input[type=search]:focus {
+    width: 285px;
+    }
+}
+
+
+@media (min-width: 400px) {
+  .search input[type=search]:focus {
+    width: 310px;
+    }
+}
+
+@media (min-width: 540px) {
+  .search input[type=search]:focus {
+    width: 425px;
+    }
+}
+
+@media (min-width: 800px) {
+  .search input[type=search]:focus {
+    width: 280px;
+    }
+}
+
+
+.search input[type=search]:hover {
+  border-bottom: 3px solid #333;
+    
+}
+
+input::-webkit-input-placeholder {
+    color: transparent;
+}
+input:focus::-webkit-input-placeholder {
+    color: #333;
+}
+/* Firefox < 19 */
+input:-moz-placeholder {
+    color: transparent;
+}
+input:focus:-moz-placeholder {
+    color: #333;
+}
+/* Firefox > 19 */
+input::-moz-placeholder {
+    color: transparent;
+}
+input:focus::-moz-placeholder {
+    color: #333;
+}
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+    color: transparent;
+}
+input:focus:-ms-input-placeholder {
+    color: #333;
+}
+</style>
