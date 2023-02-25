@@ -37,6 +37,8 @@ const carouselItems = [
       "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg?width=914&height=671",
   },
 ];
+
+
 </script>
 
 <template>

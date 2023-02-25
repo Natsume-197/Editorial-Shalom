@@ -124,7 +124,7 @@ const user = computed(() => store.userInfo);
                   >{{ $t("navbar.homepage.home") }}</router-link
                 >
                 <router-link
-                  to="/"
+                  to="/books"
                   class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.books") }}</router-link
                 >
