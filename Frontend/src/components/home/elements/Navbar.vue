@@ -61,7 +61,7 @@ const user = computed(() => store.userInfo);
         
         <div class="relative flex items-center justify-between h-20">
           
-          <div class="absolute flex items-center sm:hidden">
+          <div class="absolute flex items-center lg:hidden">
             
             <button
               class="inline-flex  items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -102,12 +102,12 @@ const user = computed(() => store.userInfo);
           </div>
           
           <div
-            class="flex-1 flex items-right justify-center items-stretch sm:justify-start"
+            class="flex-1 flex items-right justify-center items-stretch lg:justify-start"
           >
           <router-link
                 to="/" class="flex-shrink-0 flex items-center">
               <img
-                class="block lg:hidden h-8 w-auto"
+                class="block ml-10 lg:hidden h-10 w-auto"
                 src="../../../assets/icons/favicon.svg"
               />
               <img
@@ -115,8 +115,8 @@ const user = computed(() => store.userInfo);
                 src="../../../assets/icons/favicon.svg"
               />
             </router-link>
-            <p class="ml-4 mt-1 text-2xl sm:hidden">Editorial Shalom</p>
-            <div class="hidden md:block sm:block sm:ml-6">
+            <p class="ml-4 mt-1 text-2xl lg:hidden">Editorial Shalom</p>
+            <div class="hidden md:hidden lg:block lg:ml-6">
               <div class="flex space-x-4 text-center">
                 <router-link
                   to="/"
@@ -145,16 +145,16 @@ const user = computed(() => store.userInfo);
           </div>
 
           
-          <LanguageChooser class="hidden" />
+          <LanguageChooser class="hidden md:hidden" />
           
 
           <div v-if="!isAuth">
             <div
-              class="hidden sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+              class="hidden  sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
             >
               <router-link
                 to="/register"
-                class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-lg font-medium"
+                class="text-gray-700 hover:border-sky-500 hover:text-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
                 >{{ $t("navbar.homepage.register") }}</router-link
               >
               <router-link
@@ -167,7 +167,7 @@ const user = computed(() => store.userInfo);
           <div v-else>
             <div v-if="user.roles.includes(1)">
               <div
-                class="hidden sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+                class="hidden md:hidden lg:inline-flex	 sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
               >
                 <div v-if="user.roles.includes(2)">
                   <router-link

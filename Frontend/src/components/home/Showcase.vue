@@ -3,7 +3,7 @@ import { register } from "swiper/element/bundle";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import { ref } from "vue";
 
-const categories = ref(["Nuevo", "Selección"]);
+const categories = ref(["Nuevo", "Favoritos"]);
 
 register();
 
@@ -43,7 +43,7 @@ const carouselItems = [
   <div class="main-section-categories block bg-cyan-500 pt-8 pb-8">
     <div class="tabs text-center">
       <TabGroup>
-        <TabList class="space-x-10 mb-8 mt-24">
+        <TabList class="space-x-10 mb-8 mt-20">
           <Tab
             v-for="category in categories"
             as="template"

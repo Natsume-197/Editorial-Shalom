@@ -1,14 +1,36 @@
+<script setup>
+import  { ref } from "vue"
+
+let isFocused = ref(false)
+
+
+</script>
+
 <template>
 
 <div class="right search p-6">
   <form>
-    <input type="search" placeholder="Buscar libros...">
+    <input type="search" placeholder="Buscar libros..." @focus="isFocused = true" @blur="isFocused = false"> 
+    <button class="absolute right-2 lg:right-0 top-4 px-4 py-2 bg-sky-500 text-white rounded-md" v-show="isFocused">X</button>
+
   </form>
 </div>
 
 </template>
 
 <style>
+
+.clear-search {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .right {
   float: right
 }
@@ -18,9 +40,6 @@ put[type=search]::-webkit-search-decoration,
   display: none;
   
 }
-
-
-
 
 .search input[type=search] {
   outline: none;
@@ -40,10 +59,7 @@ put[type=search]::-webkit-search-decoration,
   width: 10px;
   margin: 10px 0;
   cursor: pointer;
-  z-index: 30;
-  -webkit-transition: all .7s;
-  -moz-transition: all .7s;
-  transition: all .7s;
+
   background-color: white;
 }
 
@@ -55,52 +71,71 @@ put[type=search]::-webkit-search-decoration,
   color: #333;
   cursor: auto;
   background: white;
-
 }
 
 @media (min-width: 200px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
     width: 275px;
     }
 }
 
 @media (min-width: 300px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
-    width: 268px;
+    width: 287px;
     }
 }
 
 @media (min-width: 370px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
-    width: 275px;
+    width: 300px;
     }
 }
 
 @media (min-width: 390px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
-    width: 285px;
+    width: 320px;
+
     }
 }
 
-
 @media (min-width: 400px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
-    width: 310px;
+    width: 340px;
     }
 }
 
 @media (min-width: 540px) {
+  .search input[type=search] {
+    margin-right: 10px;
+  }
   .search input[type=search]:focus {
     width: 425px;
     }
 }
 
 @media (min-width: 800px) {
+  .search input[type=search] {
+    margin-right: 0;
+  }
   .search input[type=search]:focus {
-    width: 280px;
+    width: 460px;
     }
 }
-
 
 .search input[type=search]:hover {
   border-bottom: 3px solid #333;
