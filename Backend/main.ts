@@ -48,7 +48,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers')))
 
 // Access media uploaded from outside localhost
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers')))
+// app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers')))
 
 // API prefix
 app.use('/api', router)
