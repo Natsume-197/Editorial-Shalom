@@ -9,7 +9,7 @@ console.log(response);
 const i18nLocale = useI18n();
 console.log(i18nLocale.locale.value);
 
-const url_base = import.meta.env.VITE_API_URL_SHALOM +"/books/assets/covers/"
+const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
 
 </script>
 <template>

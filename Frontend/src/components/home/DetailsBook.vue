@@ -17,7 +17,7 @@ let description = ''
 
 // Se ordena el arreglo primero
 response.data.book.book_t.sort((a, b) => a.id_language - b.id_language)
-const url_base = import.meta.env.VITE_API_URL_SHALOM +"/books/assets/covers/"
+const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
 
 if(i18nLocale.locale.value === 'es'){
     title = response.data.book.book_t[0].title
