@@ -25,8 +25,6 @@ import { Language } from './models/books/language'
 import { ModelCtor, Model } from 'sequelize'
 
 
-const coversDir = path.join(__dirname, './assets/books/covers');
-
 const app: Application = express()
 
 // Middlewares
@@ -51,8 +49,7 @@ app.use('/api', router)
 app.use(handleErrors)
 
 // Access media uploaded from outside
-app.use('/api/books/assets/covers', express.static(coversDir))
-console.log(coversDir)
+app.use('/api/assets/books/covers', express.static("./assets/books/covers"))
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)
@@ -91,7 +88,7 @@ async function reSyncDatabase() {
     await addCategoriesBook(db)
     await addRoles(db)
     await addLanguages(db)
-    await addBooks(15)
+    await addBooks(5)
     await addUsers(5)
 
     console.log('Base de datos sincronizada desde cero')

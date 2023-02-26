@@ -28,7 +28,7 @@ const multer  = require('multer')
 
 const storage = multer.diskStorage({
   destination: function (_req: any, file: { mimetype: string }, cb: (arg0: null, arg1: string) => void) {
-    let uploadPath = 'assets/books';
+    let uploadPath = './assets/books';
     if (file.mimetype === 'application/pdf') {
       uploadPath = path.join(uploadPath, 'previews');
     } else if (file.mimetype.startsWith('image/')) {
