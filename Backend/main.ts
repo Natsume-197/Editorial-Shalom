@@ -44,12 +44,11 @@ app.use(helmet({
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
 
-// Access media uploaded from outside (Localhost)
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, 'assets', 'books', 'covers')))
-
 // Access media uploaded from outside (DigitalOcean)
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets', 'books', 'covers')))
+app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers')))
 
+// Access media uploaded from outside localhost
+app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers')))
 
 // API prefix
 app.use('/api', router)
