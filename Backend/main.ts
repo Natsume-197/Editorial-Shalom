@@ -64,6 +64,12 @@ app.get('/*', (_req, res) => {
   res.status(200).json({ message: 'API de la Editorial Shalom funcionando :)' })
 })
 
+app.use(function(err: any, _req: any, _res: any, next: (arg0: any) => void) {
+  console.log(err);
+  next(err);
+});
+
+
 // Starting the Server
 app.listen(process.env.PORT || 5000, async () => {
   console.log('==================================================')
