@@ -25,12 +25,16 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
     let cover = ''
     let preview = ''
 
-    if ((req as any).files?.image[0]) {
+    if ((req as any).files?.image?.[0]) {
       cover = (req as any).files.image[0].filename
+    }else{
+      cover = ''
     }
 
-    if ((req as any).files?.pdf[0]) {
+    if ((req as any).files?.pdf?.[0]) {
       preview = (req as any).files.pdf[0].filename
+    }else{
+      preview = ''
     }
 
     const {
@@ -94,6 +98,7 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
       book: book
     })
   } catch (error) {
+    console.log(error)
     return next(error)
   }
 }
@@ -134,22 +139,25 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// CRUD Functions
-// Get all books
 export const getAllBooks = async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const books = await Book.findAll()
+    const books = await Book.findAll({
+      include: [Book_t, Category]
+    })
     return res.status(StatusCodes.OK).json({
-      message: 'Libros encontrados',
       books: books
     })
   } catch (error) {
     return next(error)
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// CRUD Functions
+// Get all books
+
 
 export const findBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {

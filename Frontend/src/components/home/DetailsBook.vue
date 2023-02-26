@@ -17,6 +17,7 @@ let description = ''
 
 // Se ordena el arreglo primero
 response.data.book.book_t.sort((a, b) => a.id_language - b.id_language)
+const url_base = import.meta.env.VITE_API_URL_SHALOM +"/books/assets/covers/"
 
 if(i18nLocale.locale.value === 'es'){
     title = response.data.book.book_t[0].title
@@ -33,12 +34,12 @@ const data = reactive({
     total_pages: response.data.book.total_pages,
     category: response.data.book.category.name,
     price: response.data.book.price.toLocaleString('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits:0,  useGrouping: true }),
-    released_date: new Date(response.data.book.released_date).toLocaleString().split(",")[0]
+    released_date: new Date(response.data.book.released_date).toLocaleString().split(",")[0],
+    cover: url_base+response.data.book.cover
 })
 
 let showModal = ref(false)
 
-const image = "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg"
 
 const openModal = () => { 
      showModal.value = true;
@@ -55,8 +56,8 @@ const closeModal = () => {
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
         <img
           class="lg:w-1/2 w-full object-contain px-8 object-center rounded border border-gray-200"
-          :src=image
-          @click="openModal(image)"
+          :src=data.cover
+          @click="openModal(data.cover)"
         />
         <Modal :image="image" v-if="showModal" @close="closeModal" />
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

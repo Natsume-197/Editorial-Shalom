@@ -1,42 +1,20 @@
 <script setup>
+import { reactive } from "vue";
+import { useI18n } from "vue-i18n";
+import { api } from "../../utils/axios";
 
-const carouselItems = [
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc: "https://pbs.twimg.com/media/FZ8piU4UcAAhj5T.jpg",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc: "https://aleatoriascan.xyz/wp-content/uploads/2022/12/32.jpg",
-  },
-  {
-    title: "Tensei Oujo to Tensai",
-    imageSrc:
-      "https://animenewsplus.net/wp-content/uploads/2022/08/Tensei-Oujo-to-Tensai-Reijou-no-Mahou-Kakumei-Cover-Volume-5-1.webp",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc:
-      "https://www.nautiljon.com/images/manga/00/17/tensei_oujo_to_tensai_reijou_no_mahou_kakumei_16171.webp",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc:
-      "https://cdn.novelupdates.com/images/2020/01/revolution-cover.jpg",
-  },
-  {
-    title: "Little Genius",
-    imageSrc:
-      "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg?width=914&height=671",
-  },
-];
+const response = await api.get(`book`);
+console.log(response);
 
+const i18nLocale = useI18n();
+console.log(i18nLocale.locale.value);
+
+const url_base = import.meta.env.VITE_API_URL_SHALOM +"/books/assets/covers/"
 
 </script>
 <template>
   <div class="lg:p-24">
     <div class="store_store__vh_9r">
-
       <section class="store_mainContainer__wg8_C">
         <h1 class="store_catalogTitle__roHG_">Catalogo</h1>
         <div class="store_searchSort__dk8vc">
@@ -85,47 +63,39 @@ const carouselItems = [
           </button>
         </div>
         <div class="store_bookGrid__Ps5Yl">
-
-            
-          <div 
-            v-for="item in carouselItems"
+          <div
+            v-for="item in response.data.books"
             :key="item"
-            class="BookCard_card__CVnLd store_bookCard__SveR5">
-            <img
-              class="BookCard_image__sJlHo"
-              :src="item.imageSrc"
-            />
-            <div class="BookCard_textPart__W3q1f">
-              <h3 class="BookCard_title__AgSkT">{{ item.title }}</h3>
-              <h5 class="BookCard_author__TF7aM">Sherryl D. Hancock</h5>
-              <p class="BookCard_coverType__WYHhd">Tapa blanda</p>
-              <h3 class="BookCard_price__7PWNw">€<!-- -->18.95</h3>
-            </div>
+            class=""
+          >
+          <router-link class="BookCard_card__CVnLd store_bookCard__SveR5" :to="`book/${item.id}`">
+            <img class="BookCard_image__sJlHo" :src="url_base + item.cover" />
+            
+              <div class="BookCard_textPart__W3q1f">
+                <h3 class="BookCard_title__AgSkT">
+                  {{ item.book_t[0].title }}
+                </h3>
+                <h5 class="BookCard_author__TF7aM"></h5>
+                <p class="BookCard_coverType__WYHhd">
+                  {{ item.category.name }}
+                </p>
+                <h3 class="BookCard_price__7PWNw">
+                  {{
+                    item.price.toLocaleString("es-CO", {
+                      style: "currency",
+                      currency: "COP",
+                      maximumFractionDigits: 0,
+                      useGrouping: true,
+                    })
+                  }}
+                </h3>
+              </div>
+            </router-link>
           </div>
-
         </div>
       </section>
       <div class="store_filterCol__PwzP_">
         <aside class="store_filterBar__szdS1" style="">
-          <div>
-            <h3>Precio €</h3>
-            <div class="RangeInput_rangeInput__3GMPA">
-              <input
-                type="number"
-                min="0"
-                max="5e-324"
-                class="RangeInput_numberInput__02wqq"
-                placeholder="Mín"
-              /><span>-</span
-              ><input
-                type="number"
-                min="0"
-                max="5e-324"
-                class="RangeInput_numberInput__02wqq"
-                placeholder="Máx"
-              />
-            </div>
-          </div>
           <div class="store_checkGroup__4ho41">
             <h3>Disponibilidad</h3>
             <div>
@@ -146,7 +116,6 @@ const carouselItems = [
                 >Fantasía</label
               >
             </div>
-
           </div>
           <button class="Button_btn__TBmtl Button_secondary__y71g1">
             Aplicar Filtro
@@ -154,20 +123,17 @@ const carouselItems = [
         </aside>
       </div>
     </div>
-    
   </div>
 </template>
 
 <style>
-
-
 .Input_container__3HOqe {
   display: flex;
   border-radius: 8px;
 }
 
 .Input_container__3HOqe:focus-within {
-  outline: 2px solid #a7b7fa;
+  outline: 2px solid #ffffff;
 }
 
 .Input_iconBox__WoIcS {
@@ -233,7 +199,6 @@ const carouselItems = [
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url(/dropdown.svg) #29335a no-repeat calc(100% - 10px) !important;
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.2rem;

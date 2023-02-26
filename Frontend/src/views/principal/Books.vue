@@ -9,7 +9,9 @@ import BookShowcase from "../../components/home/BookShowcase.vue";
 <template>
   <div class="mx-auto">
     <Navbar class="" />
-    <BookShowcase />
+    <Suspense>
+      <BookShowcase />
+    </Suspense>
     <Footer />
   </div>
 </template>

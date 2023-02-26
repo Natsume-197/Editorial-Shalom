@@ -25,6 +25,8 @@ import { Language } from './models/books/language'
 import { ModelCtor, Model } from 'sequelize'
 
 
+const coversDir = path.join(__dirname, 'assets/books/covers');
+
 const app: Application = express()
 
 // Middlewares
@@ -38,13 +40,18 @@ app.use(
   })
 )
 
-app.use(helmet())
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}))
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
 
-// api prefix
+// API prefix
 app.use('/api', router)
 app.use(handleErrors)
+
+// Access media uploaded from outside
+app.use('/api/books/assets/covers', express.static(coversDir))
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)

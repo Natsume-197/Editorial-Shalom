@@ -145,7 +145,7 @@ const user = computed(() => store.userInfo);
           </div>
 
           
-          <LanguageChooser class="hidden md:hidden" />
+          <LanguageChooser class="hidden md:hidden lg:inline-block" />
           
 
           <div v-if="!isAuth">
@@ -172,7 +172,7 @@ const user = computed(() => store.userInfo);
                 <div v-if="user.roles.includes(2)">
                   <router-link
                     to="/dashboard/inicio"
-                    class="text-gray-800 hover:border-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
+                    class="text-gray-800 hover:border-sky-500 hover:text-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
                     >{{ $t("navbar.homepage.dashboard") }}</router-link
                   >
                 </div>

@@ -19,9 +19,10 @@ import {
   sendResetPassword,
   setNewPassword
 } from '../controllers/userController'
-import { createBook, searchBooks, findBook, getCategories } from '../controllers/bookController'
+import { createBook, searchBooks, findBook, getCategories, getAllBooks } from '../controllers/bookController'
 
 export const router = express.Router()
+const path = require('path');
 
 const multer  = require('multer')
 
@@ -35,16 +36,14 @@ const storage = multer.diskStorage({
     }
     cb(null, uploadPath);
   },
-  /* Añadir nombre
-  filename: function (req, file, cb) {
+  filename: function (_req: any, file: { originalname: any; }, cb: (arg0: null, arg1: string) => void) {
     const ext = path.extname(file.originalname);
     const name = path.basename(file.originalname, ext);
     cb(null, `${name}-${Date.now()}${ext}`);
-  },*/
-});const path = require('path');
+  },
+});
 
 const upload = multer({ storage: storage });
-
 
 // Public Routes
 router.post('/register', signUp)
@@ -66,6 +65,7 @@ router.patch('/user/:id', isAuthAdmin, updateUser)
 router.delete('/user/:id', isAuthAdmin, deleteUser)
 
 // Book CRUD Routes
+router.get('/book', getAllBooks)
 router.get('/book/:id', findBook)
 router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createBook)
 
