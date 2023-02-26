@@ -32,7 +32,7 @@ app.use(
   cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token', 'Origin'],
     credentials: true,
-    origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!, '*'],
+    origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
     maxAge: 600,
     exposedHeaders: ['*', 'Authorization']
   })
@@ -46,6 +46,8 @@ app.use(express.urlencoded({ extended: true }))
 
 // Access media uploaded from outside
 app.use('/api/assets/books/covers', express.static(path.join(__dirname, 'assets', 'books', 'covers')))
+app.use('/api/public', express.static(path.join(__dirname, 'public')))
+
 
 // API prefix
 app.use('/api', router)
