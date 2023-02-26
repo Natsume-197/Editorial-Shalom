@@ -44,12 +44,12 @@ app.use(helmet({
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
 
+// Access media uploaded from outside
+app.use('/api/assets/books/covers', express.static(path.join(__dirname, 'assets', 'books', 'covers')))
+
 // API prefix
 app.use('/api', router)
 app.use(handleErrors)
-
-// Access media uploaded from outside
-app.use('/api/assets/books/covers', express.static("./assets/books/covers"))
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)
