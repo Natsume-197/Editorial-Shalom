@@ -44,23 +44,21 @@ app.use(helmet({
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
 
+// API prefix
+app.use('/api', router)
+app.use(handleErrors)
+
 // Access media uploaded from outside (DigitalOcean)
 app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers')))
 
 // Access media uploaded from outside localhost
-// app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers')))
-
-// API prefix
-app.use('/api', router)
-app.use(handleErrors)
+app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers')))
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)
 }
 
 /*ENABLE THIS FOR DEPLOYMENT */
-
-app.use(express.static(path.join(__dirname, '../client/dist')))
 app.get('/*', (_req, res) => {
   // res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
   res.status(200).json({ message: 'API de la Editorial Shalom funcionando :)' })

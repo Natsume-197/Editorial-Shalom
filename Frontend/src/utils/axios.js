@@ -20,7 +20,6 @@ api.interceptors.response.use(
     return response
   },
   (error) => {
-    console.log(error.response)
     if (error.response && error.response.status === 401) {
       
       const store = userStore();

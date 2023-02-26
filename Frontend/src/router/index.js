@@ -114,28 +114,47 @@ router.beforeEach(async (to, _from, next) => {
   } else {
     // Prevent logged-in users from accessing the login or register pages
     if (to.name === "DetailsBook") {
-      const response = await api.get("/book/" + to.params.id)
+      let response = null;
+      let id_book = null;
+      let received_title = null;
+      let original_title = null;
+      let fixed_title = null;
 
-      //console.log("Received name:", to.params.name)
-      //console.log("Original title:", response.data.book.book_t[0].title)
-      //console.log("Fixed title:", response.data.book.book_t[0].title.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
-      
-      const id_book = to.params.id
-      const received_title = to.params.name
-      const original_title = response.data.book.book_t[0].title.toLowerCase()
-      const fixed_title = original_title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+      received_title = to.params.name;
+      id_book = to.params.id;
+
+      try {
+        response = await api.get("/book/" + to.params.id);
+
+        //console.log("Received name:", to.params.name)
+        //console.log("Original title:", response.data.book.book_t[0].title)
+        //console.log("Fixed title:", response.data.book.book_t[0].title.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+
+        original_title = response.data.book.book_t[0].title.toLowerCase();
+        fixed_title = original_title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      } catch (error) {
+        console.log(error);
+        next();
+        return await router.push("/page-404");
+        
+      }
 
       if (to.params.name) {
-          if (received_title === fixed_title) {
-            next();
-          }else{
-            router.push(`book/${id_book}/${fixed_title}`)
-            next();
-          }
-        }else{
-          router.push(`book/${id_book}/${fixed_title}`)
+        if (received_title === fixed_title) {
+          next();
+        } else {
+          router.push(`book/${id_book}/${fixed_title}`);
           next();
         }
+      } else {
+        if (response.data.status === "404") {
+          console.log(response);
+          router.push("/page-404");
+        }
+
+        router.push(`book/${id_book}/${fixed_title}`);
+        next();
+      }
     } else {
       if (to.name === "Login" || to.name === "Register") {
         if (store.isLoggedIn) {

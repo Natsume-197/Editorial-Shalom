@@ -72,3 +72,5 @@ router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 },
 // Protected Routes
 router.get('/logout', isAuth, logout)
 router.get('/dashboard', isAuthAdmin, authPage)
+
+
