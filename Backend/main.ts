@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Access media uploaded from outside
 app.use('/api/assets/books/covers', express.static(path.join(__dirname, 'assets', 'books', 'covers')))
-app.use('/api/public', express.static(path.join(__dirname, 'public')))
+app.use('/api/public', express.static(path.join(__dirname, 'static')))
 
 
 // API prefix
