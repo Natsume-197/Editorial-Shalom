@@ -129,12 +129,12 @@ const user = computed(() => store.userInfo);
                   >{{ $t("navbar.homepage.books") }}</router-link
                 >
                 <router-link
-                  to="/"
+                  to="/about"
                   class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.aboutus") }}</router-link
                 >
                 <router-link
-                  to="/"
+                  to="/contact"
                   class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.contact") }}</router-link
                 >
@@ -200,25 +200,25 @@ const user = computed(() => store.userInfo);
         :class="{ block: isMenuOpen, hidden: !isMenuOpen }"
       >
         <div class="px-2 pt-2 pb-3 space-y-1">
-          <a
-            href="#"
+          <router-link
+            to="/"
             class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
-            >{{ $t("navbar.homepage.home") }}</a
+            >{{ $t("navbar.homepage.home") }}</router-link
           >
-          <a
-            href="#"
+          <router-link
+            to="/books"
             class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
-            >{{ $t("navbar.homepage.books") }}</a
+            >{{ $t("navbar.homepage.books") }}</router-link
           >
-          <a
-            href="#"
+          <router-link
+            to="/about"
             class="text-gray-800 hover:text-gray-900 block px-3 py-2 rounded-md text-xl font-semibold"
-            >{{ $t("navbar.homepage.aboutus") }}</a
+            >{{ $t("navbar.homepage.aboutus") }}</router-link
           >
-          <a
-            href="#"
+          <router-link
+            to="/contact"
             class="text-gray-800 hover:border-sky-500 block px-3 py-2 rounded-md text-xl font-semibold"
-            >{{ $t("navbar.homepage.contact") }}</a
+            >{{ $t("navbar.homepage.contact") }}</router-link
           >
 
           <BaseDivider />
