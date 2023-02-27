@@ -15,7 +15,7 @@ import Footer from "../../components/home/Footer.vue";
                 <p class="font-normal text-base lg:text-xl leading-6 text-gray-600 mt-6 text-left ">Bienvenidos a la Editorial Shalom, una editorial colombiana que se dedica a crear libros para niños en edad preescolar con el objetivo de ampliar su conocimiento y educación de una manera divertida. Nos enfocamos en utilizar el juego, la tecnología y el bilingüismo como herramientas para lograr que los niños aprendan mientras se divierten.</p>
            
 
-            <div class="flex flex-col lg:flex-row justify-between gap-8 mt-10 bg-cyan-300">
+            <div class="flex flex-col lg:flex-row justify-between gap-8 mt-10 bg-cyan-400">
                 <div class="w-full lg:w-5/12 flex flex-col justify-center ">
                     <h1 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4 mx-4 mt-4">Nuestra misión</h1>
                     <p class="font-normal text-base lg:text-xl leading-6 text-gray-600 mx-4 lg:mb-4">La misión del grupo Editorial Shalom es contribuir al desarrollo de la educación de los niños en edad preescolar por medio del juego, la tecnología y el bilingüismo. Pensamos que es el trabajo más importante en el mundo por eso nos esforzamos en apoyar a profesores y padres.</p>
