@@ -13,7 +13,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
         <div class="-mx-4 flex flex-wrap lg:justify-between">
           <div class="w-full px-4 xl:w-6/12">
             <div
-              class="mb-12 mx-4 max-w-[970px] lg:mb-0 overflow-hidden bg-purple-500 rounded-lg"
+              class="mb-12 mx-4 max-w-[970px] lg:mb-0 overflow-hidden bg-rose-500 rounded-lg"
             >
               <h2
                 class="text-white mb-6 mx-6 text-[32px] font-bold mt-6 sm:text-[40px] lg:text-[36px] xl:text-[40px]"
@@ -58,7 +58,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                   class="bg-primary text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-opacity-5 sm:h-[70px] sm:max-w-[70px]"
                 >
                   <svg
-                    width="28"
+                    width="24"
                     height="19"
                     viewBox="0 0 28 19"
                     class="fill-white"
@@ -70,7 +70,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                 </div>
                 <div class="w-full">
                   <h4 class="text-white mb-1 text-xl font-bold">Correo</h4>
-                  <p class="text-white text-base">
+                  <p class="text-white text-lg break-all w-48 sm:w-full">
                     grupoeditorialshalom@gmail.com
                   </p>
                 </div>
@@ -94,25 +94,17 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                   <h4 class="text-white text-xl font-bold">
                     Nuestra ubicación
                   </h4>
-                  <p class="text-white text-base mb-6">
+                  <p class="text-white text-base mb-6 w-48 ">
                     Diagonal 52C Bis N 25-39 Sur. Bogotá, Colombia.
                   </p>
                 </div>
               </div>
             </div>
-            <iframe
-              class="w-full my-10"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3977.083241677965!2d-74.13569!3d4.579072!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9f2ff7b49085%3A0x2246fb03655cc85d!2sDg.%2052C%20Bis%20Sur%20%2325-39%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1677472253345!5m2!1ses!2sco"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
           </div>
 
-          <div class="w-full px-10 lg:w-1/2 xl:w-6/12">
+          <div class="w-full px-4 xl:w-6/12">
             <div
-              class="relative mx-4 rounded-lg bg-cyan-500 p-8 shadow-lg sm:p-12"
+              class="relative rounded-lg bg-cyan-500 p-8 shadow-lg sm:p-12 mb-12 mx-4 max-w-[970px] lg:mb-0"
             >
               <h1 class="text-white mb-1 text-2xl font-bold">
                 Formulario de contacto
@@ -157,7 +149,9 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                 </div>
               </form>
               <div>
-                <span class="absolute -right-10 top-[90px] z-[-1]">
+                <span
+                  class="absolute -right-10 top-[90px] z-[-1] hidden lg:flex"
+                >
                   <svg
                     width="34"
                     height="134"
@@ -377,7 +371,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                     />
                   </svg>
                 </span>
-                <span class="absolute -left-7 -bottom-7 z-[-1]">
+                <span class="absolute -left-7 -bottom-7 z-[-1] hidden lg:flex">
                   <svg
                     width="107"
                     height="134"

@@ -7,11 +7,13 @@ import BookShowcase from "../../components/home/BookShowcase.vue";
 </script>
 
 <template>
-  <div class="mx-auto">
-    <Navbar class="" />
-    <Suspense>
+  <div class="mx-auto flex flex-col min-h-screen">
+    <div class="flex-1">
+      <Navbar class="" />
+      <Suspense>
       <BookShowcase />
     </Suspense>
+    </div>    
     <Footer />
   </div>
 </template>

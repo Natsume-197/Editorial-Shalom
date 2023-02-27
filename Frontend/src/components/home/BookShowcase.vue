@@ -369,7 +369,7 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
   top: 0;
   width: 18rem;
   height: 100vh;
-  z-index: 100;
+  z-index: -10;
   background-color: #f1f1f1;
   border-radius: 6px;
   padding: 1.5rem;

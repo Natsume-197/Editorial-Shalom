@@ -8,11 +8,11 @@ import Footer from "../../components/home/Footer.vue";
 </script>
 
 <template>
-  <div class="mx-auto">
-    <Navbar class="" />
-    <Showcase class="" />
-
-    
+  <div class="mx-auto flex flex-col min-h-screen">
+    <div class="flex-1">
+      <Navbar class="" />
+      <Showcase class="" />
+    </div>    
     <Footer />
   </div>
 </template>
