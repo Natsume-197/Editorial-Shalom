@@ -1,6 +1,6 @@
 <template>
   <footer class="overflow-y-hidden ">
-    <div class="mx-auto lg:px-12 sm:px-6 px-4 bg-pink-500 p-5 h-40">
+    <div class="mx-auto lg:px-12 sm:px-6 px-4 bg-cyan-500 p-5 h-40">
       <div class="flex flex-col items-center justify-center">
         <div class="flex items-center gap-x-8 mt-2">
           <button

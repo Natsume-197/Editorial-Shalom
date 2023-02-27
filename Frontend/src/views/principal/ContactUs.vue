@@ -13,7 +13,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
         <div class="-mx-4 flex flex-wrap lg:justify-between">
           <div class="w-full px-4 xl:w-6/12">
             <div
-              class="mb-12 mx-4 max-w-[970px] lg:mb-0 overflow-hidden bg-rose-500 rounded-lg"
+              class="mb-12 mx-4 max-w-[970px] lg:mb-0 overflow-hidden bg-purple-500 rounded-lg"
             >
               <h2
                 class="text-white mb-6 mx-6 text-[32px] font-bold mt-6 sm:text-[40px] lg:text-[36px] xl:text-[40px]"
@@ -104,7 +104,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
 
           <div class="w-full px-4 xl:w-6/12">
             <div
-              class="relative rounded-lg bg-cyan-500 p-8 shadow-lg sm:p-12 mb-12 mx-4 max-w-[970px] lg:mb-0"
+              class="relative rounded-lg bg-rose-500 p-8 shadow-lg sm:p-12 mb-12 mx-4 max-w-[970px] lg:mb-0"
             >
               <h1 class="text-white mb-1 text-2xl font-bold">
                 Formulario de contacto
