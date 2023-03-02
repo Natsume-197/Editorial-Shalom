@@ -3,7 +3,7 @@ import { register } from "swiper/element/bundle";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import { ref } from "vue";
 
-const categories = ref(["Nuevo", "Favoritos"]);
+const categories = ref(["Nuevo", "Selección"]);
 
 register();
 
@@ -42,10 +42,10 @@ const carouselItems = [
 </script>
 
 <template>
-  <div class="main-section-categories block bg-cyan-500 pt-8 pb-8">
+  <div class="w-full lg:w-2/3 px-4 md:px-8 mx-auto bg-sky-500 pt-10">
     <div class="tabs text-center">
       <TabGroup>
-        <TabList class="space-x-10 mb-8 mt-20">
+        <TabList class="space-x-10 mb-10 ">
           <Tab
             v-for="category in categories"
             as="template"
@@ -57,8 +57,8 @@ const carouselItems = [
                 ' text-lg font-semibold text-white md:text-xl ',
                 'text-lg font-semibold text-white md:text-xl ',
                 selected
-                  ? 'text-lg font-semibold text-yellow-300 cursor-default outline-none bg-cyan-700 w-24 h-12 text-center items-center rounded-xl'
-                  : 'text-lg font-semibold',
+                  ? 'text-lg font-semibold text-white-300 cursor-default outline-none bg-purple-500 w-24 h-12 text-center items-center rounded-xl'
+                  : 'text-lg font-semibold underline hover:no-underline',
               ]"
             >
               {{ category }}
@@ -66,7 +66,7 @@ const carouselItems = [
           </Tab>
         </TabList>
         <div class="content-tabs">
-          <TabPanels class="m-2 sm:mx-52 md:mx-20 lg:mx-52">
+          <TabPanels class="m-2 sm:mx-52 md:mx-20 ">
             <TabPanel>
               <swiper-container
                 :pagination="{
@@ -124,7 +124,10 @@ const carouselItems = [
                 </swiper-slide>
               </swiper-container>
             </TabPanel>
-            <TabPanel>Content 2</TabPanel>
+            <TabPanel>
+
+              
+            </TabPanel>
           </TabPanels>
         </div>
       </TabGroup>

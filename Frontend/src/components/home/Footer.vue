@@ -1,11 +1,11 @@
 <template>
   <footer class="overflow-y-hidden ">
-    <div class="mx-auto lg:px-12 sm:px-6 px-4 bg-cyan-500 p-5 h-40">
+    <div class="mx-auto lg:px-12 sm:px-6 px-4 bg-sky-600	 p-5 h-40">
       <div class="flex flex-col items-center justify-center">
         <div class="flex items-center gap-x-8 mt-2">
           <button
             aria-label="facebook"
-            class="focus:ring-2 focus:ring-offset-2 focus:ring-2 focus:ring-gray-800 focus:outline-none rounded-full"
+            class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none rounded-full"
           >
             <svg
               class="fill-current text-white hover:text-white"

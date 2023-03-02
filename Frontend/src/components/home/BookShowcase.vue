@@ -13,62 +13,18 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
 
 </script>
 <template>
-  <div class="lg:p-24">
+  <div class="px-32  my-32 ">
     <div class="store_store__vh_9r">
-      <section class="store_mainContainer__wg8_C">
-        <h1 class="store_catalogTitle__roHG_">Catalogo</h1>
-        <div class="store_searchSort__dk8vc">
-          <div class="Input_container__3HOqe">
-            <div class="Input_iconBox__WoIcS">
-              <svg
-                viewBox="0 0 33 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M30.485 32.446 18.823 20.784a9.773 9.773 0 0 1-3.104 1.796 10.974 10.974 0 0 1-3.769.643c-3.193 0-5.897-1.109-8.114-3.326C1.619 17.68.51 15.005.51 11.871c0-3.133 1.109-5.808 3.326-8.025C6.053 1.629 8.743.52 11.906.52c3.133 0 5.801 1.109 8.003 3.326 2.203 2.217 3.304 4.892 3.304 8.025a11.06 11.06 0 0 1-.621 3.68 11.254 11.254 0 0 1-1.862 3.326l11.706 11.618-1.951 1.95Zm-18.58-11.884c2.395 0 4.435-.85 6.12-2.55 1.685-1.7 2.527-3.746 2.527-6.14 0-2.395-.842-4.442-2.527-6.142-1.685-1.7-3.725-2.55-6.12-2.55-2.423 0-4.485.85-6.185 2.55-1.7 1.7-2.55 3.747-2.55 6.141 0 2.395.85 4.442 2.55 6.142 1.7 1.7 3.762 2.55 6.186 2.55Z"
-                  fill="#B5C1F2"
-                ></path>
-              </svg>
-            </div>
-            <input
-              class="Input_input__NcgaD Input_withIcon__TFRrq"
-              placeholder="Búsqueda"
-            />
-          </div>
-          <div class="Select_container__5D_Ng">
-            <div class="Select_iconBox__pawih">
-              <svg
-                width="36"
-                height="24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M.663 24v-3h11.71v3H.664Zm0-10.5v-3h23.422v3H.663Zm0-10.5V0h35.133v3H.663Z"
-                  fill="#B5C1F2"
-                ></path>
-              </svg>
-            </div>
-            <select class="Select_select__6tI4a Select_withIcon__p1Moq">
-              <option value="0" selected="">Nombre A-Z</option>
-              <option value="1">Nombre Z-A</option>
-              <option value="2">Precios</option>
-            </select>
-          </div>
-          <button
-            class="Button_btn__TBmtl Button_secondary__y71g1 store_button__ywSR0"
-          >
-            Sort Filter
-          </button>
-        </div>
-        <div class="store_bookGrid__Ps5Yl">
+      <section class="store_mainContainer__wg8_C rounded-lg">
+        <h1 class="store_catalogTitle__roHG_ text-black font-semibold text-5xl mb-10">Catalogo</h1>
+
+        <div class="store_bookGrid__Ps5Yl ">
           <div
             v-for="item in response.data.books"
             :key="item"
             class=""
           >
-          <router-link class="BookCard_card__CVnLd store_bookCard__SveR5" :to="`book/${item.id}`">
+          <router-link class="BookCard_card__CVnLd store_bookCard__SveR5 " :to="`book/${item.id}`">
             <img class="BookCard_image__sJlHo" :src="url_base + item.cover" />
             
               <div class="BookCard_textPart__W3q1f">
@@ -94,9 +50,9 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
           </div>
         </div>
       </section>
-      <div class="store_filterCol__PwzP_">
-        <aside class="store_filterBar__szdS1" style="">
-          <div class="store_checkGroup__4ho41">
+      <div class="store_filterCol__PwzP_ ">
+        <aside class="store_filterBar__szdS1 ">
+          <div class="store_checkGroup__4ho41  ">
             <h3>Disponibilidad</h3>
             <div>
               <input type="checkbox" class="Checkbox_checkbox__wYHKu" /><label
@@ -349,11 +305,13 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
   flex-direction: column;
   margin-bottom: 5rem;
   padding: 0 2rem;
+  
 }
 
 @media screen and (max-width: 1300px) {
   .store_mainContainer__wg8_C {
     margin: 0 auto;
+    
   }
 }
 
@@ -368,9 +326,7 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
   position: fixed;
   top: 0;
   width: 18rem;
-  height: 100vh;
   z-index: -10;
-  background-color: #f1f1f1;
   border-radius: 6px;
   padding: 1.5rem;
   flex-direction: column;
@@ -547,9 +503,4 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
   width: 100%;
 }
 
-.store_catalogTitle__roHG_ {
-  font-size: 3rem;
-  margin: 0;
-  padding-bottom: 2rem;
-}
 </style>
