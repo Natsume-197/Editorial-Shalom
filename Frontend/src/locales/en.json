@@ -13,7 +13,8 @@
       "login": "Log in",
       "logout": "Logout",
       "dashboard": "Dashboard",
-      "profile": "Profile"
+      "profile": "Profile",
+      "maintitle": "Welcome to Shalom Editorial!"
     }
   },
   "details_book": {}

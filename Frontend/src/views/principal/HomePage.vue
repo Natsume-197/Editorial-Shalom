@@ -13,7 +13,6 @@ import Footer from "../../components/home/Footer.vue";
       <LandingPage />
       <BookSeries />
       <Showcase />
-
     </div>
     <Footer />
   </div>

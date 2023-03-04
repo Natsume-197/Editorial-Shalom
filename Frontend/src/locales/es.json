@@ -1,20 +1,20 @@
 {
-    "navbar": {
-      "languages": {
-        "english": "Inglés",
-        "spanish": "Español"
-      },
-      "homepage": {
-        "home": "Inicio",
-        "books": "Libros",
-        "aboutus": "Sobre nosotros",
-        "contact": "Contacto",
-        "register": "Registrarse",
-        "login": "Iniciar sesión",
-        "logout": "Cerrar sesión",
-        "dashboard": "Dashboard",
-        "profile": "Perfil"
-      }
+  "navbar": {
+    "languages": {
+      "english": "Inglés",
+      "spanish": "Español"
+    },
+    "homepage": {
+      "home": "Inicio",
+      "books": "Libros",
+      "aboutus": "Sobre nosotros",
+      "contact": "Contacto",
+      "register": "Registrarse",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "dashboard": "Dashboard",
+      "profile": "Perfil",
+      "maintitle": "¡Bienvenidos a la Editorial Shalom!"
     }
   }
-  
+}
