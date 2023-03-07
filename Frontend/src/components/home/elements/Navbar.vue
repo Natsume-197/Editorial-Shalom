@@ -57,9 +57,9 @@ const user = computed(() => store.userInfo);
 <template>
   <header>
     <nav class="bg-white shadow-lg fixed w-full z-30 top-0 inset-x-0">
-      <div class="px-2 sm:px-6 lg:px-8">
+      <div class="px-2 sm:px-6 lg:px-8 " >
         <div class="relative flex items-center justify-between h-20">
-          <div class="absolute flex items-center lg:hidden">
+          <div class="absolute flex items-center lg:hidden" >
             <button
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               @click="isMenuOpen = !isMenuOpen"

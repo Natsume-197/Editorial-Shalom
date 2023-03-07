@@ -126,7 +126,7 @@ const submit = async () => {
             >
               <router-link to="/login">Iniciar Sesión</router-link>
             </button>
-            <div class="mt-6 text-center text-gray-700  ">
+            <div class="mt-6 text-center text-gray-700">
               ¿No tienes una cuenta?
               <router-link to="/register" class="hover:underline"
                 ><span class="font-bold text-sky-600"
