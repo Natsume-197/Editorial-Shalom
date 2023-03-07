@@ -1,72 +1,3 @@
-<template>
-  <div class="mx-auto flex flex-col min-h-screen">
-    <div class="flex-1">
-      <Navbar class="" />
-      <div class="box-form">
-        <div class="left">
-          <div class="overlay">
-            <h1>Editorial Shalom</h1>
-          </div>
-        </div>
-        <div class="right">
-          <h2 class="title">Inicio de Sesión</h2>
-          <form @submit.prevent="submit">
-            <div class="mt-6 text-center">
-              ¿No tiene una cuenta?
-              <router-link to="/register" class="hover:underline"
-                ><span class="font-bold">Registrese</span></router-link
-              >
-            </div>
-            <div class="inputs">
-              <input
-                ttype="email"
-                name="email"
-                v-model="data.email"
-                required
-                placeholder="Correo"
-                color
-              />
-              <br />
-              <input
-                :type="showPass ? 'text' : 'password'"
-                name="password"
-                required
-                v-model="data.password"
-                placeholder="Contraseña"
-              />
-            </div>
-            <br />
-            <div class="mt-6 flex items-center justify-between">
-              <div class="flex items-center relative left-1/2 -translate-x-1/2">
-                <Captcha
-                  name="recaptcha"
-                  @verify="onVerifyRecaptcha"
-                  @expired="onExpireRecaptcha"
-                />
-              </div>
-            </div>
-            <br />
-            <label
-              for="remember_me"
-              class="ml-2 mt-1 block text-sm leading-5 text-gray-900"
-            >
-              Recuerdame
-            </label>
-            <div class="mt-6 flex items-center justify-between">
-              <router-link to="/account/resetPassword" class="text-sm hover:underline">
-                ¿Has olvidado tu contraseña?
-              </router-link>
-            </div>
-            <br />
-            <button>Iniciar Sesión</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <Footer />
-  </div>
-</template>
-
 <script setup>
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -135,3 +66,78 @@ const submit = async () => {
     });
 };
 </script>
+
+<template>
+  <div class="mx-auto flex flex-col min-h-screen">
+    <div class="flex-1">
+      <Navbar class="" />
+      <div class="box-form bg-white">
+        <div class="left">
+          <div class="overlay"></div>
+        </div>
+        <div class="right">
+          <div
+            class="text-gray-700 text-center px-3 py-2 rounded-md text-2xl font-semibold"
+          >
+            Inicio de Sesión
+          </div>
+          <form @submit.prevent="submit">
+            <div class="">
+              <input
+                class="placeholder-gray-500"
+                type="email"
+                name="email"
+                v-model="data.email"
+                required
+                placeholder="Correo"
+                color
+              />
+              <br />
+              <input
+                class="placeholder-gray-500"
+                :type="showPass ? 'text' : 'password'"
+                name="password"
+                required
+                v-model="data.password"
+                placeholder="Contraseña"
+              />
+            </div>
+            <div class="mt-6 flex text-sky-600 justify-end font-bold">
+              <router-link to="/account/resetPassword" class="hover:underline">
+                ¿Has olvidado tu contraseña?
+              </router-link>
+            </div>
+            <br />
+            <div class="flex items-center justify-between">
+              <div
+                class="flex items-center relative left-1/2 -translate-x-1/2 px-12"
+              >
+                <Captcha
+                  name="recaptcha"
+                  @verify="onVerifyRecaptcha"
+                  @expired="onExpireRecaptcha"
+                />
+              </div>
+            </div>
+
+            <br />
+            <button
+              class="bg-sky-500 text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              <router-link to="/login">Iniciar Sesión</router-link>
+            </button>
+            <div class="mt-6 text-center text-gray-700  ">
+              ¿No tienes una cuenta?
+              <router-link to="/register" class="hover:underline"
+                ><span class="font-bold text-sky-600"
+                  >Registrate</span
+                ></router-link
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <Footer />
+  </div>
+</template>

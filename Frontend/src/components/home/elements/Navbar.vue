@@ -55,17 +55,13 @@ const user = computed(() => store.userInfo);
 </script>
 
 <template>
-  
   <header>
-    <nav class="bg-white shadow-lg fixed w-full z-30 top-0 inset-x-0 ">
+    <nav class="bg-white shadow-lg fixed w-full z-30 top-0 inset-x-0">
       <div class="px-2 sm:px-6 lg:px-8">
-        
         <div class="relative flex items-center justify-between h-20">
-          
           <div class="absolute flex items-center lg:hidden">
-            
             <button
-              class="inline-flex  items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               @click="isMenuOpen = !isMenuOpen"
             >
               <span class="sr-only">Abrir Menú</span>
@@ -101,12 +97,11 @@ const user = computed(() => store.userInfo);
               </svg>
             </button>
           </div>
-          
+
           <div
             class="flex-1 flex items-right justify-center items-stretch lg:justify-start"
           >
-          <router-link
-                to="/" class="flex-shrink-0 flex items-center">
+            <router-link to="/" class="flex-shrink-0 flex items-center">
               <img
                 class="block ml-10 lg:hidden h-10 w-auto"
                 src="../../../assets/icons/favicon.svg"
@@ -140,18 +135,14 @@ const user = computed(() => store.userInfo);
                   >{{ $t("navbar.homepage.contact") }}</router-link
                 >
               </div>
-              
             </div>
-            
           </div>
 
-          
           <LanguageChooser class="hidden md:hidden lg:inline-block" />
-          
 
           <div v-if="!isAuth">
             <div
-              class="hidden  sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+              class="hidden sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
             >
               <router-link
                 to="/register"
@@ -168,7 +159,7 @@ const user = computed(() => store.userInfo);
           <div v-else>
             <div v-if="user.roles.includes(1)">
               <div
-                class="hidden md:hidden lg:inline-flex	 sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
+                class="hidden md:hidden lg:inline-flex sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
               >
                 <div v-if="user.roles.includes(2)">
                   <router-link
@@ -192,8 +183,8 @@ const user = computed(() => store.userInfo);
                 </button>
               </div>
             </div>
-          </div>          <SearchBar class=""/>
-
+          </div>
+          <SearchBar class="" />
         </div>
       </div>
       <div
@@ -263,9 +254,7 @@ const user = computed(() => store.userInfo);
 
           <LanguageChooser class="p-1" />
         </div>
-        
       </div>
-      
     </nav>
   </header>
 </template>
