@@ -46,7 +46,7 @@
 
         <!-- text start -->
         <div
-          class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-500 rounded-xl shadow-xl animate-fade-in-down"
+          class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 rounded-l-lg shadow-xl animate-fade-in-down"
         >
           <p
             class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6"
@@ -126,8 +126,8 @@
   bottom: -1px;
   background-image: linear-gradient(
     to top,
-    rgb(2 132 199) 20%,
-    rgb(2 132 199) 80%
+    rgb(14 165 233) 20%,
+    rgb(14 165 233) 80%
   );
 }
 .bgTop {
