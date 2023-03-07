@@ -40,8 +40,9 @@ const submit = async () => {
       email: data.email,
       password: data.password,
       recaptcha: tokenCaptcha,
-    })
-    .then((response) => {
+    }).then((response) => {
+      console.log(response)
+
       store.$patch((state) => {
         state.isLoggedIn = true;
         state.userInfo = {
@@ -49,7 +50,7 @@ const submit = async () => {
           email: response.data.user.email,
           roles: response.data.user.roles.map((roles) => roles.id_role),
         };
-      });
+      })
 
       let searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect")) {
@@ -63,7 +64,40 @@ const submit = async () => {
           icon: true,
         });
       }
+    }).catch((error) => {
+      console.log(error);
+      if (error.response) {
+        // Si la respuesta de la API tiene un estado, el error provino de la API
+        const status = error.response.status;
+        const message = error.response.data.message;
+        toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+        console.log(error);
+      } else if (error.request) {
+        // Si la solicitud no pudo completarse, es un error de red
+        toast.error(
+          `Error al enviar la solicitud: Conexión con la API rechazada.`,
+          {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          }
+        );
+        console.log(error);
+      } else {
+        // En otros casos, puede haber un error en el código
+        toast.error(`Error al enviar la solicitud: ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+      }
+      console.log(error);
     });
+
 };
 </script>
 
