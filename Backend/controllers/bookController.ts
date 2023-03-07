@@ -126,10 +126,9 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
   try {
     const books = await Book_t.findAll({
       where: {
-        title: { [Op.iLike]: `%${req.query.query}%` }
+        title: { [Op.iLike]: `%${req.query.name}%` }
       },
     })
-
     return res.status(StatusCodes.OK).json({
       message: 'Se han encontrado los siguientes libros',
       books: books
