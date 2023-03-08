@@ -77,14 +77,14 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
             >
               <img
                 src="../../assets/images/medium-shot-kids-laying-together.jpg"
-                class="w-full h-full object-cover object-center animate-fade-in-down"
+                class="w-full h-full object-cover object-center "
               />
             </div>
           </div>
 
           <!-- text start -->
           <div
-            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 rounded-l-lg shadow-xl animate-fade-in-down"
+            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 rounded-l-lg shadow-xl "
           >
             <p
               class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6"
@@ -303,7 +303,7 @@ svg {
   text-align: center;
   background: linear-gradient(
     60deg,
-    rgb(158, 143, 228) 0%,
+    rgb(102, 147, 245)  0%,
     rgb(102, 147, 245) 100%
   );
   color: white;

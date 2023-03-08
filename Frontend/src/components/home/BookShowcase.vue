@@ -26,7 +26,7 @@ console.log(i18nLocale.locale.value);
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
 </script>
 <template>
-  <div class="lg:px-32 my-32">
+  <div class="lg:px-28 my-32">
     <div class="store_store__vh_9r">
       <section class="store_mainContainer__wg8_C rounded-lg">
         <h1
@@ -36,9 +36,9 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
         </h1>
 
         <section v-if="!response.data" class="bg-white dark:bg-gray-900">
-          <div class="container px-6 py-10 mx-auto animate-pulse">
+          <div class="container py-10 mx-auto animate-pulse">
             <div
-              class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3"
+              class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-32 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3"
             >
               <div class="w-full">
                 <div
@@ -146,9 +146,10 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
             </div>
           </div>
         </section>
-
+        <template v-if="response.data">
+        
         <div class="store_bookGrid__Ps5Yl">
-          <template v-if="response.data">
+          
             <div v-for="item in response.data.books" :key="item" class="">
               <router-link
                 class="BookCard_card__CVnLd store_bookCard__SveR5"
@@ -180,9 +181,10 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
                 </div>
               </router-link>
             </div>
-          </template>
         </div>
+      </template>
       </section>
+      <template v-if="response.data">
       <div class="store_filterCol__PwzP_">
         <aside class="store_filterBar__szdS1">
           <div class="store_checkGroup__4ho41">
@@ -210,9 +212,13 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
             Aplicar Filtro
           </button>
         </aside>
+        
       </div>
+    </template>
     </div>
+    
   </div>
+  
 </template>
 
 <style>
