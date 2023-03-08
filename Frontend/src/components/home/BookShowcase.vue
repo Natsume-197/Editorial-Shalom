@@ -1,58 +1,191 @@
 <script setup>
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 import { api } from "../../utils/axios";
 
-const response = await api.get(`book`);
-console.log(response);
+const response = reactive({
+  data: null,
+});
+
+async function getBooks() {
+  try {
+    const res = await api.get(`book`);
+    response.data = res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+onMounted(() => {
+  getBooks();
+});
 
 const i18nLocale = useI18n();
 console.log(i18nLocale.locale.value);
 
-const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
-
+const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
 </script>
 <template>
-  <div class="px-32  my-32 ">
+  <div class="lg:px-32 my-32">
     <div class="store_store__vh_9r">
       <section class="store_mainContainer__wg8_C rounded-lg">
-        <h1 class="store_catalogTitle__roHG_ text-black font-semibold text-5xl mb-10">Catalogo</h1>
+        <h1
+          class="store_catalogTitle__roHG_ text-black font-semibold text-5xl mb-10"
+        >
+          Catalogo de libros
+        </h1>
 
-        <div class="store_bookGrid__Ps5Yl ">
-          <div
-            v-for="item in response.data.books"
-            :key="item"
-            class=""
-          >
-          <router-link class="BookCard_card__CVnLd store_bookCard__SveR5 " :to="`book/${item.id}`">
-            <img class="BookCard_image__sJlHo" :src="url_base + item.cover" />
-            
-              <div class="BookCard_textPart__W3q1f">
-                <h3 class="BookCard_title__AgSkT">
-                  {{ item.book_t[0].title }}
-                </h3>
-                <h5 class="BookCard_author__TF7aM"></h5>
-                <p class="BookCard_coverType__WYHhd">
-                  {{ item.category.name }}
-                </p>
-                <h3 class="BookCard_price__7PWNw">
-                  {{
-                    item.price.toLocaleString("es-CO", {
-                      style: "currency",
-                      currency: "COP",
-                      maximumFractionDigits: 0,
-                      useGrouping: true,
-                    })
-                  }}
-                </h3>
+        <section v-if="!response.data" class="bg-white dark:bg-gray-900">
+          <div class="container px-6 py-10 mx-auto animate-pulse">
+            <div
+              class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3"
+            >
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
               </div>
-            </router-link>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+
+              <div class="w-full">
+                <div
+                  class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"
+                ></div>
+
+                <h1
+                  class="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></h1>
+                <p
+                  class="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"
+                ></p>
+              </div>
+            </div>
           </div>
+        </section>
+
+        <div class="store_bookGrid__Ps5Yl">
+          <template v-if="response.data">
+            <div v-for="item in response.data.books" :key="item" class="">
+              <router-link
+                class="BookCard_card__CVnLd store_bookCard__SveR5"
+                :to="`book/${item.id}`"
+              >
+                <img
+                  class="BookCard_image__sJlHo"
+                  :src="url_base + item.cover"
+                />
+
+                <div class="BookCard_textPart__W3q1f">
+                  <h3 class="BookCard_title__AgSkT">
+                    {{ item.book_t[0].title }}
+                  </h3>
+                  <h5 class="BookCard_author__TF7aM"></h5>
+                  <p class="BookCard_coverType__WYHhd">
+                    {{ item.category.name }}
+                  </p>
+                  <h3 class="BookCard_price__7PWNw">
+                    {{
+                      item.price.toLocaleString("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        maximumFractionDigits: 0,
+                        useGrouping: true,
+                      })
+                    }}
+                  </h3>
+                </div>
+              </router-link>
+            </div>
+          </template>
         </div>
       </section>
-      <div class="store_filterCol__PwzP_ ">
-        <aside class="store_filterBar__szdS1 ">
-          <div class="store_checkGroup__4ho41  ">
+      <div class="store_filterCol__PwzP_">
+        <aside class="store_filterBar__szdS1">
+          <div class="store_checkGroup__4ho41">
             <h3>Disponibilidad</h3>
             <div>
               <input type="checkbox" class="Checkbox_checkbox__wYHKu" /><label
@@ -305,13 +438,11 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
   flex-direction: column;
   margin-bottom: 5rem;
   padding: 0 2rem;
-  
 }
 
 @media screen and (max-width: 1300px) {
   .store_mainContainer__wg8_C {
     margin: 0 auto;
-    
   }
 }
 
@@ -502,5 +633,4 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM +"/assets/books/covers/"
 .store_apply__kMb3i {
   width: 100%;
 }
-
 </style>

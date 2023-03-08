@@ -113,6 +113,7 @@ async function addBooks(amount: number) {
         total_pages: faker.random.numeric(3),
         price: faker.finance.amount(30000, 110000, 0),
         units_available: faker.datatype.number({ min: 1, max: 100 }),
+        cover: 'test.jpg',
         book_t: [
           {
             id_language: 1,

@@ -4,6 +4,68 @@
 of Simple CSS Waves-->
 
   <div class="header">
+    <div class="clouds">
+
+
+      
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud big front slowest">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud distant smaller">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud small slow">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud distant super-slow massive">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud slower">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud slower">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="362px"
+height="431px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud slower inset-x-72">
+<path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+</svg>
+
+
+</div>
     <div class="pb-6 sm:pb-8 lg:pb-12 mt-32">
       <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
         <section
@@ -94,20 +156,155 @@ of Simple CSS Waves-->
         </g>
       </svg>
     </div>
+
     <!--Waves end-->
   </div>
+
   <!--Header ends-->
 </template>
 
 <style>
+.frame {
+  width: 1000px;
+  height: auto;
+  margin: 15% auto 0;
+  position: absolute;
+  width: 100%;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.cloud {
+  position: absolute;
+  top: 20%;
+  width: 300px;
+  right: 0;
+  opacity: 1;
+}
+
+.cloud.front {
+  z-index: 9;
+}
+
+.cloud.distant {
+  z-index: 1;
+}
+
+.cloud.background {
+  z-index: 1;
+}
+
+/*Cloud Sizing*/
+.cloud.smaller {
+  margin-right: 400px;
+  width: 100px;
+  margin-top: 50px;
+}
+
+.cloud.small {
+  margin-right: 200px;
+  width: 150px;
+}
+
+.cloud.big {
+  width: 500px;
+  margin-top: 250px;
+  margin-right: 150px;
+}
+
+.cloud.massive {
+  width: 600px;
+  margin-top: 300px;
+  margin-right: 0px;
+}
+
+/*Cloud: Animation*/
+.cloud {
+  -webkit-animation-name: cloud-movement;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-direction: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 18s;
+
+  -moz-animation-name: cloud-movement;
+  -moz-animation-timing-function: linear;
+  -moz-animation-direction: forwards;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 18s;
+
+  animation-name: cloud-movement;
+  animation-timing-function: linear;
+  animation-direction: forwards;
+  animation-iteration-count: infinite;
+  animation-duration: 18s;
+}
+
+.slow {
+  -webkit-animation-duration: 12.2s;
+  -moz-animation-duration: 12.2s;
+  animation-duration: 12.2s;
+}
+
+.slower {
+  -webkit-animation-duration: 15.2s;
+  -moz-animation-duration: 15.2s;
+  animation-duration: 15.2s;
+}
+
+.slowest {
+  -webkit-animation-duration: 16.5s;
+  -moz-animation-duration: 16.5s;
+  animation-duration: 16.5s;
+}
+
+.super-slow {
+  -webkit-animation-duration: 24.5s;
+  -moz-animation-duration: 24.5s;
+  animation-duration: 24.5s;
+}
+
+@keyframes cloud-movement {
+  0% {
+    opacity: 0.1;
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    transform: translateX(500px);
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2400px);
+    -moz-transform: translateX(-2400px);
+    transform: translateX(-2400px);
+  }
+}
+
 .header {
   position: relative;
   overflow: hidden;
   text-align: center;
   background: linear-gradient(
     60deg,
-    rgb(151, 132, 235) 0%,
-    rgb(24, 164, 230) 100%
+    rgb(158, 143, 228) 0%,
+    rgb(102, 147, 245) 100%
   );
   color: white;
 }
@@ -126,13 +323,6 @@ of Simple CSS Waves-->
   margin-bottom: -7px; /*Fix for safari gap*/
   min-height: 100px;
   max-height: 150px;
-}
-
-.content {
-  position: relative;
-  height: 20vh;
-  text-align: center;
-  background-color: white;
 }
 
 /* Animation */

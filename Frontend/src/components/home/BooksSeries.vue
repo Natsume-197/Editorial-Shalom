@@ -1,4 +1,5 @@
 <template>
+  
   <div class="bg-white">
     <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20">
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
@@ -12,7 +13,7 @@
             />
           </div>
         </div>
-        <div class="md:pt-8">
+        <div class="md:pt-8 -order-1 md:order-1">
           <p class="text-rose-500 font-bold text-center md:text-left">Inglés</p>
 
           <h1
@@ -74,12 +75,12 @@
       </div>
     </div>
 
-    <div class="bg-white">
-      <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20">
-        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+    <div class="bg-white ">
+      <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20 ">
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12 ">
           <div>
             <div
-              class="h-auto md:h-auto bg-gray-100 overflow-hidden rounded-lg"
+              class="h-auto md:h-auto bg-gray-100 overflow-hidden rounded-lg "
             >
               <img
                 src="../../assets/images/book3.svg"
@@ -89,7 +90,7 @@
               />
             </div>
           </div>
-          <div class="md:pt-8">
+          <div class="md:pt-8 -order-1 md:order-1">
             <p class="text-rose-500 font-bold text-center md:text-left">
               Integrados
             </p>
