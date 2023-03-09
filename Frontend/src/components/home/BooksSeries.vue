@@ -1,10 +1,19 @@
 <template>
-  
+ 
+<div class="container px-6 pt-6 mx-auto">
+
+  <h1 class="text-2xl font-semibold text-gray-800 mb-10 lg:text-3xl  dark:text-white">
+            Conoce nuestras  <span class="underline decoration-rose-500">series</span>  de libros principales
+        </h1>
+
+                    
   <div class="bg-white">
-    <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20">
+    
+    <div class=" px-4 md:px-8 mx-auto mb-20 ">
+      
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div>
-          <div class="h-auto md:h-auto bg-gray-100 overflow-hidden rounded-lg">
+          <div class="h-auto md:h-auto  overflow-hidden rounded-lg">
             <img
               src="../../assets/images/book1.svg"
               loading="lazy"
@@ -22,7 +31,7 @@
             Little Geniuses
           </h1>
 
-          <p class="text-gray-500 sm:text-xl mb-6 md:mb-8">
+          <p class="text-gray-500 sm:text-xl mb-6 md:mb-8 	">
             Tiene como objetivo principal desarrollar un amplio vocabulario del
             idioma inglés, al igual que sucede con la lengua maternal.
 
@@ -36,7 +45,8 @@
   </div>
 
   <div class="bg-white">
-    <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20">
+    
+    <div class=" px-4 md:px-8 mx-auto mb-20">
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div class="md:pt-8">
           <p class="text-rose-500 font-bold text-center md:text-left">
@@ -62,7 +72,7 @@
         </div>
         <div>
           <div
-            class="h-auto md:h-auto bg-gray-100 overflow-hidden rounded-lg flex items-center justify-center"
+            class="h-auto md:h-auto  overflow-hidden rounded-lg flex items-center justify-center"
           >
             <img
               src="../../assets/images/book2.svg"
@@ -76,11 +86,11 @@
     </div>
 
     <div class="bg-white ">
-      <div class="max-w-screen-xl px-4 md:px-8 mx-auto mb-20 ">
+      <div class=" px-4 md:px-8 mx-auto mb-20 ">
         <div class="grid md:grid-cols-2 gap-8 lg:gap-12 ">
           <div>
             <div
-              class="h-auto md:h-auto bg-gray-100 overflow-hidden rounded-lg "
+              class="h-auto md:h-auto  overflow-hidden rounded-lg "
             >
               <img
                 src="../../assets/images/book3.svg"
@@ -118,4 +128,5 @@
       </div>
     </div>
   </div>
+</div>
 </template>

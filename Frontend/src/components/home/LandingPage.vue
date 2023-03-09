@@ -3,7 +3,9 @@
   <!--Hey! This is the original version
 of Simple CSS Waves-->
 
+
   <div class="header">
+    
     <div class="clouds">
 
 
@@ -66,6 +68,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 
 
 </div>
+
     <div class="pb-6 sm:pb-8 lg:pb-12 mt-32">
       <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
         <section
@@ -84,7 +87,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 
           <!-- text start -->
           <div
-            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 rounded-l-lg shadow-xl "
+            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 lg:top-44 rounded-l-lg shadow-xl "
           >
             <p
               class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6"
@@ -113,7 +116,9 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
           </div>
           <!-- text end -->
         </section>
+        
       </div>
+      
     </div>
     <!--Content before waves-->
 
@@ -154,9 +159,14 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
           />
           <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
         </g>
+        
       </svg>
+      
     </div>
-
+    <a class="lg:container-arrow lg:scroll-to" href="#cards">
+  <span>
+    <i class="lg:fa lg:fa-angle-down" aria-hidden="true"></i>  </span>
+</a>
     <!--Waves end-->
   </div>
 
@@ -164,6 +174,32 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 </template>
 
 <style>
+.container-arrow{
+    margin-top: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color:rgb(59, 68, 78);
+    display: inline-block;
+    text-align: center;
+	  line-height: 40px;
+	  position: absolute;
+	  bottom:0;left:0;
+	  z-index: 10;
+	  width:100%;
+	  padding-bottom: 55px;
+	  cursor: pointer;
+	  font-size: 12px; 
+	}
+	.container-arrow:hover,
+	.container-arrow:focus{text-decoration: none;}
+
+		/* Arrow Bouncing */
+		.container-arrow span{  display: inline-block; font-size: 80px;	 animation: .7s down  infinite alternate; -webkit-animation: .7s down infinite alternate; } 
+		/***Animation Arrow down***/ 
+		@keyframes down{ 0%{transform:translateY(0px)} 100%{transform:translateY(20px)} } 
+		@-webkit-keyframes down{ 0%{-webkit-transform:translateY(0px)} 100%{-webkit-transform:translateY(20px)} } 
+		
+
 .frame {
   width: 1000px;
   height: auto;

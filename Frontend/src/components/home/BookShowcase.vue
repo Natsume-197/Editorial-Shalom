@@ -26,7 +26,9 @@ console.log(i18nLocale.locale.value);
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
 </script>
 <template>
+  
   <div class="lg:px-28 my-32">
+    
     <div class="store_store__vh_9r">
       <section class="store_mainContainer__wg8_C rounded-lg">
         <h1

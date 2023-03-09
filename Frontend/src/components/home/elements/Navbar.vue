@@ -56,7 +56,7 @@ const user = computed(() => store.userInfo);
 
 <template>
   <header>
-    <nav class="bg-white shadow-lg fixed w-full z-30 top-0 inset-x-0">
+    <nav class="bg-white fixed w-full z-30 top-0 inset-x-0 border-b-4 border-yellow-500"> 
       <div class="px-2 sm:px-6 lg:px-8 " >
         <div class="relative flex items-center justify-between h-20">
           <div class="absolute flex items-center lg:hidden" >
