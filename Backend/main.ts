@@ -48,11 +48,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api', router)
 app.use(handleErrors)
 
-// Access media uploaded from outside (DigitalOcean)
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers'), {fallthrough: false}))
-
 // Access media uploaded from outside localhost
 app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers'),{fallthrough: false}))
+
+// Access media uploaded from outside (DigitalOcean)
+app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers'), {fallthrough: false}))
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)
