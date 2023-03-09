@@ -13,8 +13,8 @@ import Footer from "../../components/home/Footer.vue";
       <Navbar />
       <LandingPage />
       <LandingFeatures/>
-      <BookSeries />
       <Showcase />
+      <BookSeries />
     </div>
     <Footer />
   </div>

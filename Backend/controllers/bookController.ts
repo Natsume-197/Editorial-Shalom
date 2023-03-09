@@ -124,13 +124,18 @@ export const findBook = async (req: Request, res: Response, next: NextFunction) 
 
 export const searchBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const books = await Book_t.findAll({
+    const books = await Book.findAll({
       where: {
-        title: { [Op.iLike]: `%${req.query.name}%` }
+        '$book_t.title$': { [Op.iLike]: `%${req.query.name}%` },
       },
+      include: [
+        {
+          model: Book_t,
+        },
+        Category,
+      ],
     })
     return res.status(StatusCodes.OK).json({
-      message: 'Se han encontrado los siguientes libros',
       books: books
     })
   } catch (error) {

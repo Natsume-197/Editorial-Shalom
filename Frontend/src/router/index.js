@@ -92,9 +92,10 @@ const router = createRouter({
       component: () => import("../views/account/RestorePassword.vue"),
     },
     {
-      path: "/search/",
+      path: "/search",
       name: "SearchBook",
-      component: () => import("../views/book/SearchPage.vue"),
+      props: route => ({ query: route.query.query }),
+      component: () => import("../views/principal/SearchPage.vue"),
     },
     {
       path: "/book/:id/:name?",

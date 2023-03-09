@@ -37,15 +37,13 @@ const carouselItems = [
       "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg?width=914&height=671",
   },
 ];
-
-
 </script>
 
 <template>
-  <div class="w-full lg:w-2/3 px-4 md:px-8 mx-auto bg-sky-500 pt-10">
+  <div class="w-full px-4 md:px-8 mx-auto bg-sky-500 pt-10">
     <div class="tabs text-center">
       <TabGroup>
-        <TabList class="space-x-10 mb-10 ">
+        <TabList class="space-x-10 mb-10">
           <Tab
             v-for="category in categories"
             as="template"
@@ -66,11 +64,11 @@ const carouselItems = [
           </Tab>
         </TabList>
         <div class="content-tabs">
-          <TabPanels class="m-2 sm:mx-52 md:mx-20 ">
+          <TabPanels class="m-2 sm:mx-52 md:mx-20">
             <TabPanel>
               <swiper-container
                 :pagination="{
-                  type: 'bullets'
+                  type: 'bullets',
                 }"
                 :autoplay="{
                   delay: 3500,
@@ -124,10 +122,7 @@ const carouselItems = [
                 </swiper-slide>
               </swiper-container>
             </TabPanel>
-            <TabPanel>
-
-              
-            </TabPanel>
+            <TabPanel> </TabPanel>
           </TabPanels>
         </div>
       </TabGroup>

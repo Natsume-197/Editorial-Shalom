@@ -184,7 +184,7 @@ const user = computed(() => store.userInfo);
               </div>
             </div>
           </div>
-          <SearchBar class="" />
+          <SearchBar />
         </div>
       </div>
       <div
