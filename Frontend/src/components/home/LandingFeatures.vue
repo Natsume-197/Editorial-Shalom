@@ -1,6 +1,6 @@
 <template>
      <section class="bg-white dark:bg-gray-900">
-    <div class="container px-6 py-10 mx-auto">
+    <div class="container px-6 py-10 mb-10 mx-auto">
         <h1 class="text-2xl font-semibold text-gray-800  lg:text-3xl dark:text-white">Explora nuestro increíble y dedicado catalogo de  <span class="underline decoration-blue-500">libros para niños</span></h1>
 
 

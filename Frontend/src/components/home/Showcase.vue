@@ -24,11 +24,6 @@ const carouselItems = [
   {
     title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
     imageSrc:
-      "https://www.nautiljon.com/images/manga/00/17/tensei_oujo_to_tensai_reijou_no_mahou_kakumei_16171.webp",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc:
       "https://cdn.novelupdates.com/images/2020/01/revolution-cover.jpg",
   },
   {
@@ -40,7 +35,7 @@ const carouselItems = [
 </script>
 
 <template>
-  <div class="w-full px-4 md:px-8 mx-auto bg-sky-500 pt-10">
+  <div class="w-full px-4 md:px-32 mx-auto bg-sky-500 pt-10">
     <div class="tabs text-center">
       <TabGroup>
         <TabList class="space-x-10 mb-10">
@@ -55,7 +50,7 @@ const carouselItems = [
                 ' text-lg font-semibold text-white md:text-xl ',
                 'text-lg font-semibold text-white md:text-xl ',
                 selected
-                  ? 'text-lg font-semibold text-white-300 cursor-default outline-none bg-purple-500 w-24 h-12 text-center items-center rounded-xl'
+                  ? 'text-lg font-semibold text-white-300 cursor-default outline-none w-24 h-12 text-center items-center rounded-xl bg-cyan-800 text-yellow-300'
                   : 'text-lg font-semibold underline hover:no-underline',
               ]"
             >
@@ -64,7 +59,7 @@ const carouselItems = [
           </Tab>
         </TabList>
         <div class="content-tabs">
-          <TabPanels class="m-2 sm:mx-52 md:mx-20">
+          <TabPanels class="sm:mx-52 md:mx-20">
             <TabPanel>
               <swiper-container
                 :pagination="{
@@ -112,20 +107,34 @@ const carouselItems = [
                       />
                       <div class="sm:p-2">
                         <!-- Heading -->
-                        <h2 class="text-sm sm:text-lg">
+                        <h2 class="text-sm sm:text-lg font-medium">
                           {{ item.title }}
                         </h2>
                       </div>
                     </div>
                   </router-link>
                   <br /><br /><br />
+                  
                 </swiper-slide>
+                
               </swiper-container>
+
+  
+              <br />
             </TabPanel>
             <TabPanel> </TabPanel>
           </TabPanels>
         </div>
       </TabGroup>
+    </div>
+  </div>
+  <div class="w-full px-4 md:px-8 mx-auto  bg-sky-400">
+    <div class="flex w-full flex-col gap-2.5 sm:flex-row sm:justify-center">
+      <a
+        href="#"
+        class="inline-block rounded-lg bg-rose-500 px-8 py-3 text-center text-lg font-bold m-10 text-white outline-none transition duration-100 hover:bg-rose-600 focus-visible:ring"
+        >Click aquí para explorar nuestra tienda</a
+      >
     </div>
   </div>
 </template>

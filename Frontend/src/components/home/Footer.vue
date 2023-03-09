@@ -8,7 +8,7 @@
           </p>
           <div class="border-l border-white pl-2 ml-2">
             <p class="text-base leading-4 text-white">
-                Todos los derechos reservados.
+                Todos los derechos reservados
             </p>
           </div>
 
