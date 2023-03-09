@@ -13,7 +13,7 @@
                     </svg>
                 </span>
 
-                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Hechos en casa</h1>
+                <h1 class="text-xl font-semibold text-gray-700  dark:text-white">Hechos en casa</h1>
 
                 <p class="text-gray-500 dark:text-gray-300">
                     Nuestros libros están hechos aquí en la Editorial Shalom. Cuidadosamente curados y editados para garantizar la máxima calidad en términos de contenido, estructura y presentación.
@@ -28,7 +28,7 @@
                     </svg>
                 </span>
 
-                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Amplia variedad de libros</h1>
+                <h1 class="text-xl font-semibold text-gray-700  dark:text-white">Amplia variedad de libros</h1>
 
                 <p class="text-gray-500 dark:text-gray-300">
                   Publicamos libros que cubren una amplia variedad de temas incluyendo matemáticas, español, Lectoescritura e inglés para niños de preescolar que se encuentre en el rango de 2 a 5 años.
@@ -42,7 +42,7 @@
                     </svg>
                 </span>
 
-                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Personalización</h1>
+                <h1 class="text-xl font-semibold text-gray-700  dark:text-white">Personalización</h1>
 
                 <p class="text-gray-500 dark:text-gray-300">
                   Brindamos la posibilidad de personalizar algunos de nuestros libros seleccionados, como el idioma y en el caso de aquellos de lectoescritura, el tipo de letra  y el tamaño de letra.
