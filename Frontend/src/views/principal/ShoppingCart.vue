@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed , watch} from "vue";
+import { ref, computed, watch } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -26,22 +26,25 @@ const current_items = computed(() => store.shoppingCart.items);
 
 const removeItemCart = (itemId) => {
   // Si el item existe, elimina el elemento
-  console.log(current_items)
+  console.log(current_items);
   if (itemId !== -1) {
     store.$patch((state) => {
       state.shoppingCart.items.splice(itemId, 1);
     });
   }
 };
+
 const totalPrice = computed(() => {
-  return current_items.value.reduce((total, item) => {
-    console.log(item.price)
-    return total =  total + parseFloat(item.price.replace('$', ''));
-  }, 0);
+ let total = null
+  try {
+    return current_items.value.reduce((total, item) => {
+      console.log(item.price);
+      return (total = total + parseFloat(item.price.replace("$", "")));
+    }, 0);
+  } catch (error) {
+    return total = 0;
+  }
 });
-
-
-
 </script>
 <template>
   <TransitionRoot as="template" :show="value">
@@ -163,9 +166,7 @@ const totalPrice = computed(() => {
                       <p>Subtotal</p>
                       <p>$ {{ totalPrice.toFixed(3) }} (COP)</p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">
-                      
-                    </p>
+                    <p class="mt-0.5 text-sm text-gray-500"></p>
                     <div class="mt-6">
                       <a
                         href="#"

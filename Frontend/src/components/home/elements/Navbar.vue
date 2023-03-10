@@ -58,6 +58,8 @@ const logout = () => {
     });
 };
 const user = computed(() => store.userInfo);
+
+
 </script>
 
 <template>
@@ -152,7 +154,7 @@ const user = computed(() => store.userInfo);
             <strong
               class="relative inline-flex items-center rounded border-gray-200 px-1.5 py-1.5 text-xs font-medium"
             >
-              <span v-if="store.shoppingCart.items.length !== 0"
+            <span v-if="store.shoppingCart.items ? store.shoppingCart.items.length !== 0 : false"
                 class="absolute -top-2 -right-2 h-5 w-5 rounded-full text-white bg-rose-500 flex justify-center items-center items"
                 ><span>{{ store.shoppingCart.items.length }}</span></span
               >
