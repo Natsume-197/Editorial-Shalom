@@ -8,10 +8,16 @@ import { useRouter } from "vue-router";
 import BaseDivider from "../../dashboard/minimal/BaseDivider.vue";
 import LanguageChooser from "../elements/LanguageChooser.vue";
 import SearchBar from "./SearchBar.vue";
+import { mdiCartMinus } from "@mdi/js";
+import ShoppingCart from "../../../views/principal/ShoppingCart.vue";
+
+import BaseIcon from "../../dashboard/minimal/BaseIcon.vue";
 
 const toast = useToast();
 const store = userStore();
 const router = useRouter();
+
+const isCartActive = ref(false);
 
 let locale = "";
 let isMenuOpen = ref(false);
@@ -55,11 +61,14 @@ const user = computed(() => store.userInfo);
 </script>
 
 <template>
+  <ShoppingCart class="z-50" v-model="isCartActive" />
   <header>
-    <nav class="bg-white fixed w-full z-30 top-0 inset-x-0 border-b-4 border-yellow-500"> 
-      <div class="px-2 sm:px-6 lg:px-8 " >
+    <nav
+      class="bg-white fixed w-full z-30 top-0 inset-x-0 border-b-4 border-yellow-500"
+    >
+      <div class="px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between h-20">
-          <div class="absolute flex items-center lg:hidden" >
+          <div class="absolute flex items-center lg:hidden">
             <button
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               @click="isMenuOpen = !isMenuOpen"
@@ -139,6 +148,28 @@ const user = computed(() => store.userInfo);
           </div>
 
           <LanguageChooser class="hidden md:hidden lg:inline-block" />
+          <div class="">
+            <strong
+              class="relative inline-flex items-center rounded border-gray-200 px-1.5 py-1.5 text-xs font-medium"
+            >
+              <span v-if="store.shoppingCart.items.length !== 0"
+                class="absolute -top-2 -right-2 h-5 w-5 rounded-full text-white bg-rose-500 flex justify-center items-center items"
+                ><span>{{ store.shoppingCart.items.length }}</span></span
+              >
+              <button
+                class="flex items-center justify-between lg:ml-6 lg:-mr-1 mx-2 bg-white rounded-lg"
+                @click="isCartActive = true"
+              >
+                <BaseIcon
+                  :path="mdiCartMinus"
+                  w=""
+                  h=""
+                  size="30"
+                  class="items-center"
+                />
+              </button>
+            </strong>
+          </div>
 
           <div v-if="!isAuth">
             <div
@@ -184,6 +215,7 @@ const user = computed(() => store.userInfo);
               </div>
             </div>
           </div>
+
           <SearchBar />
         </div>
       </div>

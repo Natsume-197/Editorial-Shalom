@@ -87,13 +87,24 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 
           <!-- text start -->
           <div
-            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 lg:top-44 rounded-l-lg shadow-xl "
+            class="sm:max-w-xl flex flex-col items-center relative p-4 bg-sky-600 lg:top-20 rounded-l-lg shadow-xl "
           >
+
+          <div class="flex align-middle items-center">
+
+         
+          <img
+                class="hidden lg:ml-6 lg:inline-block lg:h-28"
+                src="../../assets/icons/favicon.svg"
+              />
+
             <p
               class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6"
             >
               ¡Bienvenidos a la Editorial Shalom!
             </p>
+          </div>
+            
             <h1 class="text-white text-lg sm:text-xl text-center mb-4 md:mb-4">
               Libros educativos para niños en edad de preescolar
             </h1>
@@ -337,11 +348,7 @@ svg {
   position: relative;
   overflow: hidden;
   text-align: center;
-  background: linear-gradient(
-    60deg,
-    rgb(102, 147, 245)  0%,
-    rgb(102, 147, 245) 100%
-  );
+background: linear-gradient(15deg, rgb(14 165 233) 0%, rgb(14 165 233) 100%);
   color: white;
 }
 

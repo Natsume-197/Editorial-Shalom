@@ -7,12 +7,15 @@ export const userStore = defineStore('user', {
       name: null,
       email: null,
       roles: null
+    },
+    shoppingCart: {
+      items: null
     }
   }),
   persist: {
     key: 'info',
     storage: window.localStorage,
-    paths: ['isLoggedIn', 'userInfo']
+    paths: ['isLoggedIn', 'userInfo', 'shoppingCart']
   }
   
 })
