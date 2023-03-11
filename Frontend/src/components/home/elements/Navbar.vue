@@ -110,7 +110,7 @@ const user = computed(() => store.userInfo);
           </div>
 
           <div
-            class="flex-1 flex items-right justify-center items-stretch lg:justify-start"
+            class="flex-1 flex items-right justify-center  items-center lg:justify-start"
           >
             <router-link to="/" class="flex-shrink-0 flex items-center">
               <img
@@ -122,7 +122,7 @@ const user = computed(() => store.userInfo);
                 src="../../../assets/icons/favicon.svg"
               />
             </router-link>
-            <p class="ml-4 mt-1 text-2xl lg:hidden">Editorial Shalom</p>
+            <p class="ml-4 mt-1 text-xl items-center lg:text-2xl lg:hidden">Editorial Shalom</p>
             <div class="hidden md:hidden lg:block lg:ml-6">
               <div class="flex space-x-4 text-center">
                 <router-link
@@ -159,14 +159,14 @@ const user = computed(() => store.userInfo);
                 ><span>{{ store.shoppingCart.items.length }}</span></span
               >
               <button
-                class="flex items-center justify-between lg:ml-6 lg:-mr-1 mx-2 bg-white rounded-lg"
+                class="flex items-center justify-between outline-none lg:ml-6 lg:-mr-1 mx-2 bg-white rounded-lg"
                 @click="isCartActive = true"
               >
                 <BaseIcon
                   :path="mdiCartMinus"
                   w=""
                   h=""
-                  size="30"
+                  size="32"
                   class="items-center"
                 />
               </button>

@@ -103,6 +103,11 @@ const router = createRouter({
       component: () => import("../views/principal/DetailsPage.vue"),
     },
     {
+      path: "/shopping-form",
+      name: "ShoppingForm",
+      component: () => import("../views/principal/ShoppingForm.vue"),
+    },
+    {
       path: "/:catchAll(.*)",
       name: "not-found",
       component: () => import("../views/principal/NotFoundPage.vue"),

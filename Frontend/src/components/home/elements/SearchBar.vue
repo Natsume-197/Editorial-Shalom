@@ -155,7 +155,7 @@ input[type="search"]::-webkit-search-decoration,
     margin-right: 0;
   }
   .search input[type="search"]:focus {
-    width: 460px;
+    width: 560px;
   }
 }
 

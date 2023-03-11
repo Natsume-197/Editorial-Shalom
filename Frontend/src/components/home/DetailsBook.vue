@@ -45,6 +45,7 @@ const data = reactive({
     .toLocaleString()
     .split(",")[0],
   cover: url_base + response.data.book.cover,
+  amount_selected: 1
 });
 
 let showModal = ref(false);

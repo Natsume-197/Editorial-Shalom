@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, reactive } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -34,17 +34,42 @@ const removeItemCart = (itemId) => {
   }
 };
 
+const removeAllItemCart = () => {
+  store.$patch((state) => {
+    state.shoppingCart.items = [];
+  });
+};
+
 const totalPrice = computed(() => {
- let total = null
+  let total = null;
   try {
     return current_items.value.reduce((total, item) => {
-      console.log(item.price);
-      return (total = total + parseFloat(item.price.replace("$", "")));
+      return (total =
+        total +
+        parseFloat(item.price.replace("$", "")) *
+          parseFloat(item.amount_selected));
     }, 0);
   } catch (error) {
-    return total = 0;
+    return (total = 0);
   }
 });
+
+const incrementCounter = (index) => {
+  current_items.value[index].amount_selected++;
+};
+
+const decrementCounter = (index) => {
+  if (current_items.value[index].amount_selected > 1) {
+    current_items.value[index].amount_selected--;
+  }
+};
+
+let isLoading = ref(false);
+
+const buyProduct = () => {
+  console.log(current_items);
+  isLoading.value = true;
+};
 </script>
 <template>
   <TransitionRoot as="template" :show="value">
@@ -111,7 +136,7 @@ const totalPrice = computed(() => {
                             class="flex py-6"
                           >
                             <div
-                              class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
+                              class="h-30 w-32 md:w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
                             >
                               <img
                                 :src="product.cover"
@@ -129,18 +154,44 @@ const totalPrice = computed(() => {
                                       product.title
                                     }}</a>
                                   </h3>
+
                                   <p class="ml-4">{{ product.price }}</p>
                                 </div>
-                                <p class="mt-1 text-sm text-gray-500">
+
+                                <p
+                                  class="mt-1 text-sm font-semibold text-gray-500 mb-1"
+                                >
                                   {{ product.category }}
                                 </p>
                               </div>
+
+                              <p class="mt-1 text-sm text-gray-500">Unidades</p>
                               <div
                                 class="flex flex-1 items-end justify-between text-sm"
                               >
-                                <p class="text-gray-500">
-                                  Unidades: 1{{ product.quantity }}
-                                </p>
+                                <div
+                                  class="flex h-10 w-24 overflow-hidden rounded border border-gray-300"
+                                >
+                                  <input
+                                    :value="product.amount_selected"
+                                    class="w-full px-4 py-2 outline-none ring-inset ring-indigo-500 transition duration-100 focus:ring"
+                                  />
+
+                                  <div class="flex flex-col divide-y border-l">
+                                    <button
+                                      @click="incrementCounter(index)"
+                                      class="flex w-6 flex-1 select-none items-center justify-center bg-white leading-none transition duration-100 hover:bg-gray-200 active:bg-gray-200"
+                                    >
+                                      +
+                                    </button>
+                                    <button
+                                      @click="decrementCounter(index)"
+                                      class="flex w-6 flex-1 select-none items-center justify-center bg-white leading-none transition duration-100 hover:bg-gray-200 active:bg-gray-200"
+                                    >
+                                      -
+                                    </button>
+                                  </div>
+                                </div>
 
                                 <div class="flex">
                                   <button
@@ -163,15 +214,52 @@ const totalPrice = computed(() => {
                     <div
                       class="flex justify-between text-base font-medium text-gray-900"
                     >
-                      <p>Subtotal</p>
-                      <p>$ {{ totalPrice.toFixed(3) }} (COP)</p>
+                      <p>Total</p>
+                      <p>
+                        $
+                        {{
+                          totalPrice.toLocaleString("es-CO", {
+                            maximumFractionDigits: 3,
+                            useGrouping: true,
+                          })
+                        }}
+                        (COP)
+                      </p>
                     </div>
                     <p class="mt-0.5 text-sm text-gray-500"></p>
+
                     <div class="mt-6">
+                      <button
+                        v-if="!isLoading"
+                        @click="buyProduct"
+                        class="flex items-center w-full justify-center rounded-md border border-transparent bg-sky-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-sky-600"
+                      >
+                        Comprar
+                      </button>
+                      <button
+                        v-else
+                        type="button"
+                        disabled
+                        class="flex items-center justify-center rounded-md border border-transparent w-full bg-sky-500 px-6 py-3 text-base font-medium text-white shadow-sm cursor-pointer select-none disabled:pointer-events-none"
+                      >
+                        <svg class="h-4 w-4 animate-spin" viewBox="3 3 18 18">
+                          <path
+                            class="fill-blue-800"
+                            d="M12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z"
+                          ></path>
+                          <path
+                            class="fill-blue-100"
+                            d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z"
+                          ></path>
+                        </svg>
+                        <p class="ml-3">Cargando...</p>
+                      </button>
+                    </div>
+                    <div class="mt-2">
                       <a
-                        href="#"
-                        class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                        >Comprar</a
+                        @click="removeAllItemCart"
+                        class="flex items-center justify-center rounded-md border border-transparent bg-rose-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-rose-600"
+                        >Limpiar carrito</a
                       >
                     </div>
                     <div
@@ -181,7 +269,7 @@ const totalPrice = computed(() => {
                         o
                         <button
                           type="button"
-                          class="font-medium text-indigo-600 hover:text-indigo-500"
+                          class="font-medium text-sky-600 hover:text-sky-500"
                           @click="$emit('update:modelValue', false)"
                         >
                           continua comprando
