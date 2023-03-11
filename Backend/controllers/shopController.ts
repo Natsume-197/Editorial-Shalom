@@ -4,10 +4,10 @@ import { Conflict, NotFound } from '../utils/error'
 import { StatusCodes } from 'http-status-codes'
 import { Op } from 'sequelize'
 import { Receipt } from '../models/shops/receipt'
-import { Book_reserved } from 'models/shops/book_reserved'
-import { Book } from 'models/books/book'
-import { Status } from 'models/shops/status'
-import { Sale_request } from 'models/shops/sales_request'
+import { Book_reserved } from '../models/shops/book_reserved'
+import { Book } from '../models/books/book'
+import { Status } from '../models/shops/status'
+import { Sale_request } from '../models/shops/sales_request'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -105,6 +105,7 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
       }
   }
   export const createRequestSale = async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body.shopping_form)
     try{
       const {
         name,
@@ -115,14 +116,21 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
         cellphone,
         zip_code,
         message
-      } = req.body
+      } = req.body.shopping_form
   
       // check if there is content in request
       if (Object.keys(req.body).length === 0) {
         throw new Conflict('No se ha enviado ningún dato.')
       }
   
-  
+      const bookReserved = [];
+
+      for (const item of req.body.cart) {
+        bookReserved.push({
+          id_book: item.id,
+          amount: item.amount_selected
+        });
+      }
       // Create book
       const sales_request = await Sale_request.create(
         {
@@ -135,8 +143,10 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
           cell: cellphone,
           zip_code: zip_code,
           comments: message,
-          id_receipt: 1,
-        }
+          id_status: 1,
+          book_reserved: bookReserved
+        },
+      { include: Book_reserved }
       )
   
       await sales_request.save()
@@ -152,5 +162,24 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
   }
 
   export const updateRequestSale = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // Find user
+        const sale_request = await Sale_request.findByPk(req.params.id)
+        if (!sale_request) throw new NotFound('Solicitud no encontrada')
     
+        // Update user
+        if (req.body.id_receipt) sale_request.id_receipt = req.body.id_receipt
+        if (req.body.address) sale_request.address = req.body.address
+        if (req.body.message) sale_request.comments = req.body.message
+    
+        await sale_request.save()
+    
+        // Response
+        return res.status(StatusCodes.OK).json({
+          message: `Se ha actualizado la solicitud de forma exitosa.`,
+          sale_request: sale_request
+        })
+      } catch (error) {
+        return next(error)
+      }
   }

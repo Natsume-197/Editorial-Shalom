@@ -76,9 +76,9 @@ export class Sale_request extends Model {
   @ForeignKey(() => Status)
   @Column({
     type: DataType.INTEGER,
-    allowNull: true
+    allowNull: false
   })
-  id_statua!: number
+  id_status!: number
 
   @BelongsTo(() => Status)
   status!: Status;
@@ -86,7 +86,7 @@ export class Sale_request extends Model {
   @ForeignKey(() => Receipt)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: true
   })
   id_receipt!: number
 

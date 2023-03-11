@@ -27,11 +27,11 @@ export class Book_reserved extends Model {
 
       @ForeignKey(() => Book)
       @Column({
-        type: DataType.INTEGER,
-        allowNull: false,
+      type: DataType.INTEGER,
+      allowNull: true
       })
       id_book!: number
-    
+
       @BelongsTo(() => Book)
       book!: Book
 

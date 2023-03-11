@@ -94,8 +94,8 @@ router.get('/searchReserved', searchBooksReserved)
 router.get('/sales_request/status', getStatus)
 
 // Shops CRUD Routes
-router.get('/sales_request',isAuthAdmin, getAllRequestSale)
-router.get('/sales_request/:id',isAuthAdmin, findRequestSale)
+router.get('/sales_request', getAllRequestSale)
+router.get('/sales_request/:id', findRequestSale)
 router.post('/sales_request', createRequestSale)
 router.patch('/sales_request/:id', isAuthAdmin, updateRequestSale)
 router.post('/sales_request/receipt', uploadR.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createReceipt)

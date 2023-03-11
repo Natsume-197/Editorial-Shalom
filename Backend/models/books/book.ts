@@ -1,7 +1,9 @@
+import { Book_reserved } from "../shops/book_reserved";
 import { DataTypes } from "sequelize";
 import { Table, Model, Column, DataType, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { Book_t } from "./book_t";
 import { Category } from "./category";
+
 
 @Table({
   timestamps: false,
@@ -77,5 +79,8 @@ export class Book extends Model {
   
   @HasMany(() => Book_t)
   book_t!: Book_t[];
+
+  @HasMany(() => Book_reserved)
+   Book_reserved!: Book_reserved[];
 
 }
