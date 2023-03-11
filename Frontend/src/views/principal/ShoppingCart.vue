@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, reactive } from "vue";
+import { ref, computed } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -9,6 +9,7 @@ import {
 } from "@headlessui/vue";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { userStore } from "../../stores/user";
+import ShoppingForm from "./ShoppingForm.vue";
 
 const props = defineProps({
   modelValue: {
@@ -26,7 +27,6 @@ const current_items = computed(() => store.shoppingCart.items);
 
 const removeItemCart = (itemId) => {
   // Si el item existe, elimina el elemento
-  console.log(current_items);
   if (itemId !== -1) {
     store.$patch((state) => {
       state.shoppingCart.items.splice(itemId, 1);
@@ -65,10 +65,14 @@ const decrementCounter = (index) => {
 };
 
 let isLoading = ref(false);
+let isFormActive = ref(false);
 
 const buyProduct = () => {
   console.log(current_items);
   isLoading.value = true;
+  setTimeout(() => {
+    isFormActive.value = true;
+  }, 1000);
 };
 </script>
 <template>
@@ -107,12 +111,14 @@ const buyProduct = () => {
               leave-to="translate-x-full"
             >
               <DialogPanel class="pointer-events-auto w-screen max-w-md">
-                <div
-                  class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
-                >
+                <ShoppingForm
+                  v-if="isFormActive"
+                  @close-form="(isFormActive = false), (isLoading = false)"
+                />
+                <div class="flex h-full flex-col bg-white shadow-xl">
                   <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div class="flex items-start justify-between">
-                      <DialogTitle class="text-lg font-medium text-gray-900"
+                      <DialogTitle class="text-2xl font-bold text-gray-900"
                         >Carrito de compras</DialogTitle
                       >
                       <div class="ml-3 flex h-7 items-center">
@@ -234,7 +240,7 @@ const buyProduct = () => {
                         @click="buyProduct"
                         class="flex items-center w-full justify-center rounded-md border border-transparent bg-sky-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-sky-600"
                       >
-                        Comprar
+                        Siguiente
                       </button>
                       <button
                         v-else

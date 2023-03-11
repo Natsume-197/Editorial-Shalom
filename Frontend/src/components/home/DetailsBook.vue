@@ -45,7 +45,7 @@ const data = reactive({
     .toLocaleString()
     .split(",")[0],
   cover: url_base + response.data.book.cover,
-  amount_selected: 1
+  amount_selected: 1,
 });
 
 let showModal = ref(false);
@@ -69,10 +69,18 @@ const addItemCart = (item) => {
     if (!state.shoppingCart.items) {
       state.shoppingCart.items = [];
     }
-    // Agrega el nuevo item a la lista de items
-    state.shoppingCart.items.push(item);
-});
-  
+    // Busca si el producto ya existe en el carrito
+    const existingItem = state.shoppingCart.items.find(
+      (cartItem) => cartItem.id === item.id
+    );
+    // Si el producto ya existe, aumenta su cantidad
+    if (existingItem) {
+      existingItem.amount_selected = existingItem.amount_selected + 1;
+    } else {
+      // Agrega el nuevo item a la lista de items
+      state.shoppingCart.items.push(item);
+    }
+  });
 };
 </script>
 <template>
