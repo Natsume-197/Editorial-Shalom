@@ -1,38 +1,41 @@
 <script setup>
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { DialogTitle } from "@headlessui/vue";
-import { reactive, computed } from 'vue'
+import { reactive, computed } from "vue";
 import { userStore } from "../../stores/user";
+import { createRequestSale } from "../../utils/actions"
 
-const emit = defineEmits(["close-form"]);
+
+const emit = defineEmits(["close-form", "close-modal"]);
 
 const backButton = () => {
   emit("close-form", false);
 };
 
 const data = reactive({
-  name: '',
-  email: '',
-  cellphone: '',
-  zip_code: '',
-  city: '',
-  address: '',
-  school_name: '',
-  message: ''
+  name: "",
+  email: "",
+  cellphone: "",
+  zip_code: "",
+  city: "",
+  address: "",
+  school_name: "",
+  message: "",
 });
 
 const store = userStore();
 const current_items = computed(() => store.shoppingCart.items);
-let payload = {}
+let payload = {};
 
-const reserveBooks = () => {
+const reserveBooks = async () => {
   payload = {
     shopping_form: data,
-    cart: current_items.value
-  }
-  console.log(JSON.parse(JSON.stringify(payload))
-)};
+    cart: current_items.value,
+  };
+  console.log(JSON.parse(JSON.stringify(payload)));
 
+  await createRequestSale(payload)
+};
 </script>
 <template>
   <div class="flex justify-center h-screen bg-gray-200 antialiased">
@@ -48,7 +51,7 @@ const reserveBooks = () => {
                 <button
                   type="button"
                   class="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                  @click="$emit('update:modelValue', false)"
+                  @click="emit('close-modal', false)"
                 >
                   <span class="sr-only">Cerrar panel</span>
                   <XMarkIcon class="h-6 w-6" aria-hidden="true" />
@@ -103,14 +106,14 @@ const reserveBooks = () => {
                 class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
               />
               <input
-              v-model="data.email"
+                v-model="data.email"
                 placeholder="Correo"
                 class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
               />
               <div class="flex">
                 <div class="flex-grow">
                   <input
-                  v-model="data.cellphone"
+                    v-model="data.cellphone"
                     placeholder="Celular"
                     class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                   />
@@ -159,21 +162,21 @@ const reserveBooks = () => {
               <div class="flex">
                 <div class="flex-grow w-2/5 pr-2">
                   <input
-                  v-model="data.zip_code"
+                    v-model="data.zip_code"
                     placeholder="Código Postal"
                     class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                   />
                 </div>
                 <div class="flex-grow">
                   <input
-                  v-model="data.city"
+                    v-model="data.city"
                     placeholder="Ciudad"
                     class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                   />
                 </div>
               </div>
               <input
-              v-model="data.address"
+                v-model="data.address"
                 placeholder="Dirección"
                 class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
               />
@@ -220,14 +223,14 @@ const reserveBooks = () => {
               <div class="flex">
                 <div class="flex-grow w-2/5 pr-2">
                   <input
-                  v-model="data.school_name"
+                    v-model="data.school_name"
                     placeholder="Nombre del colegio"
                     class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                   />
                 </div>
               </div>
               <textarea
-              v-model="data.message"
+                v-model="data.message"
                 rows="4"
                 placeholder="Mensaje"
                 class="text-black resize-none placeholder-gray-600 w-full mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"

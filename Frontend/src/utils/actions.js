@@ -7,6 +7,52 @@ const store = userStore();
 const toast = useToast();
 
 
+const createRequestSale = async (data) => {
+  await api
+    .post("/sales_request", data)
+    .then((response) => {
+      console.log(response);
+      toast.success(`Se ha realizado el pedido.`, {
+        timeout: 5000,
+        position: "top-right",
+        icon: true,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response) {
+        // Si la respuesta de la API tiene un estado, el error provino de la API
+        const status = error.response.status;
+        const message = error.response.data.message;
+        toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+        console.log(error);
+      } else if (error.request) {
+        // Si la solicitud no pudo completarse, es un error de red
+        toast.error(
+          `Error al enviar la solicitud: Conexión con la API rechazada.`,
+          {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          }
+        );
+        console.log(error);
+      } else {
+        // En otros casos, puede haber un error en el código
+        toast.error(`Error al enviar la solicitud: ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+      }
+      console.log(error);
+    });
+};
+
 const registerBook = async (data) => {
   await api
     .post("/book", data, {
@@ -158,4 +204,4 @@ const logout = () => {
     });
 };
 
-export { logout, registerUser, registerBook };
+export { logout, registerUser, registerBook, createRequestSale };

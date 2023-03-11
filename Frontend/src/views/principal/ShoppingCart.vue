@@ -81,6 +81,7 @@ const buyProduct = () => {
       as="div"
       class="relative z-10"
       @close="$emit('update:modelValue', false)"
+      @close-modal="$emit('update:modelValue', false)"
     >
       <TransitionChild
         as="template"
@@ -99,7 +100,7 @@ const buyProduct = () => {
       <div class="fixed inset-0 overflow-hidden">
         <div class="absolute inset-0 overflow-hidden">
           <div
-            class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
+            class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full  pl-10"
           >
             <TransitionChild
               as="template"
@@ -114,6 +115,7 @@ const buyProduct = () => {
                 <ShoppingForm
                   v-if="isFormActive"
                   @close-form="(isFormActive = false), (isLoading = false)"
+                  @close-modal="$emit('update:modelValue', false)"
                 />
                 <div class="flex h-full flex-col bg-white shadow-xl">
                   <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
