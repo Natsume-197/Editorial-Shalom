@@ -20,6 +20,7 @@ import { User_role } from './models/users/user_role'
 import { User } from './models/users/user'
 import { Book } from './models/books/book'
 import { Book_t } from './models/books/book_t'
+import { Status } from './models/shops/status'
 import { Category } from './models/books/category'
 import { Language } from './models/books/language'
 import { ModelCtor, Model } from 'sequelize'
@@ -97,6 +98,7 @@ async function reSyncDatabase() {
     await addLanguages(db)
     await addBooks(5)
     await addUsers(5)
+    await addStatus(db)
 
     console.log('Base de datos sincronizada desde cero')
   })
@@ -149,6 +151,41 @@ async function addCategoriesBook(db: { [x: string]: ModelCtor<Model<any, any>>; 
   await db.Category.create({
     id: 4,
     name: 'Matemáticas'
+  })
+}
+
+async function addStatus(db: { [x: string]: ModelCtor<Model<any, any>>; Status?: any }) {
+  await db.Status.create({
+    id: 1,
+    name: 'Nuevo pedido'
+  })
+  await db.Status.create({
+    id: 2,
+    name: 'Procesando'
+  })
+  await db.Status.create({
+    id: 3,
+    name: 'Pagado'
+  })
+  await db.Status.create({
+    id: 4,
+    name: 'En envio'
+  })
+  await db.Status.create({
+    id: 5,
+    name: 'Entregado'
+  })
+  await db.Status.create({
+    id: 6,
+    name: 'Completado'
+  })
+  await db.Status.create({
+    id: 7,
+    name: 'Rechazado'
+  })
+  await db.Status.create({
+    id: 8,
+    name: 'Cancelado'
   })
 }
 

@@ -7,6 +7,10 @@ import { Book_t } from '../models/books/book_t'
 import { Language } from '../models/books/language'
 import { User_role } from '../models/users/user_role'
 import { Category } from '../models/books/category'
+import { Book_reserved } from '../models/shops/book_reserved'
+import { Sale_request } from '../models/shops/sales_request'
+import { Status } from '../models/shops/status'
+import { Receipt } from '../models/shops/receipt'
 
 require('dotenv').config()
 
@@ -16,7 +20,7 @@ const connection = new Sequelize({
   username: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
-  models: [User, Role, User_role, Book, Language, Book_t, Category],
+  models: [User, Role, User_role, Book, Language, Book_t, Category, Book_reserved, Status, Receipt, Sale_request],
   logging: false
 })
 
