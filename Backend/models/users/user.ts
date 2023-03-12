@@ -2,6 +2,8 @@ import { DataTypes } from "sequelize";
 import { Table, Model, Column, DataType, HasMany, HasOne, BelongsToMany, ForeignKey } from "sequelize-typescript";
 import { User_role } from "./user_role";
 import { Role } from "./role"
+import { Sale_request } from "../shops/sales_request";
+import { Request_message } from "../shops/request_message";
 
 @Table({
   timestamps: false,
@@ -102,5 +104,11 @@ export class User extends Model {
 
   @HasMany(() => User_role)
   user_roles!: User_role[];
+
+  @HasMany(() => Sale_request)
+  sale_request!: Sale_request[];
+
+  @HasMany(() => Request_message)
+  request_message!: Request_message[];
   
 }

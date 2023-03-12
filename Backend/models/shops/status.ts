@@ -1,4 +1,5 @@
 import { Table, Model, Column, DataType, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Sale_request } from "./sales_request";
 
 @Table({
   timestamps: false,
@@ -18,4 +19,8 @@ export class Status extends Model {
         allowNull: false,
       })
       name!: string;
+
+      @HasMany(() => Sale_request)
+      sale_request!: Sale_request[];
+      
 }

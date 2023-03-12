@@ -1,8 +1,10 @@
+import { User } from "../users/user";
 import { DataTypes } from "sequelize";
 import { Table, Model, Column, DataType, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { Book_reserved } from "./book_reserved";
 import { Receipt } from "./receipt";
 import { Status } from "./status";
+import { Request_message } from "./request_message";
 
 @Table({
   timestamps: false,
@@ -66,12 +68,6 @@ export class Sale_request extends Model {
   })
   zip_code!: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  comments!: string;
-
   
   @ForeignKey(() => Status)
   @Column({
@@ -82,6 +78,16 @@ export class Sale_request extends Model {
 
   @BelongsTo(() => Status)
   status!: Status;
+
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  id_user!: number
+
+  @BelongsTo(() => User)
+  user!: User;
 
   @ForeignKey(() => Receipt)
   @Column({
@@ -95,5 +101,8 @@ export class Sale_request extends Model {
   
   @HasMany(() => Book_reserved)
   book_reserved!: Book_reserved[];
+
+  @HasMany(() => Request_message)
+  request_message!: Request_message[];
 
 }

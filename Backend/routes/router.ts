@@ -20,7 +20,17 @@ import {
   setNewPassword
 } from '../controllers/userController'
 import { createBook, searchBooks, findBook, getCategories, getAllBooks } from '../controllers/bookController'
-import { createReceipt, searchBooksReserved, getStatus, getAllRequestSale, findRequestSale, createRequestSale,updateRequestSale } from '../controllers/shopController'
+import { createReceipt,
+   searchBooksReserved,
+   getStatus, 
+   getAllRequestSale, 
+   findRequestSale, 
+   createRequestSale,
+   updateRequestSale, 
+   getAllRequestSaleForUser, 
+   addMessage,
+   getAllMessageForRequestSale
+  } from '../controllers/shopController'
 
 export const router = express.Router()
 const path = require('path');
@@ -92,9 +102,12 @@ router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 },
 // Shops Related Functions
 router.get('/searchReserved', searchBooksReserved)
 router.get('/sales_request/status', getStatus)
+router.post('/sales_request/addMessage', addMessage)
+router.get('/sales_request/message/:id', getAllMessageForRequestSale)
 
 // Shops CRUD Routes
 router.get('/sales_request', getAllRequestSale)
+router.get('/sales_request/:id', getAllRequestSaleForUser)
 router.get('/sales_request/:id', findRequestSale)
 router.post('/sales_request', createRequestSale)
 router.patch('/sales_request/:id', isAuthAdmin, updateRequestSale)

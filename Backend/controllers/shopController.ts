@@ -8,6 +8,7 @@ import { Book_reserved } from '../models/shops/book_reserved'
 import { Book } from '../models/books/book'
 import { Status } from '../models/shops/status'
 import { Sale_request } from '../models/shops/sales_request'
+import { Request_message } from '../models/shops/request_message'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -87,11 +88,29 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
         return next(error)
       }
   }
+  export const getAllRequestSaleForUser= async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const sales_request = await Sale_request.findAll({
+        where: { id_user: req.params.id },
+          include: [Book_reserved, Status, Receipt, Request_message]
+        })
+        if (!sales_request) throw new NotFound('Solicitud no valida...')
+        return res.status(StatusCodes.OK).json(
+          {
+            sales_request: sales_request,
+          },
+          
+        )
+      } catch (error) {
+        return next(error)
+      }
+  }
+
   export const findRequestSale = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const sales_request = await Sale_request.findOne({
           where: { id: req.params.id },
-          include: [Book_reserved, Status, Receipt]
+          include: [Book_reserved, Status, Receipt, Request_message]
         })
         if (!sales_request) throw new NotFound('Solicitud no valida...')
         return res.status(StatusCodes.OK).json(
@@ -114,8 +133,7 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
         city,
         school_name,
         cellphone,
-        zip_code,
-        message
+        zip_code
       } = req.body.shopping_form
   
       // check if there is content in request
@@ -142,11 +160,16 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
           school_name: school_name,
           cell: cellphone,
           zip_code: zip_code,
-          comments: message,
           id_status: 1,
-          book_reserved: bookReserved
+          book_reserved: bookReserved,
+          request_message: [
+            {
+              id_user : req.body.message.id,
+              comments : req.body.message.comments
+            }
+          ]
         },
-      { include: Book_reserved }
+      { include: [Book_reserved , Request_message]}
       )
   
       await sales_request.save()
@@ -154,6 +177,58 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
       return res.status(StatusCodes.CREATED).json({
         message: `Se ha creado la solicitud de forma exitosa.`,
         sales_request: sales_request
+      })
+    } catch (error) {
+      console.log(error)
+      return next(error)
+    }
+  }
+
+  export const getAllMessageForRequestSale = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const sales_request = await Sale_request.findAll({
+        where: { id_sale: req.params.id },
+          include: [Book_reserved, Status, Receipt, Request_message]
+        })
+        if (!sales_request) throw new NotFound('Solicitud no valida...')
+        return res.status(StatusCodes.OK).json(
+          {
+            sales_request: sales_request,
+          },
+          
+        )
+      } catch (error) {
+        return next(error)
+      }
+  }
+  
+  export const addMessage = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const {
+        id,
+        user,
+        message,
+      } = req.body
+  
+      // check if there is content in request
+      if (Object.keys(req.body).length === 0) {
+        throw new Conflict('No se ha enviado ningún dato.')
+      }
+      // Add message
+      const request_message = await Request_message.create(
+        {
+          id_sale: id,
+          id_user: user,
+          comments: message,
+          purchase_date: Date.now(),
+        }
+      )
+  
+      await request_message.save()
+  
+      return res.status(StatusCodes.CREATED).json({
+        message: `Se ha añadido el mensae de forma exitosa.`,
+        request_message: request_message
       })
     } catch (error) {
       console.log(error)
@@ -170,7 +245,6 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
         // Update user
         if (req.body.id_receipt) sale_request.id_receipt = req.body.id_receipt
         if (req.body.address) sale_request.address = req.body.address
-        if (req.body.message) sale_request.comments = req.body.message
     
         await sale_request.save()
     
