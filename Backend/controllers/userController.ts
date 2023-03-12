@@ -22,6 +22,20 @@ export const authPage = (_req: Request, res: Response): object => {
 // Sign up Page
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    if (!req.body.recaptcha)
+      throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
+
+    const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
+
+    const responseGoogleCaptcha = await axios.post(urlGoogleVerification, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      }
+    })
+
+    if (!responseGoogleCaptcha.data.success)
+      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+
     // Validation User Input
     const { error } = userData.validate(req.body)
     console.log(req.body)
@@ -75,7 +89,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
           message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
           user: user
         })
-        
+
       } else {
         const userRoles = roles.map(roleId => ({ id_role: roleId }))
 
@@ -171,7 +185,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
       email: user.email,
       roles: user?.user_roles
     }
-    
+
     // Response
     return res.status(StatusCodes.OK).json({
       message: `Ha iniciado sesión, ${user.name}`,
