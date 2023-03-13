@@ -133,7 +133,8 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
       city,
       school_name,
       cellphone,
-      zip_code
+      zip_code,
+      id
     } = req.body.shopping_form
 
     // check if there is content in request
@@ -161,10 +162,11 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
         cell: cellphone,
         zip_code: zip_code,
         id_status: 1,
+        id_user: id,
         book_reserved: bookReserved,
         request_message: [
           {
-            id_user: req.body.message.id,
+            id_user: id,
             comments: req.body.message.comments
           }
         ]
