@@ -46,6 +46,7 @@ const submit = () => {
       store.$patch((state) => {
         state.isLoggedIn = true;
         state.userInfo = {
+          id: response.data.user.id,
           name: response.data.user.name,
           email: response.data.user.email,
           roles: response.data.user.roles.map((roles) => roles.id_role),

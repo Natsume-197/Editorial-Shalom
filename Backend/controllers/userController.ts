@@ -181,6 +181,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     })
 
     const data_user = {
+      id: user.id,
       name: user.name,
       email: user.email,
       roles: user?.user_roles

@@ -4,6 +4,7 @@ export const userStore = defineStore('user', {
   state: () => ({
     isLoggedIn: false,
     userInfo: {
+      id: null,
       name: null,
       email: null,
       roles: null

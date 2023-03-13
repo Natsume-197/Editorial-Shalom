@@ -11,7 +11,11 @@ const backButton = () => {
   emit("close-form", false);
 };
 
+const store = userStore();
+
+
 const data = reactive({
+  id_user: store.userInfo.id,
   name: "",
   email: "",
   cellphone: "",
@@ -22,7 +26,6 @@ const data = reactive({
   message: "",
 });
 
-const store = userStore();
 const current_items = computed(() => store.shoppingCart.items);
 let payload = {};
 

@@ -79,7 +79,7 @@ app.listen(process.env.PORT || 5000, async () => {
   try {
     await connection.sync()
     console.log(`Base de datos disponible`)
-    //await reSyncDatabase()
+    await reSyncDatabase()
   } catch (error) {
     console.error(error)
     process.exit(1)
