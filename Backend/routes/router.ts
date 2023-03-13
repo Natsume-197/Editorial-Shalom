@@ -106,11 +106,11 @@ router.post('/sales_request/addMessage', addMessage)
 router.get('/sales_request/message/:id', getAllMessageForRequestSale)
 
 // Shops CRUD Routes
-router.get('/sales_request', getAllRequestSale)
-router.get('/sales_request/:id', getAllRequestSaleForUser)
-router.get('/sales_request/:id', findRequestSale)
+router.get('/sales_request_get', getAllRequestSale)
+router.get('/sales_request_user/:id', getAllRequestSaleForUser)
+router.get('/sales_request_find/:id', findRequestSale)
 router.post('/sales_request', createRequestSale)
-router.patch('/sales_request/:id', isAuthAdmin, updateRequestSale)
+router.patch('/sales_request_update/:id', isAuthAdmin, updateRequestSale)
 router.post('/sales_request/receipt', uploadR.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createReceipt)
 
 // Protected Routes
