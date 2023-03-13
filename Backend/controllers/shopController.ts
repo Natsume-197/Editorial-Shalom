@@ -129,7 +129,7 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     const {
       name,
       email,
-      address,,
+      address,
       message,
       city,
       school_name,
