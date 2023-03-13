@@ -129,7 +129,8 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     const {
       name,
       email,
-      address,
+      address,,
+      message,
       city,
       school_name,
       cellphone,
@@ -163,15 +164,10 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
         zip_code: zip_code,
         id_status: 1,
         id_user: id,
+        comments: message,
         book_reserved: bookReserved,
-        request_message: [
-          {
-            id_user: id,
-            comments: req.body.message.comments
-          }
-        ]
       },
-      { include: [Book_reserved, Request_message] }
+      { include: [Book_reserved] }
     )
 
     await sales_request.save()
@@ -212,7 +208,7 @@ export const addMessage = async (req: Request, res: Response, next: NextFunction
       message,
     } = req.body
 
-    // check if there is content in request
+    // check if there is content in request|
     if (Object.keys(req.body).length === 0) {
       throw new Conflict('No se ha enviado ningún dato.')
     }

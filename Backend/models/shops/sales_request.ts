@@ -29,6 +29,12 @@ export class Sale_request extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
+  comments!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   email!: string;
 
   @Column({
@@ -45,7 +51,7 @@ export class Sale_request extends Model {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: true
   })
   school_name!: string
 
