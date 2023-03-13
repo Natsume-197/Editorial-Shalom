@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
-      <Navbar class="" />
+      <Navbar />
       <div
         class="w-full mt-24 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 animate__animated animate__fadeIn"
       >

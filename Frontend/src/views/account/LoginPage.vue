@@ -34,7 +34,7 @@ var onExpireRecaptcha = (recaptchaToken) => {
   tokenCaptcha = "";
 };
 
-const submit = async () => {
+const submit = () => {
   api
     .post("/login", {
       email: data.email,
@@ -104,9 +104,9 @@ const submit = async () => {
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
-      <Navbar class="" />
+      <Navbar  />
       <div class="box-form bg-white">
-        <div class="left">
+        <div class="left" loading="lazy">
           <div class="overlay"></div>
         </div>
         <div class="right">
@@ -158,7 +158,7 @@ const submit = async () => {
             <button
               class="bg-sky-500 text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
             >
-              <router-link to="/login">Iniciar Sesión</router-link>
+              <button to="/login">Iniciar Sesión</button>
             </button>
             <div class="mt-6 text-center text-gray-700">
               ¿No tienes una cuenta?

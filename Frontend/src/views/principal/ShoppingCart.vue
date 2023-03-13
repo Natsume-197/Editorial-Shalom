@@ -10,6 +10,13 @@ import {
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { userStore } from "../../stores/user";
 import ShoppingForm from "./ShoppingForm.vue";
+import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
+
+const toast = useToast();
+
+const router = useRouter();
+
 
 const props = defineProps({
   modelValue: {
@@ -68,11 +75,24 @@ let isLoading = ref(false);
 let isFormActive = ref(false);
 
 const buyProduct = () => {
-  console.log(current_items);
-  isLoading.value = true;
+  if(store.isLoggedIn === false){
+    isLoading.value = true;
+    setTimeout(() => {
+      router.push('/login')
+      toast.info(`Para poder continuar con tu pedido, por favor inicia sesión.`, {
+        timeout: 5000,
+        position: "top-right",
+        icon: true,
+      });
+      isLoading.value = false;
+    }, 1000);
+    
+  }else{
+    isLoading.value = true;
   setTimeout(() => {
     isFormActive.value = true;
   }, 1000);
+  }
 };
 </script>
 <template>

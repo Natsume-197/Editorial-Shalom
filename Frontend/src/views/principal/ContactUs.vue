@@ -6,10 +6,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
 
 <template>
   <div class="mx-auto">
-    <Navbar class="" />
-
-    
-
+    <Navbar />
     <section class="relative z-10 overflow-hidden py-20 lg:py-[100px] mt-8">
       <div class="container mx-auto">
         <div class="-mx-4 flex flex-wrap lg:justify-between">
@@ -96,7 +93,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                   <h4 class="text-white text-xl font-bold">
                     Nuestra ubicación
                   </h4>
-                  <p class="text-white text-base mb-6 w-48 ">
+                  <p class="text-white text-base mb-6 w-48">
                     Diagonal 52C Bis N 25-39 Sur. Bogotá, Colombia.
                   </p>
                 </div>

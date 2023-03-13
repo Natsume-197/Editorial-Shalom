@@ -1,24 +1,22 @@
+
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
-      <Navbar class="" />
-      <div class="box-form">
-        <div class="left">
-          <div class="overlay">
-            <h1>Editorial Shalom</h1>
-          </div>
+      <Navbar  />
+      <div class="box-form bg-white">
+        <div class="left" loading="lazy">
+          <div class="overlay"></div>
         </div>
-        <div class="right">
-          <h2 class="title">Registro</h2>
-          <form @submit.prevent="submit">
-          <div class="mt-6 text-center">
-            ¿Ya tienes una cuenta?
-            <router-link to="/login" class="hover:underline"
-              ><span class="font-bold">Iniciar Sesión</span></router-link
-            >
+        <div class="right w-2/6">
+          <div
+            class="text-gray-700 text-center px-3 py-2 rounded-md text-2xl font-semibold"
+          >
+            Registro
           </div>
-          <div class="inputs">
-            <input
+          <form @submit.prevent="submit">
+            <div class="">
+              <input
+              class="placeholder-gray-500"
               type="text"
               name="name"
               required
@@ -27,6 +25,7 @@
             />
             <br />
             <input
+            class="placeholder-gray-500"
               type="email"
               name="email"
               required
@@ -35,20 +34,48 @@
             />
             <br />
             <input
+            class="placeholder-gray-500"
               :type="showPass ? 'text' : 'password'"
-              name="password"
+              name="Contraseña"
               required
               v-model="data.password"
               placeholder="Contraseña"
             />
+            <input
+            class="placeholder-gray-500"
+              :type="showPass ? 'text' : 'password'"
+              required
+              placeholder="Confirmar contraseña"
+            />
           </div>
-          <br /><br />
-          <div class="remember-me--forget-password">
-            <!-- Angular -->
+ 
+            <div class="flex items-center justify-between">
+              <div
+                class="flex items-center relative left-1/2 -translate-x-1/2 px-12"
+              >
+                <Captcha
+                class="mt-6"
+                  name="recaptcha"
+                  @verify="onVerifyRecaptcha"
+                  @expired="onExpireRecaptcha"
+                />
+              </div>
+            </div>
+
             <br />
-          </div>
-          <br />
-          <button>Registrarse</button>
+            <button
+              class="bg-sky-500 text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              <button>Registrarse</button>
+            </button>
+            <div class="mt-6 text-center text-gray-700">
+              ¿Ya tienes una cuenta?
+              <router-link to="/register" class="hover:underline"
+                ><span class="font-bold text-sky-600"
+                  >Inicia Sesión</span
+                ></router-link
+              >
+            </div>
           </form>
         </div>
       </div>
@@ -56,6 +83,7 @@
     <Footer />
   </div>
 </template>
+
 
 <script setup>
 import { reactive, ref } from "vue";
@@ -66,16 +94,29 @@ import EyeOn from "../../components/session/EyeOn.vue";
 import EyeOff from "../../components/session/EyeOff.vue";
 import Navbar from "../../components/home/elements/Navbar.vue";
 import Footer from "../../components/home/Footer.vue";
+import Captcha from "../../components/session/Captcha.vue";
 
 const data = reactive({
   name: "",
   email: "",
   password: "",
+  recaptcha: "",
 });
 const user = ref("");
 const showPass = ref(false);
 const router = useRouter();
 const toast = useToast();
+
+let tokenCaptcha = "";
+
+var onVerifyRecaptcha = (recaptchaToken) => {
+  tokenCaptcha = recaptchaToken;
+};
+
+var onExpireRecaptcha = (recaptchaToken) => {
+  tokenCaptcha = "";
+};
+
 
 const submit = () => {
   api
@@ -83,6 +124,7 @@ const submit = () => {
       name: data.name,
       email: data.email,
       password: data.password,
+      recaptcha: tokenCaptcha,
     })
     .then((response) => {
       user.value = response.data.user;

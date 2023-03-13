@@ -37,9 +37,9 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Validation User Input
-    const { error } = userData.validate(req.body)
+    // const { error } = userData.validate(req.body)
     console.log(req.body)
-    if (error) throw new BadRequest(error.details[0].message)
+    //if (error) throw new BadRequest(error.details[0].message)
 
     // read from body
     const { name, second_name, email, password, address, cellphone, is_verified, is_admin } =

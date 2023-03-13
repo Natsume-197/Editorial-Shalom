@@ -5,7 +5,6 @@ import { reactive, computed } from "vue";
 import { userStore } from "../../stores/user";
 import { createRequestSale } from "../../utils/actions"
 
-
 const emit = defineEmits(["close-form", "close-modal"]);
 
 const backButton = () => {

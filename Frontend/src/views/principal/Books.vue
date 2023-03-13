@@ -9,7 +9,7 @@ import BookShowcase from "../../components/home/BookShowcase.vue";
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
-      <Navbar class="" />
+      <Navbar />
       <Suspense>
       <BookShowcase />
     </Suspense>

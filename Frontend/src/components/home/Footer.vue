@@ -1,5 +1,5 @@
 <template>
-  <footer class="overflow-y-hidden ">
+  <footer class="overflow-y-hidden z-50">
     <div class="mx-auto lg:px-12 sm:px-6 px-4 bg-sky-600	  ">
       <div class="flex flex-col items-center justify-center">
         <div class="flex items-center mt-6 text-center">
