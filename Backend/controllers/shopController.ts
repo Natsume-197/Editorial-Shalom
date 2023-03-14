@@ -135,7 +135,8 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
       school_name,
       cellphone,
       zip_code,
-      id
+      id, 
+      total
     } = req.body.shopping_form
 
     // check if there is content in request
@@ -148,7 +149,8 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     for (const item of req.body.cart) {
       bookReserved.push({
         id_book: item.id,
-        amount: item.amount_selected
+        amount: item.amount_selected,
+        price: item.price
       });
     }
     // Create book
@@ -164,6 +166,7 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
         zip_code: zip_code,
         id_status: 1,
         id_user: id,
+        total:total,
         comments: message,
         book_reserved: bookReserved,
       },

@@ -69,6 +69,12 @@ export class Sale_request extends Model {
   cell!: string;
 
   @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  total!: number
+
+  @Column({
     type: DataType.STRING,
     allowNull: false,
   })
