@@ -81,6 +81,6 @@ export class Book extends Model {
   book_t!: Book_t[];
 
   @HasMany(() => Book_reserved)
-   Book_reserved!: Book_reserved[];
+  book_reserved!: Book_reserved[];
 
 }

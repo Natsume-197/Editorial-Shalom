@@ -49,14 +49,17 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
 }
 export const searchBooksReserved = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const books_reserved = await Book_reserved.findAll({
-      where: { id: req.params.id 
+    const book_reserved = await Book_reserved.findAll({
+      where: { id_sale: req.params.id },
+      include: [Book]
+    })
+    if (!book_reserved) throw new NotFound('La solicitud no tiene libros...')
+    return res.status(StatusCodes.OK).json(
+      {
+        book_reserved: book_reserved,
       },
-      include: [Book_reserved,Book]
-    })
-    return res.status(StatusCodes.OK).json({
-      books_reserved: books_reserved
-    })
+
+    )
   } catch (error) {
     return next(error)
   }
