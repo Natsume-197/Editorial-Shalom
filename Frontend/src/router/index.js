@@ -47,6 +47,12 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
+      path: "/profile/shopping-history-user",
+      name: "ShoppingHistoryUser",
+      component: () => import("../views/principal/ShoppingHistory.vue"),
+      meta: { requireAuth: true },
+    },
+    {
       path: "/dashboard/",
       redirect: "/dashboard/inicio",
       meta: { requireAuth: true },

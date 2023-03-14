@@ -15,7 +15,7 @@ const store = userStore();
 
 
 const data = reactive({
-  id_user: store.userInfo.id,
+  id: store.userInfo.id,
   name: "",
   email: "",
   cellphone: "",

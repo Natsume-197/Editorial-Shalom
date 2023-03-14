@@ -6,6 +6,13 @@ import { api } from "./axios";
 const store = userStore();
 const toast = useToast();
 
+const getRequestsUser = async (id) => {
+  return new Promise((resolve, reject) => {
+    api.get("/sales_request_user/" + id)
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+  })
+};
 
 const createRequestSale = async (data) => {
   await api
@@ -204,4 +211,4 @@ const logout = () => {
     });
 };
 
-export { logout, registerUser, registerBook, createRequestSale };
+export { logout, registerUser, registerBook, createRequestSale, getRequestsUser };

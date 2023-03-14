@@ -5,8 +5,15 @@ import Navbar from "../../components/home/elements/Navbar.vue";
 import Footer from "../../components/home/Footer.vue";
 import { onMounted } from "vue";
 
+import { getRequestsUser } from "../../utils/actions";
+
 const store = userStore();
 const user = computed(() => store.userInfo);
+
+let items = null;
+const table = reactive({
+  items: null,
+});
 
 const data = reactive({
   name: user.value.name,
@@ -17,7 +24,9 @@ const data = reactive({
   address: "",
 });
 
-onMounted(() => {});
+getRequestsUser(user.value.id).then((response) => {
+  table.items = response.data.sales_request;
+});
 </script>
 
 <template>
@@ -209,6 +218,19 @@ onMounted(() => {});
           </div>
         </div>
       </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     <Footer />

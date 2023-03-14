@@ -303,8 +303,8 @@ var handleout = () => {
 
                     <hr class="border-gray-200 dark:border-gray-700" />
 
-                    <a
-                      href="#"
+                    <router-link
+                      to="profile/shopping-history-user"
                       class="flex items-center p-3  hover:bg-gray-200 text-sm text-gray-600 capitalize transition-colors dark:text-gray-300  dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <svg
@@ -320,7 +320,7 @@ var handleout = () => {
                       </svg>
 
                       <span class="mx-1"> Historial de pedidos </span>
-                    </a>
+                    </router-link>
 
                     <a
                       href="#"
