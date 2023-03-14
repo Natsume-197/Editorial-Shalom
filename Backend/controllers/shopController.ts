@@ -9,6 +9,8 @@ import { Book } from '../models/books/book'
 import { Status } from '../models/shops/status'
 import { Sale_request } from '../models/shops/sales_request'
 import { Request_message } from '../models/shops/request_message'
+import { Book_t } from '../models/books/book_t'
+import { Category } from '../models/books/category'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -135,8 +137,7 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
       school_name,
       cellphone,
       zip_code,
-      id, 
-      total
+      id
     } = req.body.shopping_form
 
     // check if there is content in request
@@ -145,13 +146,21 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     }
 
     const bookReserved = [];
-
+    let total_price = 0
     for (const item of req.body.cart) {
-      bookReserved.push({
-        id_book: item.id,
-        amount: item.amount_selected,
-        price: item.price
-      });
+      let book = await Book.findOne({
+        where: { id: item.id },
+        include: [Book_t, Category]
+      })
+      if (book != null) {
+        let cost = (book.price * item.amount_selected);
+        total_price += cost
+        bookReserved.push({
+          id_book: item.id,
+          amount: item.amount_selected,
+          price: cost
+        });
+      }
     }
     // Create book
     const sales_request = await Sale_request.create(
@@ -166,7 +175,7 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
         zip_code: zip_code,
         id_status: 1,
         id_user: id,
-        total:total,
+        total: total_price,
         comments: message,
         book_reserved: bookReserved,
       },
