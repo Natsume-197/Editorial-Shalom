@@ -50,8 +50,7 @@ export const createReceipt = async (req: Request, res: Response, next: NextFunct
 export const searchBooksReserved = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const books_reserved = await Book_reserved.findAll({
-      where: {
-        '$book_reserved.id_sale$': { [Op.iLike]: `%${req.query.id_sale}%` },
+      where: { id: req.params.id 
       },
       include: [
         {
