@@ -52,7 +52,7 @@ export const searchBooksReserved = async (req: Request, res: Response, next: Nex
     const books_reserved = await Book_reserved.findAll({
       where: { id: req.params.id 
       },
-      include: [Book_reserved,Book],
+      include: [Book_reserved,Book]
     })
     return res.status(StatusCodes.OK).json({
       books_reserved: books_reserved
