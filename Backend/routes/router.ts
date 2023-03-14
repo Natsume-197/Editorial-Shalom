@@ -100,7 +100,7 @@ router.get('/book/:id', findBook)
 router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createBook)
 
 // Shops Related Functions
-router.get('/searchReserved', searchBooksReserved)
+router.get('/searchReserved/:id', searchBooksReserved)
 router.get('/sales_request/status', getStatus)
 router.post('/sales_request/addMessage', addMessage)
 router.get('/sales_request/message/:id', getAllMessageForRequestSale)
