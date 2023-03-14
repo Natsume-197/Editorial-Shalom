@@ -43,7 +43,7 @@ export class Book_reserved extends Model {
 
       @Column({
         type: DataType.INTEGER,
-        allowNull: false
+        allowNull: true
       })
       price!: number
 }

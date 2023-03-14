@@ -70,7 +70,7 @@ export class Sale_request extends Model {
 
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: true
   })
   total!: number
 
