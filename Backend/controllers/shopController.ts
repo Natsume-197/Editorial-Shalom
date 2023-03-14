@@ -51,7 +51,7 @@ export const searchBooksReserved = async (req: Request, res: Response, next: Nex
   try {
     const book_reserved = await Book_reserved.findAll({
       where: { id_sale: req.params.id },
-      include: [Book]
+      include: [ { model : Book , include: [Book_t] }]
     })
     if (!book_reserved) throw new NotFound('La solicitud no tiene libros...')
     return res.status(StatusCodes.OK).json(
@@ -91,7 +91,7 @@ export const getAllRequestSaleForUser = async (req: Request, res: Response, next
   try {
     const sales_request = await Sale_request.findAll({
       where: { id_user: req.params.id },
-      include: [Book_reserved, Status, Receipt, Request_message]
+      include: [{model :Book_reserved, include :[{model:Book, include:[Book_t]}]}, Status, Receipt, Request_message]
     })
     if (!sales_request) throw new NotFound('Solicitud no valida...')
     return res.status(StatusCodes.OK).json(
@@ -109,7 +109,7 @@ export const findRequestSale = async (req: Request, res: Response, next: NextFun
   try {
     const sales_request = await Sale_request.findOne({
       where: { id: req.params.id },
-      include: [Book_reserved, Status, Receipt, Request_message]
+      include: [{model :Book_reserved, include :[{model:Book, include:[Book_t]}]}, Status, Receipt, Request_message]
     })
     if (!sales_request) throw new NotFound('Solicitud no valida...')
     return res.status(StatusCodes.OK).json(
