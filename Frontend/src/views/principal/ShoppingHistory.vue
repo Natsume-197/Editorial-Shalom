@@ -12,6 +12,7 @@ const user = computed(() => store.userInfo);
 let items = null;
 const table = reactive({
   items: null,
+  items_books: null
 });
 
 const data = reactive({
@@ -23,19 +24,18 @@ const data = reactive({
   address: "",
 });
 
+
 getRequestsUser(user.value.id).then((response) => {
   table.items = response.data.sales_request;
+
 });
-
-
 
 let itemSelected = ref(null)
 let isOpenAction = ref(false)
 
 const actionsButton = (item) => {
     itemSelected.value = item
-    isOpenAction.value = true
-    
+    isOpenAction.value = true    
 }
 
 </script>

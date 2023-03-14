@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -9,16 +9,15 @@ import {
 } from "@headlessui/vue";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 
-
 const props = defineProps({
   item: {
     type: Object,
     default: null,
   },
-  isOpen:{
+  isOpen: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const emit = defineEmits(["close-modal"]);
@@ -26,13 +25,21 @@ const emit = defineEmits(["close-modal"]);
 let open = computed({
   get: () => props.isOpen,
   set: (value) => emit("close-modal", value),
-
 });
 
+let closeModal = () => {
+  open.value = false;
+};
 
-let closeModal = () =>{
-    open.value = false
-}
+
+const data = reactive({
+  name: '',
+  email: '',
+  cellphone: "",
+  zip_code: "",
+  city: "",
+  address: "",
+});
 
 </script>
 
@@ -53,9 +60,9 @@ let closeModal = () =>{
         />
       </TransitionChild>
 
-      <div class="fixed inset-0 z-10 overflow-y-auto ">
+      <div class="fixed inset-0 z-10">
         <div
-          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 pointer-events-none relative h-[calc(100%-1rem)] w-auto  min-[576px]:mx-auto  min-[576px]:h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]   "
+          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 pointer-events-none relative h-[calc(100%-1rem)] w-auto min-[576px]:mx-auto min-[576px]:h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]"
         >
           <TransitionChild
             as="template"
@@ -69,86 +76,195 @@ let closeModal = () =>{
             <DialogPanel
               class="pointer-events-auto relative flex max-h-[80%] w-full flex-col overflow-hidden rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600"
             >
-              <div class="bg-white px-4 mt-2 overflow-y-scroll">
+              <div class="bg-white px-4 mt-2 overflow-y-auto">
                 <div class="sm:flex sm:items-start">
-                 
-                  <div class=" text-center  sm:text-left ">
-             
-
-
-                    <div class="flex h-full flex-col bg-white ">
-                  <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6 ">
-                    <div class="flex items-start justify-between ">
-                      <DialogTitle class="text-2xl font-bold text-gray-900"
-                        >Detalles del pedido</DialogTitle
-                      >
-                     
-                    </div>
-
-                    <div class="mt-8 overflow-y-auto ">
-                      <div class="flow-root  ">
-                        <ul role="list" class="-my-6 divide-y divide-gray-200 mr-4 ">
-                          <li
-                            v-for="(product, index) in item.book_reserved"
-                            :key="index"
-                            class="flex py-6"
+                  <div class="text-center sm:text-left">
+                    <div class="flex h-full flex-col bg-white">
+                      <div class="flex-1 py-6 px-4 sm:px-6">
+                        <div class="flex items-start justify-between">
+                          <DialogTitle class="text-2xl font-bold text-gray-900"
+                            >Detalles del pedido</DialogTitle
                           >
-                            <div
-                              class="h-30 w-32 md:w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
+                        </div>
+
+                        <div class="mt-4 text-lg">Libros seleccionados</div>
+
+                        <div class="mt-4 overflow-y-auto" style="height: 345px">
+                          <div class="flow-root">
+                            <ul
+                              role="list"
+                              class="-my-6 divide-y divide-gray-200 mr-4"
                             >
-                              <img
-                                src="http://localhost:5000/api/assets/books/covers/test.jpg"
-                                class="object-cover object-center"
-                              />
-                            </div>
-                            <div class="ml-4 flex flex-1 flex-col">
-                              <div>
+                              <li
+                                v-for="(product, index) in item.book_reserved"
+                                :key="index"
+                                class="flex py-6"
+                              >
                                 <div
-                                  class="flex justify-between text-base font-medium text-gray-900"
+                                  class="h-30 w-32 md:w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
                                 >
-                                  <h3>
-                                    <a href="/books" class="capitalize">
-                                      titte
-                                    </a>
-                                  </h3>
-
-                                  <p class="ml-4 ">price</p>
+                                  <img
+                                    src="http://localhost:5000/api/assets/books/covers/test.jpg"
+                                    class="object-cover object-center"
+                                  />
                                 </div>
+                                <div class="ml-4 flex flex-1 flex-col">
+                                  <div>
+                                    <div
+                                      class="flex justify-between text-base font-medium text-gray-900"
+                                    >
+                                      <h3>
+                                        <a href="/books" class="capitalize">
+                                          {{
+                                            props.item.book_reserved[index].book
+                                              .book_t[0].title
+                                          }}
+                                        </a>
+                                      </h3>
 
-                                <p
-                                  class="mt-1 text-sm font-semibold text-gray-500 mb-1"
-                                >
-                                  category
-                                </p>
-                              </div>
+                                      <p class="ml-4">
+                                        {{
+                                          props.item.book_reserved[index].price
+                                        }}
+                                      </p>
+                                    </div>
 
-                              <p class="mt-1 text-sm text-gray-500">Unidades compradas: </p>
-    
+                                    <p
+                                      class="mt-1 text-sm font-semibold text-gray-500 mb-1"
+                                    >
+                                      {{
+                                        props.item.book_reserved[index].book
+                                          .category.name
+                                      }}
+                                    </p>
+                                  </div>
+
+                                  <p class="mt-1 text-sm text-gray-500">
+                                    Unidades:
+                                    {{ props.item.book_reserved[index].amount }}
+                                  </p>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div
+                          class="border-t border-b border-gray-200 py-4 mt-4"
+                        >
+                          <div
+                            class="text-lg font-bold text-right text-gray-900"
+                          >
+                            Total a pagar :
+                            <div class="inline font-normal ml-1">
+                              {{ props.item.total }}
                             </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                          </div>
+                          
+                        </div>
+                        <div class="my-4 text-lg">Formulario ingresado</div>
+
+
+
+        
+                <div class="-mx-3 md:flex mb-6">
+                  <div class="md:w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide  text-xs font-bold mb-2"
+                      for="grid-last-name"
+                    >
+                      Nombre
+                    </label>
+                    <input
+                      v-model="data.name"
+                      placeholder="No disponible"
+                      disabled
+                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                    />
+                  </div>
+                </div>
+                <div class="-mx-3 md:flex mb-6">
+                  <div class="md:w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                      for="grid-last-name"
+                    >
+                      Correo
+                    </label>
+                    <input
+                      v-model="data.email"
+                      placeholder="Correo"
+                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                    />
+                  </div>
+                  <div class="md:w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                      for="grid-last-name"
+                    >
+                      Celular
+                    </label>
+                    <input
+                      v-model="data.cellphone"
+                      placeholder="No disponible"
+                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                    />
                   </div>
                 </div>
 
+                <div class="-mx-3 md:flex mb-6">
+                  <div class="md:w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                      for="grid-last-name"
+                    >
+                      Dirección
+                    </label>
+                    <input
+                      v-model="data.address"
+                      placeholder="No disponible"
+                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                    />
+                  </div>
+                </div>
 
-
-
-
-                    <div class="mt-2">
-          
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
-                      {{ props.item }}
+                <div class="-mx-3 md:flex mb-2">
+                  <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                      for="grid-city"
+                    >
+                      Código postal
+                    </label>
+                    <input
+                      v-model="data.zip_code"
+                      placeholder="No disponible"
+                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                    />
+                  </div>
+                  <div class="md:w-1/2 px-3">
+                    <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                      for="grid-state"
+                    >
+                      Ciudad
+                    </label>
+                    <div class="relative">
+                      <input
+                        v-model="data.city"
+                        placeholder="No disponible"
+                        class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                      />
                     </div>
+                  </div>
+                </div>
+        
+              </div>
+            
+                        
+                      
+                    </div>
+
                   </div>
                 </div>
               </div>
