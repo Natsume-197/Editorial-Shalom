@@ -11,6 +11,7 @@ import { Sale_request } from '../models/shops/sales_request'
 import { Request_message } from '../models/shops/request_message'
 import { Book_t } from '../models/books/book_t'
 import { Category } from '../models/books/category'
+import { User } from '../models/users/user'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -193,14 +194,14 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
 
 export const getAllMessageForRequestSale = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const sales_request = await Sale_request.findAll({
+    const request_message = await Request_message.findAll({
       where: { id_sale: req.params.id },
-      include: [Book_reserved, Status, Receipt, Request_message]
+      include: [User]
     })
-    if (!sales_request) throw new NotFound('Solicitud no valida...')
+    if (!request_message) throw new NotFound('Solicitud no valida...')
     return res.status(StatusCodes.OK).json(
       {
-        sales_request: sales_request,
+        request_message: request_message,
       },
 
     )
