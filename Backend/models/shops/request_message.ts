@@ -46,5 +46,5 @@ export class Request_message extends Model {
         allowNull: false,
         defaultValue: DataTypes.NOW
       })
-      purchase_date!: Date;
+      message_date!: Date;
 }

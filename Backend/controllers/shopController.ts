@@ -228,7 +228,7 @@ export const addMessage = async (req: Request, res: Response, next: NextFunction
         id_sale: id,
         id_user: user,
         comments: message,
-        purchase_date: Date.now(),
+        message_date: Date.now(),
       }
     )
 
