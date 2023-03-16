@@ -76,10 +76,12 @@ export const getStatus = async (req: Request, res: Response, next: NextFunction)
     return next(error)
   }
 }
+
+
 export const getAllRequestSale = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const sales_request = await Sale_request.findAll({
-      include: [Book_reserved, Status, Receipt]
+      include: [{model :Book_reserved, include :[{model:Book, include:[Book_t, Category]}]}, Status, Receipt, Request_message]
     })
     return res.status(StatusCodes.OK).json({
       sales_request: sales_request
@@ -88,6 +90,21 @@ export const getAllRequestSale = async (req: Request, res: Response, next: NextF
     return next(error)
   }
 }
+
+export const getAllRequestSaleForStatus = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const sales_request = await Sale_request.findAll({
+      where: { id_status: req.params.id },
+      include: [{model :Book_reserved, include :[{model:Book, include:[Book_t, Category]}]}, Status, Receipt, Request_message]
+    })
+    return res.status(StatusCodes.OK).json({
+      sales_request: sales_request
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
 export const getAllRequestSaleForUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const sales_request = await Sale_request.findAll({

@@ -29,7 +29,8 @@ import { createReceipt,
    updateRequestSale, 
    getAllRequestSaleForUser, 
    addMessage,
-   getAllMessageForRequestSale
+   getAllMessageForRequestSale,
+   getAllRequestSaleForStatus
   } from '../controllers/shopController'
 
 export const router = express.Router()
@@ -108,6 +109,7 @@ router.get('/sales_request/message/:id', getAllMessageForRequestSale)
 // Shops CRUD Routes
 router.get('/sales_request_get', getAllRequestSale)
 router.get('/sales_request_user/:id', getAllRequestSaleForUser)
+router.get('/sales_request_status/:id', getAllRequestSaleForStatus)
 router.get('/sales_request_find/:id', findRequestSale)
 router.post('/sales_request', createRequestSale)
 router.patch('/sales_request_update/:id', isAuthAdmin, updateRequestSale)
