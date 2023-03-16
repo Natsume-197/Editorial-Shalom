@@ -4,7 +4,7 @@ import CardBox from "./CardBox.vue";
 import NumberDynamic from "../NumberDynamic.vue";
 import BaseIcon from "../minimal/BaseIcon.vue";
 import BaseLevel from "../minimal/BaseLevel.vue";
-import PillTagTrend from "../PillTagTrend.vue";
+import PillTagTrend from "../pilltag/PillTagTrend.vue";
 import BaseButton from "../minimal/BaseButton.vue";
 
 defineProps({

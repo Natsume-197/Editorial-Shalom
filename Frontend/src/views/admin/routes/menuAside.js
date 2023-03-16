@@ -20,12 +20,8 @@ import {
       icon: mdiViewDashboard,
       label: "Inicio",
     },
-    {
-      to: "/dashboard/diseño",
-      icon: mdiPencilBoxOutline,
-      label: "Diseño",
-    },
-    {
+    { 
+      to: "/dashboard/ventas",
       icon: mdiCartOutline,
       label: "Ventas",
     },

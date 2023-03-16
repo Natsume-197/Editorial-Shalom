@@ -1,9 +1,9 @@
 <script setup>
 import { mdiBallotOutline, mdiFileUploadOutline } from "@mdi/js";
-import SectionMain from "../../../components/dashboard/SectionMain.vue";
+import SectionMain from "../../../components/dashboard/sections/SectionMain.vue";
 import CardBox from "../../../components/dashboard/cardbox/CardBox.vue";
 import LayoutAuthenticated from "../../../layouts/LayoutDashboard.vue";
-import SectionTitleLineWithButton from "../../../components/dashboard/SectionTitleLineWithButton.vue";
+import SectionTitleLineWithButton from "../../../components/dashboard/sections/SectionTitleLineWithButton.vue";
 import BaseButton from "../../../components/dashboard/minimal/BaseButton.vue";
 import FormField from "../../../components/dashboard/form/FormField.vue";
 import BaseDivider from "../../../components/dashboard/minimal/BaseDivider.vue";

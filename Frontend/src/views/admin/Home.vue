@@ -1,10 +1,10 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, reactive, onMounted } from "vue";
 import { useMainStore } from "../../stores/main";
 import { userStore } from "../../stores/user";
 import LayoutDashboard from "../../layouts/LayoutDashboard.vue";
-import SectionMain from "../../components/dashboard/SectionMain.vue";
-import SectionTitleLineWithButton from "../../components/dashboard/SectionTitleLineWithButton.vue";
+import SectionMain from "../../components/dashboard/sections/SectionMain.vue";
+import SectionTitleLineWithButton from "../../components/dashboard/sections/SectionTitleLineWithButton.vue";
 import CardBoxWidget from "../../components/dashboard/cardbox/CardBoxWidget.vue";
 import {
   mdiChartTimelineVariant,
@@ -12,6 +12,9 @@ import {
   mdiCartOutline,
   mdiWeb,
 } from "@mdi/js";
+import SectionBannerCover from "../../components/dashboard/sections/SectionBannerCover.vue";
+import { api } from "../../utils/axios"
+import CardBoxTransaction from "../../components/dashboard/cardbox/CardBoxTransaction.vue";
 
 const isAuth = computed(() => store.isLoggedIn);
 const store = userStore();
@@ -30,12 +33,34 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
     loadingComplete.value = true;
   }
 });
+
+const response_sales = reactive({
+  data: null,
+});
+
+// Get all transaction history 
+async function getAllTransactions() {
+  try {
+    const res = await api.get("/sales_request_get");
+    response_sales.data = res.data.sales_request;
+  
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+onMounted(() => {
+  getAllTransactions();
+});
+
 </script>
 
 <template>
   <div v-if="isAuth">
     <LayoutDashboard>
       <SectionMain>
+                  <SectionBannerCover class="mt-6 mb-6" />
+
         <SectionTitleLineWithButton
           :icon="mdiChartTimelineVariant"
           title="Resumen"
@@ -73,6 +98,8 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
         <template v-else>
           <!-- datos una vez cargados -->
 
+          
+
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
             <CardBoxWidget
               trend-type="up"
@@ -95,9 +122,34 @@ watch([loadingComplete, items], ([isLoadingValue, itemsValue]) => {
               :icon="mdiWeb"
               :number="0"
               prefix=""
-              label="Visitas (mensual)"
+              label="Pedidos (mensual)"
             />
           </div>
+
+          <SectionTitleLineWithButton
+          :icon="mdiChartTimelineVariant"
+          title="Historial de Transacciones"
+          
+        >
+        </SectionTitleLineWithButton>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="flex flex-col justify-between">
+            <CardBoxTransaction
+              v-for="(transaction, index) in response_sales.data"
+              :key="index"
+              :amount="transaction.total"
+              :date="transaction.purchase_date"
+              :account="transaction.name"
+              :type="transaction.id_status"
+              :name="transaction.name"
+              :email="transaction.email"
+            />
+          </div>
+          <div class="flex flex-col justify-between">
+
+          </div>
+        </div>
+
         </template>
       </SectionMain>
     </LayoutDashboard>

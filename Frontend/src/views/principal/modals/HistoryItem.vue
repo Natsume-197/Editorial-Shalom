@@ -7,7 +7,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
+import ChatUser from "./ChatUser.vue";
 
 const props = defineProps({
   item: {
@@ -31,16 +31,22 @@ let closeModal = () => {
   open.value = false;
 };
 
-
 const data = reactive({
-  name: '',
-  email: '',
-  cellphone: "",
-  zip_code: "",
-  city: "",
-  address: "",
+  name: props.item.name,
+  email: props.item.email,
+  cellphone: props.item.cell,
+  zip_code: props.item.zip_code,
+  city: props.item.city,
+  address: props.item.address,
+  address: props.item.address,
+  school_name: props.item.school_name,
+  message: props.item.message,
 });
 
+let isOpenChat = ref(false);
+let openModalChat = () => {
+  isOpenChat.value = true;
+};
 </script>
 
 <template>
@@ -62,7 +68,7 @@ const data = reactive({
 
       <div class="fixed inset-0 z-10">
         <div
-          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 pointer-events-none relative h-[calc(100%-1rem)] w-auto min-[576px]:mx-auto min-[576px]:h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]"
+          class="flex min-h-full items-center p-4 text-center sm:p-0 pointer-events-none relative h-[calc(100%-1rem)] w-auto min-[576px]:mx-auto min-[576px]:h-[calc(100%-3.5rem)] min-[576px]:max-w-[700px]"
         >
           <TransitionChild
             as="template"
@@ -76,6 +82,12 @@ const data = reactive({
             <DialogPanel
               class="pointer-events-auto relative flex max-h-[80%] w-full flex-col overflow-hidden rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600"
             >
+              <ChatUser
+                :isOpen="isOpenChat"
+                :item="props.item"
+                @close-modal-chat="isOpenChat = false"
+              />
+
               <div class="bg-white px-4 mt-2 overflow-y-auto">
                 <div class="sm:flex sm:items-start">
                   <div class="text-center sm:text-left">
@@ -87,7 +99,9 @@ const data = reactive({
                           >
                         </div>
 
-                        <div class="mt-4 text-lg">Libros seleccionados</div>
+                        <div class="mt-4 text-lg font-bold">
+                          Libros seleccionados
+                        </div>
 
                         <div class="mt-4 overflow-y-auto" style="height: 345px">
                           <div class="flow-root">
@@ -150,121 +164,146 @@ const data = reactive({
                         </div>
 
                         <div
-                          class="border-t border-b border-gray-200 py-4 mt-4"
+                          class="text-lg font-semibold text-right text-gray-900 mt-4"
                         >
-                          <div
-                            class="text-lg font-bold text-right text-gray-900"
+                          Total a pagar :
+                          <div class="inline font-normal ml-1">
+                            {{ props.item.total }}
+                          </div>
+                        </div>
+
+                        <hr class="mt-4" />
+                        <div class="border-t border-gray-200 m"></div>
+
+                        <div class="flex">
+                          <div class="flex-1 mb-4 mt-5 overflow-hidden">
+                            <h1 class="inline text-lg font-bold leading-none">
+                              Información de contacto
+                            </h1>
+                          </div>
+                        </div>
+
+                        <div class="pb-5">
+                          <h3
+                            class="inline p-1 text-base font-normal leading-none"
                           >
-                            Total a pagar :
-                            <div class="inline font-normal ml-1">
-                              {{ props.item.total }}
+                            Nombre
+                          </h3>
+                          <input
+                            v-model="data.name"
+                            placeholder="Nombre"
+                            class="text-black placeholder-gray-600 w-full mb-2 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
+                          <h3
+                            class="inline p-1 text-base font-normal leading-none"
+                          >
+                            Correo
+                          </h3>
+                          <input
+                            v-model="data.email"
+                            placeholder="Correo"
+                            class="text-black placeholder-gray-600 mb-3 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
+                          <div class="flex">
+                            <div class="flex-grow mb-2">
+                              <h3
+                                class="inline p-1 text-base font-normal leading-none"
+                              >
+                                Celular
+                              </h3>
+                              <input
+                                v-model="data.cellphone"
+                                placeholder="Celular"
+                                class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                              />
                             </div>
                           </div>
-                          
                         </div>
-                        <div class="my-4 text-lg">Formulario ingresado</div>
-
-
-
-        
-                <div class="-mx-3 md:flex mb-6">
-                  <div class="md:w-full px-3">
-                    <label
-                      class="block uppercase tracking-wide  text-xs font-bold mb-2"
-                      for="grid-last-name"
-                    >
-                      Nombre
-                    </label>
-                    <input
-                      v-model="data.name"
-                      placeholder="No disponible"
-                      disabled
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
-                  </div>
-                </div>
-                <div class="-mx-3 md:flex mb-6">
-                  <div class="md:w-full px-3">
-                    <label
-                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                      for="grid-last-name"
-                    >
-                      Correo
-                    </label>
-                    <input
-                      v-model="data.email"
-                      placeholder="Correo"
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
-                  </div>
-                  <div class="md:w-full px-3">
-                    <label
-                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                      for="grid-last-name"
-                    >
-                      Celular
-                    </label>
-                    <input
-                      v-model="data.cellphone"
-                      placeholder="No disponible"
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
-                  </div>
-                </div>
-
-                <div class="-mx-3 md:flex mb-6">
-                  <div class="md:w-full px-3">
-                    <label
-                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                      for="grid-last-name"
-                    >
-                      Dirección
-                    </label>
-                    <input
-                      v-model="data.address"
-                      placeholder="No disponible"
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
-                  </div>
-                </div>
-
-                <div class="-mx-3 md:flex mb-2">
-                  <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label
-                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                      for="grid-city"
-                    >
-                      Código postal
-                    </label>
-                    <input
-                      v-model="data.zip_code"
-                      placeholder="No disponible"
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
-                  </div>
-                  <div class="md:w-1/2 px-3">
-                    <label
-                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                      for="grid-state"
-                    >
-                      Ciudad
-                    </label>
-                    <div class="relative">
-                      <input
-                        v-model="data.city"
-                        placeholder="No disponible"
-                        class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                      />
+                        <div class="flex">
+                          <div class="flex-1 mb-4 overflow-hidden">
+                            <h1 class="inline text-lg font-bold leading-none">
+                              Información de entrega
+                            </h1>
+                          </div>
+                          <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
+                        </div>
+                        <div class="pb-5 mb-3">
+                          <div class="flex">
+                            <div class="flex-grow w-2/5 pr-2 mb-3">
+                              <h3
+                                class="inline p-1 text-base font-normal leading-none"
+                              >
+                                Código Postal
+                              </h3>
+                              <input
+                                v-model="data.zip_code"
+                                placeholder="Código Postal"
+                                class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                              />
+                            </div>
+                            <div class="flex-grow">
+                              <h3
+                                class="inline p-1 text-base font-normal leading-none"
+                              >
+                                Ciudad
+                              </h3>
+                              <input
+                                v-model="data.city"
+                                placeholder="Ciudad"
+                                class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                              />
+                            </div>
+                          </div>
+                          <h3
+                            class="inline p-1 text-base font-normal leading-none"
+                          >
+                            Dirección
+                          </h3>
+                          <input
+                            v-model="data.address"
+                            placeholder="Dirección"
+                            class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
+                        </div>
+                        <div class="flex">
+                          <div class="flex-1 mb-3 overflow-hidden">
+                            <h1 class="inline text-lg font-bold leading-none">
+                              Información adicional
+                            </h1>
+                          </div>
+                          <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
+                        </div>
+                        <div class="pb-5">
+                          <div class="flex">
+                            <div class="flex-grow w-2/5 pr-2 mb-3">
+                              <h3
+                                class="inline p-1 text-base font-normal leading-none"
+                              >
+                                Nombre del colegio
+                              </h3>
+                              <input
+                                v-model="data.school_name"
+                                placeholder="Nombre del colegio"
+                                class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                              />
+                            </div>
+                          </div>
+                          <h3
+                            class="inline p-1 text-base font-normal leading-none mb-3"
+                          >
+                            Mensaje
+                          </h3>
+                          <textarea
+                            v-model="data.message"
+                            rows="4"
+                            placeholder="Mensaje"
+                            class="text-black resize-none placeholder-gray-600 w-full mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
+                        </div>
+                        <hr class="mt-2" />
+                        <div class="border-t border-gray-200 m"></div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-        
-              </div>
-            
-                        
-                      
-                    </div>
-
                   </div>
                 </div>
               </div>
@@ -273,10 +312,10 @@ const data = reactive({
               >
                 <button
                   type="button"
-                  class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                  @click="closeModal"
+                  class="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
+                  @click="openModalChat"
                 >
-                  Deactivate
+                  Abrir conversación
                 </button>
                 <button
                   type="button"
@@ -284,7 +323,7 @@ const data = reactive({
                   @click="closeModal"
                   ref="cancelButtonRef"
                 >
-                  Cancel
+                  Cerrar
                 </button>
               </div>
             </DialogPanel>

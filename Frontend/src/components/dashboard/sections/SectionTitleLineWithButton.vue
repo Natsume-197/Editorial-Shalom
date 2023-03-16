@@ -1,9 +1,9 @@
 <script setup>
 import { mdiCog } from "@mdi/js";
 import { useSlots, computed } from "vue";
-import BaseIcon from "./minimal/BaseIcon.vue";
-import BaseButton from "./minimal/BaseButton.vue";
-import IconRounded from "./minimal/IconRounded.vue";
+import BaseIcon from "../minimal/BaseIcon.vue";
+import BaseButton from "../minimal/BaseButton.vue";
+import IconRounded from "../minimal/IconRounded.vue";
 
 defineProps({
   icon: {

@@ -3,7 +3,7 @@ import { computed, ref, watch } from "vue";
 import { useMainStore } from "../../../stores/main";
 import { mdiEye, mdiTrashCan, mdiTextSearch } from "@mdi/js";
 import CardBoxModal from "../cardbox/CardBoxModal.vue";
-import TableCheckboxCell from "../TableCheckboxCell.vue";
+import TableCheckboxCell from "./TableCheckboxCell.vue";
 import BaseLevel from "../minimal/BaseLevel.vue";
 import BaseButtons from "../minimal/BaseButtons.vue";
 import BaseButton from "../minimal/BaseButton.vue";
@@ -11,8 +11,8 @@ import UserAvatar from "../UserAvatar.vue";
 import { api } from "../../../utils/axios";
 import { useToast } from "vue-toastification";
 import FormControl from "../form/FormControl.vue";
-import CardBoxComponentEmpty from "../cardbox/CardBoxComponentEmpty.vue"
-import CardBox from "../cardbox/CardBox.vue"
+import CardBoxComponentEmpty from "../cardbox/CardBoxComponentEmpty.vue";
+import CardBox from "../cardbox/CardBox.vue";
 defineProps({
   checkable: Boolean,
 });
@@ -39,7 +39,8 @@ const filteredItems = computed(() => {
       regex.test(item.name) ||
       regex.test(item.second_name) ||
       regex.test(item.email) ||
-      regex.test(item.name + " " + item.second_name) || regex.test(item.is_verified)
+      regex.test(item.name + " " + item.second_name) ||
+      regex.test(item.is_verified)
   );
 });
 
@@ -122,7 +123,6 @@ async function deleteUser(id) {
 }
 </script>
 <template>
- 
   <template v-if="!loadingComplete">
     <!-- indicador de carga -->
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6"></div>
@@ -157,7 +157,7 @@ async function deleteUser(id) {
       v-model.trim="searchTerm"
       placeholder="Buscador"
       :icon="mdiTextSearch"
-      class="rounded-lg"
+      class="rounded-t-lg"
       autocomplete="off"
     />
     <CardBoxModal
@@ -213,7 +213,7 @@ async function deleteUser(id) {
           <th />
         </tr>
       </thead>
-      
+
       <tbody>
         <tr v-for="client in itemsPaginated" :key="client.id">
           <TableCheckboxCell
@@ -225,15 +225,14 @@ async function deleteUser(id) {
               :username="client.name"
               class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
             />
-          </td>          
+          </td>
           <td data-label="Name">
             <div class="text-center">
-            {{ client.name }}
-          </div>
+              {{ client.name }}
+            </div>
           </td>
           <td data-label="Company">
-            {{ client.second_name ? client.second_name : '' }}
-
+            {{ client.second_name ? client.second_name : "" }}
           </td>
           <td data-label="City">
             {{ client.email }}
@@ -249,8 +248,15 @@ async function deleteUser(id) {
           </td>
           <td data-label="Created" class="lg:w-1 whitespace-nowrap">
             <div class="text-center">
-   <span :class="{'bg-emerald-500': client.is_verified, 'bg-rose-500': !client.is_verified}" class="inline-block px-2 py-1 text-white rounded-full text-xs w-full">{{ client.is_verified ? 'Verificado' : 'No verificado' }}</span>
-</div>
+              <span
+                :class="{
+                  'bg-emerald-500': client.is_verified,
+                  'bg-rose-500': !client.is_verified,
+                }"
+                class="inline-block px-2 py-1 text-white rounded-full text-xs w-full"
+                >{{ client.is_verified ? "Verificado" : "No verificado" }}</span
+              >
+            </div>
           </td>
           <td class="before:hidden lg:w-1 whitespace-nowrap">
             <BaseButtons type="justify-start lg:justify-end" no-wrap>
@@ -270,13 +276,9 @@ async function deleteUser(id) {
                 "
               />
             </BaseButtons>
-            
           </td>
-          
         </tr>
-        
       </tbody>
-      
     </table>
     <template v-if="filteredItems.length === 0">
       <CardBoxComponentEmpty></CardBoxComponentEmpty>

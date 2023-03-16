@@ -3,11 +3,11 @@ import { computed, ref, reactive, watch } from "vue";
 import { useMainStore } from "../../stores/main";
 import { userStore } from "../../stores/user";
 import LayoutDashboard from "../../layouts/LayoutDashboard.vue";
-import SectionMain from "../../components/dashboard/SectionMain.vue";
+import SectionMain from "../../components/dashboard/sections/SectionMain.vue";
 import CardBox from "../../components/dashboard/cardbox/CardBox.vue";
 import BaseIcon from "../../components/dashboard/minimal/BaseIcon.vue";
 import BaseButton from "../../components/dashboard/minimal/BaseButton.vue";
-import SectionTitleLineWithButton from "../../components/dashboard/SectionTitleLineWithButton.vue";
+import SectionTitleLineWithButton from "../../components/dashboard/sections/SectionTitleLineWithButton.vue";
 import {
   mdiCheckDecagram,
   mdiAccount,
