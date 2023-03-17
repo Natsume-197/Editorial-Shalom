@@ -4,7 +4,7 @@ import { userStore } from "../../../stores/user";
 import LayoutDashboard from "../../../layouts/LayoutDashboard.vue";
 import { api } from "../../../utils/axios";
 import SectionMain from "../../../components/dashboard/sections/SectionMain.vue";
-import TableSales from "../../../components/dashboard/tables/TableSales.vue"
+import TableSales from "../../../components/dashboard/tables/TableSales.vue";
 import CardBox from "../../../components/dashboard/cardbox/CardBox.vue";
 import FormField from "../../../components/dashboard/form/FormField.vue";
 import FormControl from "../../../components/dashboard/form/FormControl.vue";
@@ -12,14 +12,23 @@ import FormControl from "../../../components/dashboard/form/FormControl.vue";
 const isAuth = computed(() => store.isLoggedIn);
 const store = userStore();
 
-const categories = ["Todos los estados","Nuevo pedido","Procesando","Pagado","En envio","Entregado","Completado","Rechazado","Cancelado"]
+const categories = [
+  "Todos los estados",
+  "Nuevo pedido",
+  "Procesando",
+  "Pagado",
+  "En envio",
+  "Entregado",
+  "Completado",
+  "Rechazado",
+  "Cancelado",
+];
 const selectedCategory = ref(categories[0]);
 const selectedCategoryIndex = ref(0);
 
 watch(selectedCategory, (newVal) => {
   selectedCategoryIndex.value = categories.indexOf(newVal);
 });
-
 
 let loadingComplete = ref(false);
 onMounted(() => {
@@ -62,16 +71,12 @@ onMounted(() => {
           <!-- datos una vez cargados -->
 
           <FormField label="Categoría" class="w-80">
-              <FormControl
-                :options="categories"
-                v-model="selectedCategory"
-              />
-           </FormField>
+            <FormControl :options="categories" v-model="selectedCategory" />
+          </FormField>
 
           <CardBox class="mb-6" has-table>
             <TableSales :selectedCategory="selectedCategoryIndex" />
           </CardBox>
-          
         </template>
       </SectionMain>
     </LayoutDashboard>

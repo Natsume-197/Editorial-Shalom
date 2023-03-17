@@ -51,6 +51,7 @@ api.get("sales_request/message/" + props.item.id).then((response) => {
 watch(
   () => props.item,
   (newValue) => {
+    data.chat_history = []
     api.get("sales_request/message/" + props.item.id).then((response) => {
       data.chat_history = response.data.request_message;
     });
@@ -71,12 +72,10 @@ const sendMessage = async () => {
     user: user.value.id,
     message: message.value,
   };
-  console.log(payload);
   await api.post("sales_request/addMessage", payload).then((response) => {
     message.value = "";
 
     api.get("sales_request/message/" + props.item.id).then((response) => {
-      console.log(response);
       data.chat_history = response.data.request_message;
     });
   });

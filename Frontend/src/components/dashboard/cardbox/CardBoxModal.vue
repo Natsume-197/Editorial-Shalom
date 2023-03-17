@@ -38,7 +38,6 @@ const value = computed({
 });
 
 const confirmCancel = (mode) => {
-  console.log(mode)
   emit(mode);
   if(mode === 'confirm'){
     props.functionConfirm()

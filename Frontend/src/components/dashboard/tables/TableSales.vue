@@ -69,7 +69,6 @@ const remove = (arr, cb) => {
 };
 
 const checked = (isChecked, client) => {
-  console.log(client);
   if (isChecked) {
     checkedRows.value.push(client);
   } else {
@@ -132,8 +131,13 @@ async function getTransactionByID(id) {
 
 // Filter items by search bar
 const filteredItemSales = computed(() => {
-  const regex = new RegExp(searchTerm.value, "i");
+  try {
+    const regex = new RegExp(searchTerm.value, "i");
   return response.sales.filter((item) => regex.test(item.name));
+  } catch (error) {
+    return null
+  }
+ 
 });
 
 const numPages = computed(() =>
