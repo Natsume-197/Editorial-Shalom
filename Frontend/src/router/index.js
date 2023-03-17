@@ -82,6 +82,12 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
+      path: "/dashboard/ventas",
+      name: "SalesManager",
+      component: () => import("../views/admin/sales/SalesManager.vue"),
+      meta: { requireAuth: true },
+    },
+    {
       path: "/dashboard/perfil",
       name: "ProfileAdmin",
       component: () => import("../views/admin/Profile.vue"),
