@@ -1,6 +1,6 @@
 <template>
  
-<div class="container px-6 pt-6 mx-auto">
+<div class="container px-6 mx-auto">
 
   <h1 class="text-2xl font-semibold text-gray-800 mb-10 lg:text-3xl  dark:text-white">
             Conoce nuestras  <span class="underline decoration-rose-500">series</span>  de libros principales
@@ -127,6 +127,46 @@
         </div>
       </div>
     </div>
+
+    <div class="bg-white">
+    
+    <div class=" px-4 md:px-8 mx-auto mb-20">
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div class="md:pt-8">
+          <p class="text-rose-500 font-bold text-center md:text-left">
+            Matemáticas
+          </p>
+
+          <h1
+            class="text-gray-800 text-2xl sm:text-3xl font-bold text-center md:text-left mb-4 md:mb-6"
+          >
+          Aventura Lógico
+          </h1>
+
+          <p class="text-gray-500 sm:text-xl mb-6 md:mb-8">
+            Esta serie de matemáticas (Aventura Lógico Matemática), usa una metodología progresiva que promueve la enseñanza y aprendizaje en la educación preescolar de una forma divertida. Cada libro está lleno de actividades tanto divertidas como educativas.
+
+            <br /><br />
+            Contiene ilustraciones grandes, y los temas básicos de matemática para cada nivel, tu niño lo disfrutara de principio a fin.
+
+          </p>
+        </div>
+        <div>
+          <div
+            class="h-auto md:h-auto  overflow-hidden rounded-lg flex items-center justify-center"
+          >
+            <img
+              src="../../assets/images/book4.svg"
+              loading="lazy"
+              alt="Photo by Martin Sanchez"
+              class="w-auto h-auto object-cover object-center"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
+  
 </div>
 </template>
