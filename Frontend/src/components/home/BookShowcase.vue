@@ -1,8 +1,7 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref, watch, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { api } from "../../utils/axios";
-
 
 const response = reactive({
   data_backup: null,
@@ -13,7 +12,7 @@ async function getBooks() {
   try {
     const res = await api.get(`book`);
     response.data = res.data.books;
-    response.data_backup = res.data.books
+    response.data_backup = res.data.books;
   } catch (error) {
     console.log(error);
   }
@@ -21,7 +20,6 @@ async function getBooks() {
 
 onMounted(() => {
   getBooks();
-  
 });
 
 const i18nLocale = useI18n();
@@ -29,24 +27,50 @@ console.log(i18nLocale.locale.value);
 
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
 
-let checkedCategories = ref([])
+let checkedCategories = ref([]);
 
 watch(checkedCategories, async (newValue) => {
   if (newValue.length === 0) {
-    response.data = response.data_backup
-  }else{
+    response.data = response.data_backup;
+  } else {
     response.data = response.data_backup.filter((book) => {
-        return checkedCategories.value.includes(book.category.name)
-    })
-
+      return checkedCategories.value.includes(book.category.name);
+    });
   }
-})
+});
 
 const resetFilter = () => {
   checkedCategories.value = [];
   response.data = response.data_backup;
-}
+};
 
+// Pagination support
+const perPage = ref(8);
+const currentPage = ref(0);
+
+const numPages = computed(() =>
+  Math.ceil(response.data.length / perPage.value)
+);
+
+const currentPageHuman = computed(() => currentPage.value + 1);
+
+const pagesList = computed(() => {
+  const pagesList = [];
+
+  for (let i = 0; i < numPages.value; i++) {
+    pagesList.push(i);
+  }
+
+  return pagesList;
+});
+
+// Items separated per page
+const itemsPaginatedBooks = computed(() =>
+  response.data.slice(
+    perPage.value * currentPage.value,
+    perPage.value * (currentPage.value + 1)
+  )
+);
 </script>
 <template>
   <div class="lg:px-28 my-32">
@@ -61,9 +85,9 @@ const resetFilter = () => {
           <div class="relative z-20">
             <details class="group [&_summary::-webkit-details-marker]:hidden">
               <summary
-                class="flex items-center gap-2 pb-1 text-gray-900 transition border-b  border-gray-400 cursor-pointer hover:border-gray-600"
+                class="flex items-center gap-2 pb-1 text-gray-900 transition border-b border-gray-400 cursor-pointer hover:border-gray-600"
               >
-                <span class="text-xl font-medium " > Categoría </span>
+                <span class="text-xl font-medium"> Categoría </span>
 
                 <span class="transition group-open:-rotate-180">
                   <svg
@@ -88,7 +112,9 @@ const resetFilter = () => {
               >
                 <div class="bg-white border border-gray-200 rounded w-80">
                   <header class="flex items-center justify-between p-4">
-                    <span class="text-sm text-gray-700"> {{ checkedCategories.length }} seleccionados </span>
+                    <span class="text-sm text-gray-700">
+                      {{ checkedCategories.length }} seleccionados
+                    </span>
 
                     <button
                       type="button"
@@ -99,7 +125,6 @@ const resetFilter = () => {
                     </button>
                   </header>
 
-                  
                   <ul class="p-4 space-y-1 border-t border-gray-200">
                     <li>
                       <label
@@ -162,11 +187,8 @@ const resetFilter = () => {
               </div>
             </details>
           </div>
-
-          
         </div>
         <section v-if="!response.data" class="bg-white dark:bg-gray-900">
-          
           <div class="container py-10 mx-auto animate-pulse">
             <div
               class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-32 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3"
@@ -279,7 +301,7 @@ const resetFilter = () => {
         </section>
         <template v-if="response.data">
           <div class="store_bookGrid__Ps5Yl">
-            <div v-for="item in response.data" :key="item" class="">
+            <div v-for="item in itemsPaginatedBooks" :key="item" class="">
               <router-link
                 class="BookCard_card__CVnLd store_bookCard__SveR5"
                 :to="`book/${item.id}`"
@@ -310,6 +332,55 @@ const resetFilter = () => {
                 </div>
               </router-link>
             </div>
+          </div>
+
+          <div class="flex">
+            <a
+              href="#"
+              class="flex items-center justify-center px-4 py-2 mx-1 text-gray-500 capitalize bg-white rounded-md cursor-not-allowed rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+
+            <div v-for="page in pagesList" :key="page">
+              <button
+                @click="currentPage = page"
+                href="#"
+                :class="{'bg-blue-500 text-white': page === currentPage, 'bg-white text-gray-700': page !== currentPage}"
+    class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+  >
+                {{ page + 1 }}
+              </button>
+            </div>
+
+            <button
+              @click=""
+              class="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
           </div>
         </template>
       </section>
