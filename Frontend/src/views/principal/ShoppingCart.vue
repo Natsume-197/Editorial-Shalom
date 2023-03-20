@@ -176,8 +176,8 @@ const buyProduct = () => {
 
                     <div class="mt-8">
                       <!--Graphic from https://www.opendoodles.com/-->
-                    <div v-if="current_items">
-                      <div v-if="current_items === undefined || current_items.length === 0 ">
+                      <div v-if="!Array.isArray(current_items) || current_items.length === 0">                     
+                      <div>
                     
                       <div class="lg:mt-24 bg-white place-content-center">
                         <div class="text-center">

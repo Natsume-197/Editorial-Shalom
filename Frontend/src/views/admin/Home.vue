@@ -13,7 +13,7 @@ import {
   mdiWeb,
 } from "@mdi/js";
 import SectionBannerCover from "../../components/dashboard/sections/SectionBannerCover.vue";
-import { api } from "../../utils/axios"
+import { api } from "../../utils/axios";
 import CardBoxTransaction from "../../components/dashboard/cardbox/CardBoxTransaction.vue";
 
 const isAuth = computed(() => store.isLoggedIn);
@@ -38,12 +38,16 @@ const response_sales = reactive({
   data: null,
 });
 
-// Get all transaction history 
+// Get all transaction history
 async function getAllTransactions() {
   try {
     const res = await api.get("/sales_request_get");
-    response_sales.data = res.data.sales_request;
-  
+
+    const sortedData = res.data.sales_request.sort((a, b) => {
+      return new Date(b.purchase_date) - new Date(a.purchase_date);
+    });
+    response_sales.data = sortedData.slice(0, 4);
+        
   } catch (error) {
     console.log(error);
   }
@@ -52,21 +56,19 @@ async function getAllTransactions() {
 onMounted(() => {
   getAllTransactions();
 });
-
 </script>
 
 <template>
   <div v-if="isAuth">
     <LayoutDashboard>
       <SectionMain>
-                  <SectionBannerCover class="mt-6 mb-6" />
-
         <SectionTitleLineWithButton
           :icon="mdiChartTimelineVariant"
           title="Resumen"
           main
         >
         </SectionTitleLineWithButton>
+        <SectionBannerCover class="mt-6 mb-6" />
 
         <template v-if="!loadingComplete">
           <!-- indicador de carga -->
@@ -98,8 +100,6 @@ onMounted(() => {
         <template v-else>
           <!-- datos una vez cargados -->
 
-          
-
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
             <CardBoxWidget
               trend-type="up"
@@ -127,29 +127,25 @@ onMounted(() => {
           </div>
 
           <SectionTitleLineWithButton
-          :icon="mdiChartTimelineVariant"
-          title="Historial de Transacciones"
-          
-        >
-        </SectionTitleLineWithButton>
+            :icon="mdiChartTimelineVariant"
+            title="Historial de Transacciones"
+          >
+          </SectionTitleLineWithButton>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <div class="flex flex-col justify-between">
-            <CardBoxTransaction
-              v-for="(transaction, index) in response_sales.data"
-              :key="index"
-              :amount="transaction.total"
-              :date="transaction.purchase_date"
-              :account="transaction.name"
-              :type="transaction.id_status"
-              :name="transaction.name"
-              :email="transaction.email"
-            />
+            <div class="flex flex-col justify-between">
+              <CardBoxTransaction
+                v-for="(transaction, index) in response_sales.data"
+                :key="index"
+                :amount="transaction.total"
+                :date="transaction.purchase_date"
+                :account="transaction.name"
+                :type="transaction.id_status"
+                :name="transaction.name"
+                :email="transaction.email"
+              />
+            </div>
+            <div class="flex flex-col justify-between"></div>
           </div>
-          <div class="flex flex-col justify-between">
-
-          </div>
-        </div>
-
         </template>
       </SectionMain>
     </LayoutDashboard>

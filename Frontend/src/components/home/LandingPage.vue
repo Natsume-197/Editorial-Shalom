@@ -112,16 +112,16 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
             <div
               class="w-full flex flex-col sm:flex-row sm:justify-center gap-2.5 mb-4"
             >
-              <a
-                href="#"
+              <router-link
+                to="/books"
                 class="inline-block bg-rose-500 hover:bg-rose-600 active:bg-rose-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-                >Comprar</a
+                >Comprar</router-link
               >
 
-              <a
-                href="#"
+              <router-link
+                to="/about"
                 class="inline-block bg-gray-200 hover:bg-gray-300 focus-visible:ring ring-indigo-300 text-gray-500 active:text-gray-700 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-                >Información</a
+                >Información</router-link
               >
             </div>
           </div>

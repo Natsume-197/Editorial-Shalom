@@ -35,11 +35,11 @@ getRequestsUser(user.value.id).then((response) => {
       <Navbar />
 
       <section
-        class="flex justify-center bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 overflow-hidden min-h-screen"
+        class="flex justify-center overflow-hidden"
       >
         <div class="px-4 py-8 sm:py-12 sm:px-6 lg:pt-16 lg:px-8">
           <div
-            class="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:items-center lg:gap-x-16 mt-32"
+            class="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:items-center lg:gap-x-16 mt-20"
           >
             <div class="max-w-lg text-center lg:mx-0 lg:text-left">
               <div
@@ -112,7 +112,7 @@ getRequestsUser(user.value.id).then((response) => {
 
             <div class="grid grid-cols-1">
               <div
-                class="bg-white shadow-md rounded-2xl px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
+                class="bg-white shadow-md border rounded-2xl px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
               >
                 <p class="font-bold text-2xl text-left mb-6">
                   Detalles del usuario

@@ -130,10 +130,10 @@ const carouselItems = [
   </div>
   <div class="w-full px-4 md:px-8 mx-auto  bg-sky-400">
     <div class="flex w-full flex-col gap-2.5 sm:flex-row sm:justify-center">
-      <a
-        href="#"
+      <router-link
+        to="/books"
         class="inline-block rounded-lg bg-rose-500 px-8 py-3 text-center text-lg font-bold m-10 text-white outline-none transition duration-100 hover:bg-rose-600 focus-visible:ring"
-        >Click aquí para explorar nuestra tienda</a
+        >Click aquí para explorar nuestra tienda</router-link
       >
     </div>
   </div>

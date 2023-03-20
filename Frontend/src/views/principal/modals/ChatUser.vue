@@ -89,7 +89,7 @@ const sendMessage = async () => {
         <!-- The actual dialog panel -->
         <DialogPanel class="max-w-2xl">
           <div class="app rounded-xl">
-            <div class="header">
+            <div class="header2">
               <div class="chat-area-title text-white">Conversación #513181</div>
               <div class="search-bar"></div>
               <div class="user-settings">
@@ -206,8 +206,6 @@ const sendMessage = async () => {
 @import url("https://fonts.googleapis.com/css?family=Manrope:300,400,500,600,700&display=swap&subset=latin-ext");
 
 :root {
-  --body-bg-color: #e5ecef;
-  --theme-bg-color: #fff;
   --settings-icon-hover: #9fa7ac;
   --developer-color: #f9fafb;
   --input-bg: #f8f8fa;
@@ -321,16 +319,8 @@ img {
   max-width: 100%;
 }
 
-body {
-  background-color: var(--body-bg-color);
-  font-family: var(--body-font);
-  color: var(--body-color);
-}
 
-html {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-}
+
 
 .app {
   display: flex;
@@ -342,7 +332,7 @@ html {
   overflow: hidden;
 }
 
-.header {
+.header2 {
   height: 80px;
   width: 100%;
   border-bottom: 1px solid var(--border-color);

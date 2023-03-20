@@ -206,12 +206,15 @@ var handleout = () => {
                 class="hidden md:hidden lg:inline-flex sm:flex sm:items-center sm:ml-6 border-l-2 border-l-gray-400 pl-2"
               >
                 <div v-if="user.roles.includes(2)">
+
+                  
                   <router-link
                     to="/dashboard/inicio"
                     class="text-gray-800 hover:border-sky-500 hover:text-sky-500 border-2 border-transparent transition-all duration-200 mr-2 px-3 py-2 rounded-md text-xl font-semibold"
                     >{{ $t("navbar.homepage.dashboard") }}</router-link
                   >
                 </div>
+                
 
                 <div ref="dropdown" class="relative inline-block">
                   <!-- Dropdown toggle button -->
