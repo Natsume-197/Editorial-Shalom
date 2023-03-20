@@ -1,16 +1,19 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { api } from "../../utils/axios";
 
+
 const response = reactive({
+  data_backup: null,
   data: null,
 });
 
 async function getBooks() {
   try {
     const res = await api.get(`book`);
-    response.data = res.data;
+    response.data = res.data.books;
+    response.data_backup = res.data.books
   } catch (error) {
     console.log(error);
   }
@@ -18,17 +21,35 @@ async function getBooks() {
 
 onMounted(() => {
   getBooks();
+  
 });
 
 const i18nLocale = useI18n();
 console.log(i18nLocale.locale.value);
 
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
+
+let checkedCategories = ref([])
+
+watch(checkedCategories, async (newValue) => {
+  if (newValue.length === 0) {
+    response.data = response.data_backup
+  }else{
+    response.data = response.data_backup.filter((book) => {
+        return checkedCategories.value.includes(book.category.name)
+    })
+
+  }
+})
+
+const resetFilter = () => {
+  checkedCategories.value = [];
+  response.data = response.data_backup;
+}
+
 </script>
 <template>
-  
   <div class="lg:px-28 my-32">
-    
     <div class="store_store__vh_9r">
       <section class="store_mainContainer__wg8_C rounded-lg">
         <h1
@@ -36,8 +57,116 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
         >
           Catalogo de libros
         </h1>
+        <div class="flex gap-8">
+          <div class="relative z-20">
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex items-center gap-2 pb-1 text-gray-900 transition border-b  border-gray-400 cursor-pointer hover:border-gray-600"
+              >
+                <span class="text-xl font-medium " > Categoría </span>
 
+                <span class="transition group-open:-rotate-180">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </span>
+              </summary>
+
+              <div
+                class="group-open:absolute group-open:top-auto group-open:left-0 group-open:mt-2"
+              >
+                <div class="bg-white border border-gray-200 rounded w-80">
+                  <header class="flex items-center justify-between p-4">
+                    <span class="text-sm text-gray-700"> {{ checkedCategories.length }} seleccionados </span>
+
+                    <button
+                      type="button"
+                      class="text-sm text-gray-900 underline underline-offset-4"
+                      @click="resetFilter"
+                    >
+                      Reiniciar
+                    </button>
+                  </header>
+
+                  
+                  <ul class="p-4 space-y-1 border-t border-gray-200">
+                    <li>
+                      <label
+                        for="FilterInStock"
+                        class="inline-flex items-center gap-2"
+                      >
+                        <input
+                          type="checkbox"
+                          id="FilterInStock"
+                          class="w-5 h-5 border-gray-300 rounded"
+                          v-model="checkedCategories"
+                          value="Lectoescritura"
+                        />
+
+                        <span class="text-sm font-medium text-gray-700">
+                          Lectoescritura
+                        </span>
+                      </label>
+                    </li>
+
+                    <li>
+                      <label
+                        for="FilterPreOrder"
+                        class="inline-flex items-center gap-2"
+                      >
+                        <input
+                          type="checkbox"
+                          id="FilterPreOrder"
+                          class="w-5 h-5 border-gray-300 rounded"
+                          v-model="checkedCategories"
+                          value="Ingles"
+                        />
+
+                        <span class="text-sm font-medium text-gray-700">
+                          Inglés
+                        </span>
+                      </label>
+                    </li>
+
+                    <li>
+                      <label
+                        for="FilterOutOfStock"
+                        class="inline-flex items-center gap-2"
+                      >
+                        <input
+                          type="checkbox"
+                          id="FilterOutOfStock"
+                          class="w-5 h-5 border-gray-300 rounded"
+                          v-model="checkedCategories"
+                          value="Integrados"
+                        />
+
+                        <span class="text-sm font-medium text-gray-700">
+                          Integrados
+                        </span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          
+        </div>
         <section v-if="!response.data" class="bg-white dark:bg-gray-900">
+          
           <div class="container py-10 mx-auto animate-pulse">
             <div
               class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-32 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3"
@@ -149,10 +278,8 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
           </div>
         </section>
         <template v-if="response.data">
-        
-        <div class="store_bookGrid__Ps5Yl">
-          
-            <div v-for="item in response.data.books" :key="item" class="">
+          <div class="store_bookGrid__Ps5Yl">
+            <div v-for="item in response.data" :key="item" class="">
               <router-link
                 class="BookCard_card__CVnLd store_bookCard__SveR5"
                 :to="`book/${item.id}`"
@@ -183,44 +310,35 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
                 </div>
               </router-link>
             </div>
-        </div>
-      </template>
+          </div>
+        </template>
       </section>
       <template v-if="response.data">
-      <div class="store_filterCol__PwzP_">
-        <aside class="store_filterBar__szdS1">
-          <div class="store_checkGroup__4ho41">
-            <h3>Disponibilidad</h3>
-            <div>
-              <input type="checkbox" class="Checkbox_checkbox__wYHKu" /><label
-                >Agotado</label
-              >
-            </div>
-            <div>
-              <input type="checkbox" class="Checkbox_checkbox__wYHKu" /><label
-                >En stock</label
-              >
-            </div>
-          </div>
-          <div class="store_checkGroup__4ho41">
-            <h3>Género</h3>
-            <div>
-              <input type="checkbox" class="Checkbox_checkbox__wYHKu" /><label
-                >Fantasía</label
-              >
-            </div>
-          </div>
-          <button class="Button_btn__TBmtl Button_secondary__y71g1">
-            Aplicar Filtro
-          </button>
-        </aside>
-        
-      </div>
-    </template>
+        <div class="store_filterCol__PwzP_">
+          <aside class="store_filterBar__szdS1">
+            <p class="text-xl font-semibold text-gray-700">Clasificación</p>
+
+            <button
+              class="bg-sky-500 text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              Todos los libros
+            </button>
+
+            <button
+              class="text-sky-500 border-sky-500 border hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              Lo más nuevo
+            </button>
+            <button
+              class="text-sky-500 border-sky-500 border hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              Orden alfábetico
+            </button>
+          </aside>
+        </div>
+      </template>
     </div>
-    
   </div>
-  
 </template>
 
 <style>
@@ -464,7 +582,7 @@ const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
   margin-top: 7rem;
   position: fixed;
   top: 0;
-  width: 18rem;
+  width: 24rem;
   z-index: -10;
   border-radius: 6px;
   padding: 1.5rem;
