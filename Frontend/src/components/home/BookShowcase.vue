@@ -71,6 +71,25 @@ const itemsPaginatedBooks = computed(() =>
     perPage.value * (currentPage.value + 1)
   )
 );
+
+const sortBooks = () => {
+  response.data = response.data.sort((a, b) =>
+    a.book_t[0].title.localeCompare(b.book_t[0].title)
+  );
+};
+
+const sortBooksReverse = () => {
+  response.data = response.data.sort((a, b) =>
+    a.book_t[0].title.localeCompare(b.book_t[0].title)
+  ).reverse();
+};
+
+const sortBooksByRecentDate = () => {
+  response.data = response.data.sort((a, b) =>
+    new Date(b.published_date).getTime() - new Date(a.published_date).getTime()
+  );
+};
+
 </script>
 <template>
   <div class="lg:px-28 my-32">
@@ -81,8 +100,11 @@ const itemsPaginatedBooks = computed(() =>
         >
           Catalogo de libros
         </h1>
+        
         <div class="flex gap-8">
+          
           <div class="relative z-20">
+            
             <details class="group [&_summary::-webkit-details-marker]:hidden">
               <summary
                 class="flex items-center gap-2 pb-1 text-gray-900 transition border-b border-gray-400 cursor-pointer hover:border-gray-600"
@@ -385,26 +407,41 @@ const itemsPaginatedBooks = computed(() =>
         </template>
       </section>
       <template v-if="response.data">
-        <div class="store_filterCol__PwzP_">
+        <div class="store_filterCol__PwzP_ z-20">
           <aside class="store_filterBar__szdS1">
             <p class="text-xl font-semibold text-gray-700">Clasificación</p>
 
             <button
+              @click="resetFilter"
               class="bg-sky-500 text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
             >
-              Todos los libros
+              Reiniciar filtros
             </button>
 
             <button
-              class="text-sky-500 border-sky-500 border hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+              @click="sortBooksByRecentDate"
+              class="text-sky-500 hover:text-white border-sky-500 border hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
             >
               Lo más nuevo
             </button>
-            <button
-              class="text-sky-500 border-sky-500 border hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            <div class="flex space-x-4"> 
+
+              <button
+            @click="sortBooks"
+              class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
             >
-              Orden alfábetico
+              Orden alfábetico (A-Z)
             </button>
+
+            <button
+            @click="sortBooksReverse"
+              class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+            >
+              Orden alfábetico (Z-A)
+            </button>
+            </div>
+
+            
           </aside>
         </div>
       </template>

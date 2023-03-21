@@ -11,6 +11,7 @@ import Footer from "../../components/home/Footer.vue";
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
+      
       <Navbar />
       <LandingPage />
       <Categories/>

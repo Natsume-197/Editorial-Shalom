@@ -288,6 +288,7 @@ var handleout = () => {
                         ></path>
                       </svg>
 
+                      
                       <router-link to="/profile" class="mx-1"
                         >Ver perfil</router-link
                       >
@@ -347,6 +348,7 @@ var handleout = () => {
                       v-on-click-outside="handleout"
                       class="relative flex items-center p-2 text-gray-800 bg-white transition-all duration-200 hover:border-sky-500 border-2 border-transparent focus:border-sky-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-sky-300 dark:focus:ring-sky-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none rounded-md text-xl font-semibold"
                     >
+                    
                       <span class="mx-1">{{
                         $t("navbar.homepage.profile")
                       }}</span>

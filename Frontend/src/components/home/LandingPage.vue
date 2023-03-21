@@ -70,6 +70,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 </div>
 
     <div class="pb-6 sm:pb-8 lg:pb-12 mt-32">
+      
       <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
         <section
           class="min-h-96 flex justify-center items-center flex-1 shrink-0 bg-gray-100 overflow-hidden shadow-lg rounded-lg relative py-16 md:py-20 xl:py-48"
@@ -103,6 +104,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
             >
               ¡Bienvenidos a la Editorial Shalom!
             </p>
+            
           </div>
             
             <h1 class="text-white text-lg sm:text-xl text-center mb-4 md:mb-4">
@@ -180,8 +182,11 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
 </a>
     <!--Waves end-->
   </div>
+<!-- Base -->
 
-  <!--Header ends-->
+
+
+
 </template>
 
 <style>
