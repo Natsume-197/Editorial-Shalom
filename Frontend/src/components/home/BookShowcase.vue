@@ -2,6 +2,14 @@
 import { onMounted, reactive, ref, watch, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { api } from "../../utils/axios";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const setFilter = computed(() => route.query.set_filter || null);
+
+onMounted(() => {
+  console.log(setFilter.value);
+});
 
 const response = reactive({
   data_backup: null,
@@ -13,6 +21,13 @@ async function getBooks() {
     const res = await api.get(`book`);
     response.data = res.data.books;
     response.data_backup = res.data.books;
+
+    // Apply filter if set_filter query parameter exists
+    if (setFilter.value) {
+      checkedCategories.value = [
+        setFilter.value.charAt(0).toUpperCase() + setFilter.value.slice(1),
+      ];
+    }
   } catch (error) {
     console.log(error);
   }
@@ -79,17 +94,18 @@ const sortBooks = () => {
 };
 
 const sortBooksReverse = () => {
-  response.data = response.data.sort((a, b) =>
-    a.book_t[0].title.localeCompare(b.book_t[0].title)
-  ).reverse();
+  response.data = response.data
+    .sort((a, b) => a.book_t[0].title.localeCompare(b.book_t[0].title))
+    .reverse();
 };
 
 const sortBooksByRecentDate = () => {
-  response.data = response.data.sort((a, b) =>
-    new Date(b.published_date).getTime() - new Date(a.published_date).getTime()
+  response.data = response.data.sort(
+    (a, b) =>
+      new Date(b.published_date).getTime() -
+      new Date(a.published_date).getTime()
   );
 };
-
 </script>
 <template>
   <div class="lg:px-28 my-32">
@@ -100,11 +116,9 @@ const sortBooksByRecentDate = () => {
         >
           Catalogo de libros
         </h1>
-        
+
         <div class="flex gap-8">
-          
           <div class="relative z-20">
-            
             <details class="group [&_summary::-webkit-details-marker]:hidden">
               <summary
                 class="flex items-center gap-2 pb-1 text-gray-900 transition border-b border-gray-400 cursor-pointer hover:border-gray-600"
@@ -379,9 +393,12 @@ const sortBooksByRecentDate = () => {
               <button
                 @click="currentPage = page"
                 href="#"
-                :class="{'bg-blue-500 text-white': page === currentPage, 'bg-white text-gray-700': page !== currentPage}"
-    class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
-  >
+                :class="{
+                  'bg-blue-500 text-white': page === currentPage,
+                  'bg-white text-gray-700': page !== currentPage,
+                }"
+                class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+              >
                 {{ page + 1 }}
               </button>
             </div>
@@ -424,24 +441,21 @@ const sortBooksByRecentDate = () => {
             >
               Lo más nuevo
             </button>
-            <div class="flex space-x-4"> 
+            <div class="flex space-x-4">
+              <button
+                @click="sortBooks"
+                class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+              >
+                Orden alfábetico (A-Z)
+              </button>
 
               <button
-            @click="sortBooks"
-              class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
-            >
-              Orden alfábetico (A-Z)
-            </button>
-
-            <button
-            @click="sortBooksReverse"
-              class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
-            >
-              Orden alfábetico (Z-A)
-            </button>
+                @click="sortBooksReverse"
+                class="text-sky-500 border-sky-500 border hover:text-white hover:bg-sky-700 block w-full flex-auto py-2 rounded-md text-xl font-semibold text-center"
+              >
+                Orden alfábetico (Z-A)
+              </button>
             </div>
-
-            
           </aside>
         </div>
       </template>
@@ -543,7 +557,7 @@ const sortBooksByRecentDate = () => {
 
 .BookCard_card__CVnLd {
   display: flex;
-  width: 19rem;
+  width: 18rem;
   flex-direction: column;
   padding: 1rem;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
@@ -690,7 +704,7 @@ const sortBooksByRecentDate = () => {
   margin-top: 7rem;
   position: fixed;
   top: 0;
-  width: 24rem;
+  width: auto;
   z-index: -10;
   border-radius: 6px;
   padding: 1.5rem;

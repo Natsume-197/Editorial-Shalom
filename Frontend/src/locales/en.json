@@ -13,9 +13,10 @@
       "login": "Log in",
       "logout": "Logout",
       "dashboard": "Dashboard",
-      "profile": "Profile",
-      "maintitle": "Welcome to Shalom Editorial!"
+      "profile": "Profile"
     }
   },
-  "details_book": {}
+  "landingpage":{
+    "maintitle": "Welcome to Shalom Editorial!"
+  }
 }

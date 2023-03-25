@@ -13,8 +13,10 @@
       "login": "Iniciar sesión",
       "logout": "Cerrar sesión",
       "dashboard": "Dashboard",
-      "profile": "Perfil",
-      "maintitle": "¡Bienvenidos a la Editorial Shalom!"
+      "profile": "Perfil"
     }
+  },
+  "landingpage":{
+    "maintitle": "¡Bienvenidos a la Editorial Shalom!"
   }
 }

@@ -5,7 +5,7 @@
         <div class="links__list py-2">
           <div class="links__item" style="height: 120px">
             <a
-              href="/books/?set_filter=Y&amp;arrFilter_2_4088798008=Y"
+              href="/books/?set_filter=ingles"
               class="links__item__inner"
             >
               <svg
@@ -26,7 +26,7 @@
           </div>
           <div class="links__item" style="height: 120px">
             <a
-              href="/books/?set_filter=Y&amp;arrFilter_2_2226203566=Y"
+              href="/books/?set_filter=integrados"
               class="links__item__inner"
             >
               <svg
@@ -52,12 +52,12 @@
                   </g>
                 </g>
               </svg>
-              Matemáticas
+              Integrados
             </a>
           </div>
           <div class="links__item" style="height: 120px">
             <a
-              href="/books/?set_filter=Y&amp;arrFilter_2_498629140=Y"
+              href="/books/?set_filter=lectoescritura"
               class="links__item__inner"
             >
               <svg
