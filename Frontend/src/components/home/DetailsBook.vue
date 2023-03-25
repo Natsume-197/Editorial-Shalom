@@ -19,6 +19,7 @@ let description = "";
 // Se ordena el arreglo primero
 response.data.book.book_t.sort((a, b) => a.id_language - b.id_language);
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
+const url_base2 = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/previews/";
 
 if (i18nLocale.locale.value === "es") {
   title = response.data.book.book_t[0].title;
@@ -27,6 +28,7 @@ if (i18nLocale.locale.value === "es") {
   title = response.data.book.book_t[1].title;
   description = response.data.book.book_t[1].description;
 }
+
 
 const data = reactive({
   id: response.data.book.id,
@@ -46,6 +48,7 @@ const data = reactive({
     .split(",")[0],
   cover: url_base + response.data.book.cover,
   amount_selected: 1,
+  preview: response.data.book.preview
 });
 
 let showModal = ref(false);
@@ -82,6 +85,11 @@ const addItemCart = (item) => {
     }
   });
 };
+
+const visualizePDF = () => {
+  window.open(url_base2 + data.preview);
+}
+
 </script>
 <template>
   <section class="text-gray-700 body-font overflow-hidden bg-white">
@@ -123,11 +131,21 @@ const addItemCart = (item) => {
             class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5"
           ></div>
           <div class="flex">
-            <span class="title-font font-medium text-2xl text-gray-900"
+            <span class="title-font mr-8 font-medium text-2xl text-gray-900"
               >{{ data.price }} (COP)</span
             >
+       
+            <div v-if="data.preview">
             <button
-              class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+              class="flex ml-auto text-white  bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded"
+              @click="visualizePDF()"
+            >
+              Visualizar
+            </button>
+          </div>
+            
+            <button
+              class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               @click="addItemCart(data)"
             >
               Añadir al carrito

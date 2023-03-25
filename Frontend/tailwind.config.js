@@ -12,6 +12,13 @@ module.exports = {
       gray: "gray",
     },
     extend: {
+      colors:{
+        blue:{
+          darkBg: "#111827",
+          darkContainer: "#1f2937",
+          darkInput: "#111827"
+        }
+      },
       spacing: {
         22: "5.5rem",
       },

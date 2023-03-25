@@ -189,7 +189,7 @@ async function deleteUser(id) {
       <p>Esto cambio no es reversible.</p>
     </CardBoxModal>
 
-    <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
+    <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-blue-darkBg">
       <span
         v-for="checkedRow in checkedRows"
         :key="checkedRow.id"

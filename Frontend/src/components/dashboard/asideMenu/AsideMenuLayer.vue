@@ -37,15 +37,15 @@ const asideLgCloseClick = (event) => {
 <template>
   <aside
     id="aside"
-    class="w-60 fixed flex z-40 top-0 h-screen transition-position overflow-hidden"
+    class="w-60 fixed flex z-40 top-0 h-screen border-r border-r-slate-700 transition-position overflow-hidden"
   >
     <div
       :class="styleStore.asideStyle"
-      class="flex-1 flex flex-col overflow-hidden dark:bg-slate-900"
+      class="flex-1 flex flex-col overflow-hidden dark:bg-blue-darkBg"
     >
       <div
         :class="styleStore.asideBrandStyle"
-        class="flex flex-row h-14 items-center justify-between dark:bg-slate-900"
+        class="flex flex-row h-14 items-center justify-between dark:bg-blue-darkBg"
       >
         <div
           class="text-center lg:inline-block text-sm lg:text-left lg:pl-6 xl:text-center xl:pl-4 md:space-x-2" 

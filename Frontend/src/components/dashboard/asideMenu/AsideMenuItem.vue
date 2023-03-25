@@ -32,7 +32,7 @@ const componentClass = computed(() => [
   props.isDropdownList ? "py-3 px-6 text-sm" : "py-3",
   hasColor.value
     ? getButtonColor(props.item.color, false, true)
-    : `${styleStore.asideMenuItemStyle} dark:text-slate-300 dark:hover:text-white`,
+    : `${styleStore.asideMenuItemStyle} dark:text-slate-300 dark:hover:text-white hover:bg-blue-darkContainer`,
 ]);
 
 const hasDropdown = computed(() => !!props.item.menu);
@@ -92,7 +92,7 @@ const menuClick = (event) => {
       :menu="item.menu"
       :class="[
         styleStore.asideMenuDropdownStyle,
-        isDropdownActive ? 'block dark:bg-slate-800/50' : 'hidden',
+        isDropdownActive ? 'block dark:bg-blue-darkContainer/50' : 'hidden',
       ]"
       is-dropdown-list
 

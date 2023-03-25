@@ -170,7 +170,7 @@ const submitForm = async () => {
 
             <template v-if="form.file">
               <span
-                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
+                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-blue-darkBg border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
               >
                 {{ form?.file?.name }}
               </span>
@@ -183,7 +183,7 @@ const submitForm = async () => {
 
             <template v-if="form.pdf">
               <span
-                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
+                class="inline-flex px-4 py-2 w-full justify-center bg-gray-100 dark:bg-blue-darkBg border-gray-200 dark:border-slate-700 border rounded-r cursor-default"
               >
                 {{ form?.pdf?.name }}
               </span>

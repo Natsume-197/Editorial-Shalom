@@ -25,7 +25,6 @@ import { Category } from './models/books/category'
 import { Language } from './models/books/language'
 import { ModelCtor, Model } from 'sequelize'
 
-
 const app: Application = express()
 
 // Middlewares
@@ -39,9 +38,11 @@ app.use(
   })
 )
 
-app.use(helmet({
-  crossOriginResourcePolicy: false,
-}))
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false
+  })
+)
 app.use(json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -49,11 +50,27 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api', router)
 app.use(handleErrors)
 
-// Access media uploaded from outside localhost
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, '/assets/books/covers'),{fallthrough: false}))
-
-// Access media uploaded from outside (DigitalOcean)
-app.use('/api/assets/books/covers', express.static(path.join(__dirname, '../assets/books/covers'), {fallthrough: false}))
+if (process.env.ENVIROMENT === 'testing') {
+  // Access media uploaded from outside localhost
+  app.use(
+    '/api/assets/books/covers',
+    express.static(path.join(__dirname, '/assets/books/covers'), { fallthrough: false })
+  )
+  app.use(
+    '/api/assets/books/previews',
+    express.static(path.join(__dirname, '/assets/books/previews'), { fallthrough: false })
+  )
+} else if (process.env.ENVIROMENT === 'production') {
+  // Access media uploaded from outside (DigitalOcean)
+  app.use(
+    '/api/assets/books/covers',
+    express.static(path.join(__dirname, '../assets/books/covers'), { fallthrough: false })
+  )
+  app.use(
+    '/api/assets/books/previews',
+    express.static(path.join(__dirname, '../assets/books/previews'), { fallthrough: false })
+  )
+}
 
 if (!parseInt(process.env.PORT as string)) {
   process.exit(1)
@@ -65,11 +82,10 @@ app.get('/*', (_req, res) => {
   res.status(200).json({ message: 'API de la Editorial Shalom funcionando :)' })
 })
 
-app.use(function(err: any, _req: any, _res: any, next: (arg0: any) => void) {
-  console.log(err);
-  next(err);
-});
-
+app.use(function (err: any, _req: any, _res: any, next: (arg0: any) => void) {
+  console.log(err)
+  next(err)
+})
 
 // Starting the Server
 app.listen(process.env.PORT || 5000, async () => {

@@ -68,8 +68,6 @@ onMounted(() => {
           main
         >
         </SectionTitleLineWithButton>
-        <SectionBannerCover class="mt-6 mb-6" />
-
         <template v-if="!loadingComplete">
           <!-- indicador de carga -->
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6"></div>

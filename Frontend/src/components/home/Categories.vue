@@ -26,7 +26,7 @@
           </div>
           <div class="links__item" style="height: 120px">
             <router-link 
-            :to="{ path: '/books', query: { set_filter: 'matematicas' } }" 
+            :to="{ path: '/books', query: { set_filter: 'integrados' } }" 
             class="links__item__inner">
               <svg
                 width="102"

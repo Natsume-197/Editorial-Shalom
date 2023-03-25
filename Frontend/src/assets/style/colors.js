@@ -10,7 +10,7 @@ export const sectionBgRemindDark = `${sectionBgBase} from-red-900 via-yellow-900
 
 export const colorsBgLight = {
   white: 'bg-white text-black',
-  light: 'bg-white text-black dark:bg-slate-900/70 dark:text-white',
+  light: 'bg-white text-black dark:bg-blue-darkContainer/70 dark:text-white',
   contrast: 'bg-gray-800 text-white dark:bg-white dark:text-black',
   success: 'bg-emerald-500 border-emerald-500 text-white',
   danger: 'bg-red-500 border-red-500 text-white',
