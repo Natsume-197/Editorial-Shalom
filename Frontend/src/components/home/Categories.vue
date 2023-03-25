@@ -4,10 +4,10 @@
       <div class="links">
         <div class="links__list py-2">
           <div class="links__item" style="height: 120px">
-            <a
-              href="/books/?set_filter=ingles"
-              class="links__item__inner"
-            >
+
+            <router-link 
+            :to="{ path: '/books', query: { set_filter: 'ingles' } }" 
+            class="links__item__inner">
               <svg
                 width="102"
                 height="102"
@@ -22,13 +22,12 @@
                 </g>
               </svg>
               Inglés
-            </a>
+            </router-link>
           </div>
           <div class="links__item" style="height: 120px">
-            <a
-              href="/books/?set_filter=integrados"
-              class="links__item__inner"
-            >
+            <router-link 
+            :to="{ path: '/books', query: { set_filter: 'matematicas' } }" 
+            class="links__item__inner">
               <svg
                 width="102"
                 height="102"
@@ -53,13 +52,12 @@
                 </g>
               </svg>
               Integrados
-            </a>
+            </router-link>
           </div>
           <div class="links__item" style="height: 120px">
-            <a
-              href="/books/?set_filter=lectoescritura"
-              class="links__item__inner"
-            >
+            <router-link 
+            :to="{ path: '/books', query: { set_filter: 'lectoescritura' } }" 
+            class="links__item__inner">
               <svg
                 width="102"
                 height="102"
@@ -75,7 +73,7 @@
                 </g>
               </svg>
               Lectoescritura
-            </a>
+            </router-link>
           </div>
         </div>
         

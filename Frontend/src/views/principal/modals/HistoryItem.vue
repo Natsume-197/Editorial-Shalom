@@ -128,12 +128,12 @@ let openModalChat = () => {
                                       class="flex justify-between text-base font-medium text-gray-900"
                                     >
                                       <h3>
-                                        <a href="/books" class="capitalize">
+                                        <router-link to="/books" class="capitalize">
                                           {{
                                             props.item.book_reserved[index].book
                                               .book_t[0].title
                                           }}
-                                        </a>
+                                        </router-link>
                                       </h3>
 
                                       <p class="ml-4">

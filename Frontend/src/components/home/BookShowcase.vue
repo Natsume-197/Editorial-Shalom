@@ -340,7 +340,7 @@ const sortBooksByRecentDate = () => {
             <div v-for="item in itemsPaginatedBooks" :key="item" class="">
               <router-link
                 class="BookCard_card__CVnLd store_bookCard__SveR5"
-                :to="`book/${item.id}`"
+                :to="`/book/${item.id}`"
               >
                 <img
                   class="BookCard_image__sJlHo"
@@ -371,8 +371,8 @@ const sortBooksByRecentDate = () => {
           </div>
 
           <div class="flex">
-            <a
-              href="#"
+            <router-link
+              to="#"
               class="flex items-center justify-center px-4 py-2 mx-1 text-gray-500 capitalize bg-white rounded-md cursor-not-allowed rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-600"
             >
               <svg
@@ -387,12 +387,12 @@ const sortBooksByRecentDate = () => {
                   clip-rule="evenodd"
                 />
               </svg>
-            </a>
+            </router-link>
 
             <div v-for="page in pagesList" :key="page">
               <button
                 @click="currentPage = page"
-                href="#"
+                to="#"
                 :class="{
                   'bg-blue-500 text-white': page === currentPage,
                   'bg-white text-gray-700': page !== currentPage,
