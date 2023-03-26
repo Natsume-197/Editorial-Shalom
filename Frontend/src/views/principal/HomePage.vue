@@ -22,3 +22,9 @@ import Footer from "../../components/home/Footer.vue";
     <Footer />
   </div>
 </template>
+
+<style>
+body{
+    overflow-x:hidden;
+}
+</style>

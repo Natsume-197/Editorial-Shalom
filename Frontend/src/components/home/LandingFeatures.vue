@@ -51,5 +51,26 @@
             </div>
         </div>
     </div>
+    <div class="blob"/>
+    
 </section>
 </template>
+
+<style>
+
+
+.blob { 
+    position: absolute;
+    height: 100%;
+    right: 0%;
+    height: 180%;
+    width: 4%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width=%22755.906%22 height=%22652.328%22 viewBox=%22106.719 156.091 755.906 652.328%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 gradientTransform=%22rotate(-45 .5 .5)%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23FEE140%22%2F%3E%3Cstop offset=%22100%25%22 stop-color=%22%23FA709A%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath id=%22a%22%3E%3Cpath fill=%22currentColor%22 d=%22M804 617.5Q687 735 554 789.5t-237.5-48Q212 639 131.5 461.5t100.5-261q181-83.5 318.5-10t254 191.5Q921 500 804 617.5Z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg clip-path=%22url(%23a)%22%3E%3Cpath fill=%22url(%23b)%22 d=%22M804 617.5Q687 735 554 789.5t-237.5-48Q212 639 131.5 461.5t100.5-261q181-83.5 318.5-10t254 191.5Q921 500 804 617.5Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+
+
+
+</style>
