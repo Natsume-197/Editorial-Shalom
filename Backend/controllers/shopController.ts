@@ -66,7 +66,7 @@ export const searchBooksReserved = async (req: Request, res: Response, next: Nex
   }
 }
 
-export const getStatus = async (req: Request, res: Response, next: NextFunction) => {
+export const getStatus = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const status = await Status.findAll()
     return res.status(StatusCodes.OK).json({
@@ -78,7 +78,7 @@ export const getStatus = async (req: Request, res: Response, next: NextFunction)
 }
 
 
-export const getAllRequestSale = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllRequestSale = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const sales_request = await Sale_request.findAll({
       include: [{model :Book_reserved, include :[{model:Book, include:[Book_t, Category]}]}, Status, Receipt, Request_message]
