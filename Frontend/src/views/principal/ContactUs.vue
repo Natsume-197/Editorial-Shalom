@@ -17,11 +17,10 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
               <h2
                 class="text-white mb-6 mx-6 text-[32px] font-bold mt-6 sm:text-[40px] lg:text-[36px] xl:text-[40px]"
               >
-                ¡Contáctanos!
+                {{ $t("contacdata.contacttitle") }}
               </h2>
               <p class="text-white mx-6 mb-9 text-xl leading-relaxed">
-                ¿Tienes alguna inquietud, duda o problema? Contáctanos y te
-                echaremos una mano lo más pronto posible.
+                {{ $t("contacdata.contact") }}
               </p>
 
               <div class="mb-8 flex w-full max-w-[370px]">
@@ -47,7 +46,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                 </div>
                 <div class="w-full">
                   <h4 class="text-white mb-1 text-xl font-bold">
-                    Número de contacto
+                    {{ $t("contacdata.number") }}
                   </h4>
                   <p class="text-white text-base">(+57) 320 455 2297</p>
                 </div>
@@ -68,7 +67,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                   </svg>
                 </div>
                 <div class="w-full">
-                  <h4 class="text-white mb-1 text-xl font-bold">Correo</h4>
+                  <h4 class="text-white mb-1 text-xl font-bold">{{ $t("contacform.email") }}</h4>
                   <p class="text-white text-lg break-all w-48 sm:w-full">
                     grupoeditorialshalom@gmail.com
                   </p>
@@ -91,7 +90,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                 </div>
                 <div class="w-full">
                   <h4 class="text-white text-xl font-bold">
-                    Nuestra ubicación
+                    {{ $t("contacdata.location") }}
                   </h4>
                   <p class="text-white text-base mb-6 w-48">
                     Diagonal 52C Bis N 25-39 Sur. Bogotá, Colombia.
@@ -106,14 +105,14 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
               class="relative rounded-lg bg-rose-500 p-8 shadow-lg sm:p-12 mb-12 mx-4 max-w-[970px] lg:mb-0"
             >
               <h1 class="text-white mb-1 text-2xl font-bold">
-                Formulario de contacto
+                {{ $t("contacform.formtitle") }}
               </h1>
               <br />
               <form>
                 <div class="mb-6">
                   <input
                     type="text"
-                    placeholder="Nombre"
+                    placeholder= "Nombre"
                     class="placeholder-gray-500 text-body-color border-white focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
                   />
                 </div>
@@ -143,7 +142,7 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
                     type="submit"
                     class="bg-primary w-full rounded border p-3 text-black bg-white font-bold transition hover:bg-opacity-90"
                   >
-                    Enviar
+                    {{ $t("contacform.sendbutton") }}
                   </button>
                 </div>
               </form>

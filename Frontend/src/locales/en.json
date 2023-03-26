@@ -17,6 +17,88 @@
     }
   },
   "landingpage":{
-    "maintitle": "Welcome to Shalom Editorial!"
+    "maintitle": "Welcome to Shalom Editorial!",
+    "maintitle2" : "Educational books for preschool children",
+    "buybutton" : "Purchase",
+    "infobutton" : "Information"
+  },
+  "categories":{
+    "category1": "English",
+    "category2" : "Integrates",
+    "category3" : "Reading and Writing",
+    "category4" : "Mathematics"
+  },
+  "landigfeatures":{
+    "featuretitle1": "Explore our incredible and dedicated catalog of ",
+    "featuretitle2": "children's books",
+    "feature1" : "Homemade",
+    "featurea" : "Our books are made here at Editorial Shalom. Carefully curated and edited to ensure the highest quality in terms of content, structure and presentation.",
+    "feature2" : "Wide variety of books",
+    "featureb" : "We publish books covering a wide variety of subjects including mathematics, spanish, english, reading and writing and for preschool children in the 2- to 5-year-old range.",
+    "feature3" : "Customization",
+    "featurec" : "We offer the possibility to customize some of our selected books, such as the language and in the case of those of reading and writing, the font and font size."
+  },
+  "bookseries":{
+    "seriestitle1": "Get to know our",
+    "seriestitle2": "main",
+    "seriestitle3": "book series",
+    "seriesa1" : "Its main objective is to develop a wide vocabulary of the English language, as it happens with the mother tongue.",
+    "seriesa2" : "Knowledge of a foreign language contributes to education, has very positive cognitive effects, improves creativity, attention span and memory.",
+    "seriesb1" : "The Spanish series is a support material for both the cognitive and communicative dimensions of preschool children.",
+    "seriesb2" : "This series is based on children's own experiences, oriented to develop the correct written and graphic body expression through pronunciation exercises and vocabulary enrichment." ,
+    "seriesc1" : "The Little Stars series are integrated books that aim to stimulate and provide knowledge of the environment of children in early childhood as established by the basic standards of the Ministry of Education.",
+    "seriesc2" : "Our series promotes bilingualism as children learn concepts and basic vocabulary of the English language with didactic strategies that facilitate the learning process.",
+    "seriesd1" : "This math series (Mathematical Logic Adventure), uses a progressive methodology that promotes teaching and learning in preschool education in a fun way. Each book is filled with both fun and educational activities.",
+    "seriesd2" : "With large illustrations, and the basic math topics for each level, your child will enjoy it from beginning to end."
+  },
+  "showcase":{
+    "newbutton": "New",
+    "selectionbutton": "Selection",
+    "explorebutton": "Click here to explore our shop"
+  },
+  "footer":{
+    "copy1": "All rights reserved",
+    "copy2": "Terms and Privacy"
+  },
+  "aboutus":{
+    "abouttitle": "Who are we?",
+    "abouttitle2": "Welcome to Editorial Shalom, a Colombian publishing house dedicated to creating books for preschool children with the objective of expanding their knowledge and education in a fun way. We focus on using games, technology and bilingualism as tools to help children learn while having fun.",
+    "mision1" : "Our Mission Statement",
+    "mision2" : "The mission of Editorial Shalom Group is to contribute to the development of preschool children's education through play, technology and bilingualism. We believe that this is the most important job in the world and that is why we strive to support teachers and parents.",
+    "vision1" : "Our Vision",
+    "vision2" : "Our vision is to become a reference publisher for preschool children and for teachers to have all the tools in both Spanish and English and to transmit the message “Learning is a fun challenge” that brings rewards."
+  },
+  "contacdata":{
+    "contacttitle": "Contact us!",
+    "contact": "Do you have any questions, doubts or problems? Contact us and we will help you as soon as possible.",
+    "number": "Contact Number",
+    "location": "Our location"
+  },
+  "contacform":{
+    "formtitle": "Contact Form",
+    "name": "Name",
+    "email" : "E-mail",
+    "phone" : "Cell phone number",
+    "message" : "Message",
+    "sendbutton" : "Send"
+  },
+  "bookshowcase": {
+    "categorytitle": "Book Catalog",
+    "categoryselect": "Category", 
+    "restart": "Restart"
+  },
+  "shopcart": {
+    "shoptitle": "Shopping cart",
+    "notfound": "Oh, no!", 
+    "description": "You have no books in your shopping cart. Search our online store for our products.",
+    "next": "Next",
+    "clean": "Clean cart", 
+    "or": "or",
+    "continue": "continue shopping", 
+    "nobooks": "You have no books in your shopping cart.",
+    "loading": "Loading...",
+    "delete": "Delete",
+    "unit": "Units",
+    "close": "Close panel"
   }
 }

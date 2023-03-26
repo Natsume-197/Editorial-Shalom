@@ -108,7 +108,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
           </div>
             
             <h1 class="text-white text-lg sm:text-xl text-center mb-4 md:mb-4">
-              Libros educativos para niños en edad de preescolar
+              {{ $t("landingpage.maintitle2") }}
             </h1>
 
             <div
@@ -117,13 +117,13 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
               <router-link
                 to="/books"
                 class="inline-block bg-rose-500 hover:bg-rose-600 active:bg-rose-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-                >Comprar</router-link
+                >{{ $t("landingpage.buybutton") }}</router-link
               >
 
               <router-link
                 to="/about"
                 class="inline-block bg-gray-200 hover:bg-gray-300 focus-visible:ring ring-indigo-300 text-gray-500 active:text-gray-700 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-                >Información</router-link
+                >{{ $t("landingpage.infobutton") }}</router-link
               >
             </div>
           </div>

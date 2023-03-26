@@ -17,6 +17,88 @@
     }
   },
   "landingpage":{
-    "maintitle": "¡Bienvenidos a la Editorial Shalom!"
+    "maintitle": "¡Bienvenidos a la Editorial Shalom!",
+    "maintitle2" : "Libros educativos para niños en edad de preescolar",
+    "buybutton" : "Comprar",
+    "infobutton" : "Información"
+  },
+  "categories":{
+    "category1": "Inglés",
+    "category2" : "Integrados",
+    "category3" : "Lectoescritura",
+    "category4" : "Matemáticas"
+  },
+  "landigfeatures":{
+    "featuretitle1": "Explora nuestro increíble y dedicado catalogo de",
+    "featuretitle2": "libros para niños",
+    "feature1" : "Hechos en casa",
+    "featurea" : "Nuestros libros están hechos aquí en la Editorial Shalom. Cuidadosamente curados y editados para garantizar la máxima calidad en términos de contenido, estructura y presentación.",
+    "feature2" : "Amplia variedad de libros",
+    "featureb" : "Publicamos libros que cubren una amplia variedad de temas incluyendo matemáticas, español, Lectoescritura e inglés para niños de preescolar que se encuentre en el rango de 2 a 5 años.",
+    "feature3" : "Personalización",
+    "featurec" : "Brindamos la posibilidad de personalizar algunos de nuestros libros seleccionados, como el idioma y en el caso de aquellos de lectoescritura, el tipo de letra y el tamaño de letra."
+  },
+  "bookseries":{
+    "seriestitle1": "Conoce nuestras",
+    "seriestitle2": "series",
+    "seriestitle3": "de libros principales",
+    "seriesa1" : "Tiene como objetivo principal desarrollar un amplio vocabulario del idioma inglés, al igual que sucede con la lengua maternal.",
+    "seriesa2" : "El conocimiento de una lengua extranjera contribuye a la formación, tiene efectos muy positivos cognitivamente, mejora la creatividad, el nivel de atención y la memoria.",
+    "seriesb1" : "La serie español es material de apoyo tanto en la dimensión cognitiva como en la dimensión comunicativa de los niños en edad preescolar.",
+    "seriesb2" : "Esta serie parte de las experiencias propias del mundo infantil, orientadas a desarrollar la correcta expresión corporal escrita y grafica mediante ejercicios de pronunciación y enriquecimiento del vocabulario." ,
+    "seriesc1" : "La serie Little Stars son libros integrados que tienen como objetivo estimular y dar conocimiento del entorno de niños y niñas en la primera infancia como lo establecen los estándares básicos del Ministerio de Educación.",
+    "seriesc2" : "Nuestra serie promueve el bilingüismo ya que los niños aprenden conceptos y vocabulario básico del idioma inglés con estrategias didácticas que facilitaran el proceso de aprendizaje.",
+    "seriesd1" : "Esta serie de matemáticas (Aventura Lógico Matemática), usa una metodología progresiva que promueve la enseñanza y aprendizaje en la educación preescolar de una forma divertida. Cada libro está lleno de actividades tanto divertidas como educativas.",
+    "seriesd2" : "Contiene ilustraciones grandes, y los temas básicos de matemática para cada nivel, tu niño lo disfrutara de principio a fin."
+  },
+  "showcase":{
+    "newbutton": "Nuevo",
+    "selectionbutton": "Selección",
+    "explorebutton": "Click aquí para explorar nuestra tienda"
+  },
+  "footer":{
+    "copy1": "Todos los derechos reservados",
+    "copy2": "Términos y Privacidad"
+  },
+  "aboutus":{
+    "abouttitle": "¿Quienes somos?",
+    "abouttitle2": "Bienvenidos a la Editorial Shalom, una editorial colombiana que se dedica a crear libros para niños en edad preescolar con el objetivo de ampliar su conocimiento y educación de una manera divertida. Nos enfocamos en utilizar el juego, la tecnología y el bilingüismo como herramientas para lograr que los niños aprendan mientras se divierten.",
+    "mision1" : "Nuestra misión",
+    "mision2" : "La misión del grupo Editorial Shalom es contribuir al desarrollo de la educación de los niños en edad preescolar por medio del juego, la tecnología y el bilingüismo. Pensamos que es el trabajo más importante en el mundo por eso nos esforzamos en apoyar a profesores y padres.",
+    "vision1" : "Nuestra visión",
+    "vision2" : "Nuestra visión es convertirnos en una editorial de referencia para los niños en edad preescolar y que los profesores tengan todas las herramientas tanto en español como en inglés y lograr transmitir el mensaje “Aprender en un reto divertido” y que trae recompensas."
+  },
+  "contacdata":{
+    "contacttitle": "¡Contáctanos!",
+    "contact": "¿Tienes alguna inquietud, duda o problema? Contáctanos y te echaremos una mano lo más pronto posible.",
+    "number": "Número de contacto",
+    "location": "Nuestra ubicación"
+  },
+  "contacform":{
+    "formtitle": "Formulario de contacto",
+    "name": "Nombre",
+    "email" : "Correo",
+    "phone" : "Celular",
+    "message" : "Mensaje",
+    "sendbutton" : "Enviar"
+  },
+  "bookshowcase": {
+    "categorytitle": "Catalogo de libros",
+    "categoryselect": "Categoría", 
+    "restart": "Reiniciar"
+  },
+  "shopcart": {
+    "shoptitle": "Carrito de compras",
+    "notfound": "¡Oh, no!", 
+    "description": "No tienes ningún libro en el carrito de compras. Busca en nuestra tienda virtual nuestros productos.",
+    "next": "Siguiente",
+    "clean": "Limpiar carrito", 
+    "or": "o",
+    "continue": "continua comprando", 
+    "nobooks": "No tienes ningún libro en el carrito de compras.",
+    "loading": "Cargando...",
+    "delete": "Eliminar",
+    "unit": "Unidades",
+    "close": "Cerrar panel"
   }
 }

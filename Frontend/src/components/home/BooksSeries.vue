@@ -3,7 +3,7 @@
 <div class="container px-6 mx-auto">
 
   <h1 class="text-2xl font-semibold text-gray-800 mb-10 lg:text-3xl  dark:text-white">
-            Conoce nuestras  <span class="underline decoration-rose-500">series</span>  de libros principales
+            {{ $t("bookseries.seriestitle1") }}  <span class="underline decoration-rose-500">{{ $t("bookseries.seriestitle2") }}</span>  {{ $t("bookseries.seriestitle3") }}
         </h1>
 
                     
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="md:pt-8 -order-1 md:order-1">
-          <p class="text-rose-500 font-bold text-center md:text-left">Inglés</p>
+          <p class="text-rose-500 font-bold text-center md:text-left">{{ $t("categories.category1") }}</p>
 
           <h1
             class="text-gray-800 text-2xl sm:text-3xl font-bold text-center md:text-left mb-4 md:mb-6"
@@ -32,12 +32,9 @@
           </h1>
 
           <p class="text-gray-500 sm:text-xl mb-6 md:mb-8 	">
-            Tiene como objetivo principal desarrollar un amplio vocabulario del
-            idioma inglés, al igual que sucede con la lengua maternal.
+            {{ $t("bookseries.seriesa1") }}
 
-            <br /><br />El conocimiento de una lengua extranjera contribuye a la
-            formación, tiene efectos muy positivos cognitivamente, mejora la
-            creatividad, el nivel de atención y la memoria.
+            <br /><br />{{ $t("bookseries.seriesa2") }}
           </p>
         </div>
       </div>
@@ -50,7 +47,7 @@
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div class="md:pt-8">
           <p class="text-rose-500 font-bold text-center md:text-left">
-            Lectoescritura
+            {{ $t("categories.category3") }}
           </p>
 
           <h1
@@ -60,14 +57,9 @@
           </h1>
 
           <p class="text-gray-500 sm:text-xl mb-6 md:mb-8">
-            La serie español es material de apoyo tanto en la dimensión
-            cognitiva como en la dimensión comunicativa de los niños en edad
-            preescolar.
+            {{ $t("bookseries.seriesb1") }}
             <br /><br />
-            Esta serie parte de las experiencias propias del mundo infantil,
-            orientadas a desarrollar la correcta expresión corporal escrita y
-            grafica mediante ejercicios de pronunciación y enriquecimiento del
-            vocabulario.
+            {{ $t("bookseries.seriesb2") }}
           </p>
         </div>
         <div>
@@ -102,7 +94,7 @@
           </div>
           <div class="md:pt-8 -order-1 md:order-1">
             <p class="text-rose-500 font-bold text-center md:text-left">
-              Integrados
+              {{ $t("categories.category2") }}
             </p>
 
             <h1
@@ -113,15 +105,10 @@
             </h1>
 
             <p class="text-gray-500 sm:text-xl mb-6 md:mb-8">
-              La serie Little Stars son libros integrados que tienen como
-              objetivo estimular y dar conocimiento del entorno de niños y niñas
-              en la primera infancia como lo establecen los estándares básicos
-              del Ministerio de Educación.
+              {{ $t("bookseries.seriesc1") }}
               <br /><br />
 
-              Nuestra serie promueve el bilingüismo ya que los niños aprenden
-              conceptos y vocabulario básico del idioma inglés con estrategias
-              didácticas que facilitaran el proceso de aprendizaje.
+              {{ $t("bookseries.seriesc2") }}
             </p>
           </div>
         </div>
@@ -134,7 +121,7 @@
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div class="md:pt-8">
           <p class="text-rose-500 font-bold text-center md:text-left">
-            Matemáticas
+            {{ $t("categories.category4") }}
           </p>
 
           <h1
@@ -144,10 +131,10 @@
           </h1>
 
           <p class="text-gray-500 sm:text-xl mb-6 md:mb-8">
-            Esta serie de matemáticas (Aventura Lógico Matemática), usa una metodología progresiva que promueve la enseñanza y aprendizaje en la educación preescolar de una forma divertida. Cada libro está lleno de actividades tanto divertidas como educativas.
+            {{ $t("bookseries.seriesd1") }}
 
             <br /><br />
-            Contiene ilustraciones grandes, y los temas básicos de matemática para cada nivel, tu niño lo disfrutara de principio a fin.
+            {{ $t("bookseries.seriesd2") }}
 
           </p>
         </div>

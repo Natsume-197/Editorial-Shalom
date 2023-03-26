@@ -114,7 +114,7 @@ const sortBooksByRecentDate = () => {
         <h1
           class="store_catalogTitle__roHG_ text-black font-semibold text-5xl mb-10"
         >
-          Catalogo de libros
+          {{ $t("bookshowcase.categorytitle") }}
         </h1>
 
         <div class="flex gap-8">
@@ -123,7 +123,7 @@ const sortBooksByRecentDate = () => {
               <summary
                 class="flex items-center gap-2 pb-1 text-gray-900 transition border-b border-gray-400 cursor-pointer hover:border-gray-600"
               >
-                <span class="text-xl font-medium"> Categoría </span>
+                <span class="text-xl font-medium"> {{ $t("bookshowcase.categoryselect") }} </span>
 
                 <span class="transition group-open:-rotate-180">
                   <svg
@@ -157,7 +157,7 @@ const sortBooksByRecentDate = () => {
                       class="text-sm text-gray-900 underline underline-offset-4"
                       @click="resetFilter"
                     >
-                      Reiniciar
+                      {{ $t("bookshowcase.restart") }}
                     </button>
                   </header>
 
@@ -176,7 +176,7 @@ const sortBooksByRecentDate = () => {
                         />
 
                         <span class="text-sm font-medium text-gray-700">
-                          Lectoescritura
+                          {{ $t("categories.category3") }}
                         </span>
                       </label>
                     </li>
@@ -195,7 +195,7 @@ const sortBooksByRecentDate = () => {
                         />
 
                         <span class="text-sm font-medium text-gray-700">
-                          Inglés
+                          {{ $t("categories.category1") }}
                         </span>
                       </label>
                     </li>
@@ -214,7 +214,7 @@ const sortBooksByRecentDate = () => {
                         />
 
                         <span class="text-sm font-medium text-gray-700">
-                          Integrados
+                          {{ $t("categories.category2") }}
                         </span>
                       </label>
                     </li>

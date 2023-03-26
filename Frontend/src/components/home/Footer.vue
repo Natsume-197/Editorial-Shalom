@@ -9,13 +9,13 @@
           </p>
           <div class="border-l border-white pl-2 ml-2">
             <p class="text-base leading-4 text-white">
-                Todos los derechos reservados
+                {{ $t("footer.copy1") }}
             </p>
           </div>
 
         </div>
         <p class="text-base leading-4 mt-5 mb-5 text-white underline  text-center">
-             <span class="font-semibold">Términos y Privacidad</span>
+             <span class="font-semibold">{{ $t("footer.copy2") }}</span>
           </p>        
       </div>
     </div>

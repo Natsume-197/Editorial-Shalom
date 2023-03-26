@@ -160,7 +160,7 @@ const buyProduct = () => {
                   <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div class="flex items-start justify-between">
                       <DialogTitle class="text-2xl font-bold text-gray-900"
-                        >Carrito de compras</DialogTitle
+                        >{{ $t("shopcart.shoptitle") }}</DialogTitle
                       >
                       <div class="ml-3 flex h-7 items-center">
                         <button
@@ -168,7 +168,7 @@ const buyProduct = () => {
                           class="-m-2 p-2 text-gray-400 hover:text-gray-500"
                           @click="$emit('update:modelValue', false)"
                         >
-                          <span class="sr-only">Cerrar panel</span>
+                          <span class="sr-only">{{ $t("shopcart.close") }}</span>
                           <XMarkIcon class="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>
@@ -215,12 +215,11 @@ const buyProduct = () => {
                           <h1
                             class="mt-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl"
                           >
-                            ¡Oh, no!
+                            {{ $t("shopcart.notfound") }}
                           </h1>
 
                           <p class="mt-4 text-gray-500">
-                            No tienes ningún libro en el carrito de compras.
-                            Busca en nuestra tienda virtual nuestros productos.
+                            {{ $t("shopcart.description") }}
                           </p>
                         </div>
                       </div>
@@ -264,7 +263,7 @@ const buyProduct = () => {
                                 </p>
                               </div>
 
-                              <p class="mt-1 text-sm text-gray-500">Unidades</p>
+                              <p class="mt-1 text-sm text-gray-500">{{ $t("shopcart.unit") }}</p>
                               <div
                                 class="flex flex-1 items-end justify-between text-sm"
                               >
@@ -298,7 +297,7 @@ const buyProduct = () => {
                                     class="font-medium text-indigo-600 hover:text-indigo-500"
                                     @click="removeItemCart(index)"
                                   >
-                                    Eliminar
+                                    {{ $t("shopcart.delete") }}
                                   </button>
                                 </div>
                               </div>
@@ -333,7 +332,7 @@ const buyProduct = () => {
                         @click="buyProduct"
                         class="flex items-center w-full justify-center rounded-md border border-transparent bg-sky-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-sky-600"
                       >
-                        Siguiente
+                        {{ $t("shopcart.next") }}
                       </button>
                       <button
                         v-else
@@ -351,27 +350,27 @@ const buyProduct = () => {
                             d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z"
                           ></path>
                         </svg>
-                        <p class="ml-3">Cargando...</p>
+                        <p class="ml-3">{{ $t("shopcart.loading") }}</p>
                       </button>
                     </div>
                     <div class="mt-2">
                       <a
                         @click="removeAllItemCart"
                         class="flex items-center justify-center rounded-md border border-transparent bg-rose-500 px-6 py-3 text-base font-medium cursor-pointer select-none text-white shadow-sm hover:bg-rose-600"
-                        >Limpiar carrito</a
+                        >{{ $t("shopcart.clean") }}</a
                       >
                     </div>
                     <div
                       class="mt-6 flex justify-center text-center text-sm text-gray-500"
                     >
                       <p>
-                        o
+                        {{ $t("shopcart.or") }}
                         <button
                           type="button"
                           class="font-medium text-sky-600 hover:text-sky-500"
                           @click="$emit('update:modelValue', false)"
                         >
-                          continua comprando
+                          {{ $t("shopcart.continue") }}
                           <span aria-hidden="true"> &rarr;</span>
                         </button>
                       </p>

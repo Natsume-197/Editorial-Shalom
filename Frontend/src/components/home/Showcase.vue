@@ -133,7 +133,7 @@ const carouselItems = [
       <router-link
         to="/books"
         class="inline-block rounded-lg bg-rose-500 px-8 py-3 text-center text-lg font-bold m-10 text-white outline-none transition duration-100 hover:bg-rose-600 focus-visible:ring"
-        >Click aquí para explorar nuestra tienda</router-link
+        >{{ $t("showcase.explorebutton") }}</router-link
       >
     </div>
   </div>
