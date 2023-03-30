@@ -14,7 +14,7 @@ import FormControl from "../form/FormControl.vue";
 import CardBoxComponentEmpty from "../cardbox/CardBoxComponentEmpty.vue";
 import CardBox from "../cardbox/CardBox.vue";
 import FormField from "../form/FormField.vue";
-import ChatAdmin from "../extra/ChatAdmin.vue"
+import ChatAdmin from "../extra/ChatAdmin.vue";
 
 let props = defineProps({
   checkable: Boolean,
@@ -133,11 +133,10 @@ async function getTransactionByID(id) {
 const filteredItemSales = computed(() => {
   try {
     const regex = new RegExp(searchTerm.value, "i");
-  return response.sales.filter((item) => regex.test(item.name));
+    return response.sales.filter((item) => regex.test(item.name));
   } catch (error) {
-    return null
+    return null;
   }
- 
 });
 
 const numPages = computed(() =>
@@ -165,6 +164,17 @@ const itemsPaginatedSales = computed(() =>
 );
 
 // Extra functions
+const categories = [
+  { label: "Nuevo pedido", value: 1 },
+  { label: "Procesando", value: 2 },
+  { label: "Pagado", value: 3 },
+  { label: "En envio", value: 4 },
+  { label: "Entregado", value: 5 },
+  { label: "Completado", value: 6 },
+  { label: "Rechazado", value: 7 },
+  { label: "Cancelado", value: 8 },
+];
+
 function getStatusName(id) {
   switch (id) {
     case 1:
@@ -190,15 +200,35 @@ function getStatusName(id) {
 
 getAllTransactions();
 
-watch(() => props.selectedCategory, (newValue) => {
-  if (newValue === 0) {
-    getAllTransactions();
-  } else {
-    getTransactionByID(newValue);
+watch(
+  () => props.selectedCategory,
+  (newValue) => {
+    if (newValue === 0) {
+      getAllTransactions();
+    } else {
+      getTransactionByID(newValue);
+    }
   }
-})
+);
 let isOpenChat = ref(false);
+const selectedCategory = ref();
 
+watch(
+  () => currentUser.value,
+  (newValue) => {
+    selectedCategory.value = categories[newValue.id_status - 1];
+  }
+);
+
+async function changeStatusOrder() {
+  const body = { id_status: selectedCategory.value.value }
+  try {
+    const res = await api.patch("/sales_request_update/" + currentUser.value.id, body);
+    console.log(res)
+  } catch (error) {
+    console.log(error);
+  }
+}
 </script>
 <template>
   <template v-if="!loadingComplete">
@@ -239,17 +269,184 @@ let isOpenChat = ref(false);
     />
     <CardBoxModal
       v-model="isModalActive"
-      buttonLabel="Modificar"
       has-cancel
       v-if="currentUser"
-      title="Detalles del usuario"
+      title="Detalles del pedido"
     >
-      <p><b>Nombre: </b> {{ currentUser.name }}</p>
-      <p><b>Apellido: </b></p>
-      <p><b>Correo: </b></p>
-      <p><b>Direccion: </b></p>
-      <p><b>Celular: </b></p>
-      <p><b>Fecha de creación: </b></p>    
+      <!-- Detalles de los productos solicitados -->
+      <!-- Productos -->
+      <div class="flow-root">
+        <ul role="list" class="-my-6 divide-y divide-gray-200 mr-4">
+          <li
+            v-for="(product, index) in currentUser.book_reserved"
+            :key="index"
+            class="flex py-6"
+          >
+            <div
+              class="h-30 w-32 md:w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
+            >
+              <img
+                src="http://localhost:5000/api/assets/books/covers/test.jpg"
+                class="object-cover object-center"
+              />
+            </div>
+            <div class="ml-4 flex flex-1 flex-col">
+              <div>
+                <div
+                  class="flex justify-between text-base font-medium text-white"
+                >
+                  <h3>
+                    <router-link to="/books" class="capitalize">
+                      {{ product.book.book_t[0].title }}
+                    </router-link>
+                  </h3>
+
+                  <p class="ml-4">
+                    {{ product.book.price }}
+                  </p>
+                </div>
+
+                <p class="mt-1 text-sm font-semibold text-gray-300 mb-1">
+                  {{ product.book.category.name }}
+                </p>
+              </div>
+
+              <p class="mt-1 text-sm text-gray-300">
+                Unidades:
+                {{ product.amount }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="text-lg font-semibold text-right text-white mt-4">
+        Total a pagar :
+        <div class="inline font-normal ml-1">
+          {{ currentUser.total }}
+        </div>
+      </div>
+      <!-- Detalles del formulario -->
+      <div class="border-t border-gray-200 m"></div>
+      <div class="flex">
+        <div class="flex-1 mb-4 mt-5 overflow-hidden">
+          <h1 class="inline text-lg font-bold leading-none">
+            Información de contacto
+          </h1>
+        </div>
+      </div>
+      <div class="pb-5">
+        <h3 class="inline p-1 text-base font-normal leading-none">Nombre</h3>
+        <input
+          v-model="currentUser.name"
+          placeholder="Nombre"
+          class="text-black placeholder-gray-600 w-full mb-2 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+        <h3 class="inline p-1 text-base font-normal leading-none">Correo</h3>
+        <input
+          v-model="currentUser.email"
+          placeholder="Correo"
+          class="text-black placeholder-gray-600 mb-3 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+        <div class="flex">
+          <div class="flex-grow mb-2">
+            <h3 class="inline p-1 text-base font-normal leading-none">
+              Celular
+            </h3>
+            <input
+              v-model="currentUser.cellphone"
+              placeholder="Celular"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="flex-1 mb-4 overflow-hidden">
+          <h1 class="inline text-lg font-bold leading-none">
+            Información de entrega
+          </h1>
+        </div>
+        <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
+      </div>
+      <div class="pb-5 mb-3">
+        <div class="flex">
+          <div class="flex-grow w-2/5 pr-2 mb-3">
+            <h3 class="inline p-1 text-base font-normal leading-none">
+              Código Postal
+            </h3>
+            <input
+              v-model="currentUser.zip_code"
+              placeholder="Código Postal"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+          </div>
+          <div class="flex-grow">
+            <h3 class="inline p-1 text-base font-normal leading-none">
+              Ciudad
+            </h3>
+            <input
+              v-model="currentUser.city"
+              placeholder="Ciudad"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+          </div>
+        </div>
+        <h3 class="inline p-1 text-base font-normal leading-none">Dirección</h3>
+        <input
+          v-model="currentUser.address"
+          placeholder="Dirección"
+          class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+      </div>
+      <div class="flex">
+        <div class="flex-1 mb-3 overflow-hidden">
+          <h1 class="inline text-lg font-bold leading-none">
+            Información adicional
+          </h1>
+        </div>
+        <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
+      </div>
+      <div class="pb-5">
+        <div class="flex">
+          <div class="flex-grow w-2/5 pr-2 mb-3">
+            <h3 class="inline p-1 text-base font-normal leading-none">
+              Nombre del colegio
+            </h3>
+            <input
+              v-model="currentUser.school_name"
+              placeholder="Nombre del colegio"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+          </div>
+        </div>
+        <h3 class="inline p-1 text-base font-normal leading-none mb-3">
+          Mensaje
+        </h3>
+        <textarea
+          v-model="currentUser.message"
+          rows="4"
+          placeholder="Mensaje"
+          class="text-black resize-none placeholder-gray-600 w-full mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+      </div>
+      <div class="border-t border-gray-200 m"></div>
+      <!-- Ajustes pedido -->
+      <div class="flex">
+        <div class="flex-1 mb-4 mt-5 overflow-hidden">
+          <h1 class="inline text-lg font-bold leading-none">
+            Ajustes del pedido
+          </h1>
+        </div>
+      </div>
+      <!-- Ajustes pedido (Cambiar estado del pedido) -->
+      <FormField label="Estado del pedido" class="w-full">
+        <FormControl :options="categories" v-model="selectedCategory" />
+        <BaseButton
+          color="info"
+          label="Actualizar estado"
+          @click="changeStatusOrder"
+        />
+      </FormField>
     </CardBoxModal>
     <CardBoxModal
       v-if="currentUser"
@@ -267,7 +464,11 @@ let isOpenChat = ref(false);
     </CardBoxModal>
 
     <div v-if="currentUser">
-        <ChatAdmin :isOpen="isOpenChat" :item="currentUser" @close-modal-chat="isOpenChat = false" />
+      <ChatAdmin
+        :isOpen="isOpenChat"
+        :item="currentUser"
+        @close-modal-chat="isOpenChat = false"
+      />
     </div>
 
     <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
@@ -355,7 +556,6 @@ let isOpenChat = ref(false);
                 :icon="mdiChat"
                 small
                 @click="currentSelected($event, sale), (isOpenChat = true)"
-                
               />
               <BaseButton
                 color="danger"
@@ -394,52 +594,51 @@ let isOpenChat = ref(false);
 </template>
 
 <style>
- 
-    table {
-      @apply w-full;
-    }
-    
-    thead {
-      @apply hidden lg:table-header-group;
-    }
-    
-    tr {
-      @apply max-w-full block relative border-b-4 border-gray-100
+table {
+  @apply w-full;
+}
+
+thead {
+  @apply hidden lg:table-header-group;
+}
+
+tr {
+  @apply max-w-full block relative border-b-4 border-gray-100
         lg:table-row lg:border-b-0 dark:border-slate-800;
-    }
-    
-    tr:last-child {
-      @apply border-b-0;
-    }
-    
-    td:not(:first-child) {
-      @apply lg:border-l lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-gray-100 lg:dark:border-slate-700;
-    }
-    
-    th {
-      @apply lg:text-left lg:p-3;
-    }
-    
-    td {
-      @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-100
+}
+
+tr:last-child {
+  @apply border-b-0;
+}
+
+td:not(:first-child) {
+  @apply lg:border-l lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-gray-100 lg:dark:border-slate-700;
+}
+
+th {
+  @apply lg:text-left lg:p-3;
+}
+
+td {
+  @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-100
         lg:table-cell lg:text-left lg:p-3 lg:align-middle lg:border-b-0 dark:border-slate-800;
-    }
-    
-    td:last-child {
-      @apply border-b-0;
-    }
-    
-    tbody tr, tbody tr:nth-child(odd) {
-      @apply lg:hover:bg-gray-100 lg:dark:hover:bg-slate-700/70;
-    }
-    
-    tbody tr:nth-child(odd) {
-      @apply lg:bg-gray-100/50 lg:dark:bg-slate-800/50;
-    }
-    
-    td:before {
-      content: attr(data-label);
-      @apply font-semibold pr-3 text-left lg:hidden;
-    }
-  
+}
+
+td:last-child {
+  @apply border-b-0;
+}
+
+tbody tr,
+tbody tr:nth-child(odd) {
+  @apply lg:hover:bg-gray-100 lg:dark:hover:bg-slate-700/70;
+}
+
+tbody tr:nth-child(odd) {
+  @apply lg:bg-gray-100/50 lg:dark:bg-slate-800/50;
+}
+
+td:before {
+  content: attr(data-label);
+  @apply font-semibold pr-3 text-left lg:hidden;
+}
 </style>

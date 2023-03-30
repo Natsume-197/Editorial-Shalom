@@ -263,13 +263,10 @@ export const addMessage = async (req: Request, res: Response, next: NextFunction
 
 export const updateRequestSale = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Find user
     const sale_request = await Sale_request.findByPk(req.params.id)
     if (!sale_request) throw new NotFound('Solicitud no encontrada')
 
-    // Update user
-    if (req.body.id_receipt) sale_request.id_receipt = req.body.id_receipt
-    if (req.body.address) sale_request.address = req.body.address
+    if (req.body.id_status) sale_request.id_status = req.body.id_status
 
     await sale_request.save()
 
