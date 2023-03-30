@@ -34,13 +34,10 @@ import {
           label: "Añadir",
           icon: mdiBookPlus
         },
-        {
+        { 
+          to: "/dashboard/inventario/visualizar",
           label: "Visualizar",
           icon: mdiBookOpenPageVariant
-        },
-        {
-          label: "Parametrización",
-          icon: mdiTune
         },
       ],
     },
@@ -77,10 +74,5 @@ import {
       to: "/dashboard/perfil",
       label: "Perfil",
       icon: mdiAccount,
-    },
-    {
-      to: "/dashboard/ajustes",
-      label: "Ajustes",
-      icon: mdiCogs,
     },
   ];
