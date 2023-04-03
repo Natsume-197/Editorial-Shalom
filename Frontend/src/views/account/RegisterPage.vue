@@ -45,6 +45,7 @@
             class="placeholder-gray-500"
               :type="showPass ? 'text' : 'password'"
               required
+              v-model="data.confirmPassword"
               placeholder="Confirmar contraseña"
             />
           </div>
@@ -90,8 +91,6 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import { api } from "../../utils/axios";
-import EyeOn from "../../components/session/EyeOn.vue";
-import EyeOff from "../../components/session/EyeOff.vue";
 import Navbar from "../../components/home/elements/Navbar.vue";
 import Footer from "../../components/home/Footer.vue";
 import Captcha from "../../components/session/Captcha.vue";
@@ -119,6 +118,14 @@ var onExpireRecaptcha = (recaptchaToken) => {
 
 
 const submit = () => {
+  if (data.password !== data.confirmPassword) {
+    toast.error(`Las contraseñas no coinciden.`, {
+      timeout: 5000,
+      position: "top-right",
+      icon: true,
+    });
+    return;
+  }
   api
     .post("/register", {
       name: data.name,

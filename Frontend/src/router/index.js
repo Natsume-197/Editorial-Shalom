@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: "/account/verify/:token",
       name: "Verify",
-      component: () => import("../views/account/VerifyPage.vue"),
+      component: () => import("../views/principal/HomePage.vue"),
     },
     {
       path: "/profile",

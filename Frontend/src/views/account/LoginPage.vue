@@ -41,8 +41,6 @@ const submit = () => {
       password: data.password,
       recaptcha: tokenCaptcha,
     }).then((response) => {
-      console.log(response)
-
       store.$patch((state) => {
         state.isLoggedIn = true;
         state.userInfo = {
@@ -71,12 +69,14 @@ const submit = () => {
         // Si la respuesta de la API tiene un estado, el error provino de la API
         const status = error.response.status;
         const message = error.response.data.message;
-        toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
-          timeout: 5000,
-          position: "top-right",
-          icon: true,
-        });
-        console.log(error);
+        if(status !== 401){
+            toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          });
+        }
+       
       } else if (error.request) {
         // Si la solicitud no pudo completarse, es un error de red
         toast.error(

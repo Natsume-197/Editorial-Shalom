@@ -220,6 +220,21 @@ const handleFileChange = (event) => {
     reader.readAsDataURL(input.files[0]);
   }
 };
+
+const updateBook = () => {
+    const body = {
+        isbn: currentUser.value.isbn,
+        title_spanish: currentUser.value.book_t[0].title,
+        title_english: currentUser.value.book_t[1].title,
+        description_spanish: currentUser.value.book_t[0].description,
+        description_english: currentUser.value.book_t[1].description,
+        category: currentUser.value.category.id,
+        price: currentUser.value.price,
+        units_available: currentUser.value.units_available
+    }
+    console.log(body)
+}
+
 </script>
 <template>
   <template v-if="!loadingComplete">
@@ -265,6 +280,7 @@ const handleFileChange = (event) => {
       button-label="Actualizar"
       v-if="currentUser"
       title="Detalles del libro"
+      :function-confirm="updateBook"
     >
       <div class="flow-root">
         <ul role="list" class="-my-6 divide-y divide-gray-200 mr-4">

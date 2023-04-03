@@ -28,7 +28,7 @@ const props = defineProps({
   },
   functionConfirm: {
     type: Function,
-  } 
+  },
 });
 
 const emit = defineEmits(["update:modelValue", "cancel", "confirm"]);
@@ -40,10 +40,11 @@ const value = computed({
 
 const confirmCancel = (mode) => {
   emit(mode);
-  if(mode === 'confirm'){
-    props.functionConfirm()
+  if (mode === "confirm") {
+    props.functionConfirm();
+  } else {
+    value.value = false;
   }
-  value.value = false;
 };
 
 const confirm = () => confirmCancel("confirm");
@@ -76,10 +77,15 @@ window.addEventListener("keydown", (e) => {
       <div class="space-y-3">
         <slot />
       </div>
-      
+
       <template #footer>
         <BaseButtons>
-          <BaseButton v-if="hasMainButton" :label="buttonLabel" :color="button" @click="confirm" />
+          <BaseButton
+            v-if="hasMainButton"
+            :label="buttonLabel"
+            :color="button"
+            @click="confirm"
+          />
           <BaseButton
             v-if="hasCancel"
             label="Cancelar"

@@ -6,16 +6,71 @@ import BookSeries from "../../components/home/BooksSeries.vue";
 import LandingFeatures from "../../components/home/LandingFeatures.vue";
 import Categories from "../../components/home/Categories.vue";
 import Footer from "../../components/home/Footer.vue";
+import { useToast } from "vue-toastification";
+import { api } from "../../utils/axios";
+import { useRouter } from "vue-router";
+
+const toast = useToast();
+const router = useRouter();
+
+const tokenArray = window.location.href.split("/");
+
+if (tokenArray.length > 4) {
+  router.push("/");
+  const token = tokenArray.slice(-2)[0];
+  api
+    .get("account/verify/" + token)
+    .then(() => {
+      toast.success(`${response.data.message}`, {
+        timeout: 4000,
+        position: "bottom-right",
+        icon: true,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response) {
+        // Si la respuesta de la API tiene un estado, el error provino de la API
+        const status = error.response.status;
+        const message = error.response.data.message;
+        if (status !== 401) {
+          toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          });
+        }
+      } else if (error.request) {
+        // Si la solicitud no pudo completarse, es un error de red
+        toast.error(
+          `Error al enviar la solicitud: Conexión con la API rechazada.`,
+          {
+            timeout: 5000,
+            position: "top-right",
+            icon: true,
+          }
+        );
+        console.log(error);
+      } else {
+        // En otros casos, puede haber un error en el código
+        toast.error(`Error al enviar la solicitud: ${message}`, {
+          timeout: 5000,
+          position: "top-right",
+          icon: true,
+        });
+      }
+      console.log(error);
+    });
+}
 </script>
 
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
     <div class="flex-1">
-      
       <Navbar />
       <LandingPage />
-      <Categories/>
-      <LandingFeatures/>
+      <Categories />
+      <LandingFeatures />
       <BookSeries />
       <Showcase />
     </div>
@@ -24,7 +79,7 @@ import Footer from "../../components/home/Footer.vue";
 </template>
 
 <style>
-body{
-    overflow-x:hidden;
+body {
+  overflow-x: hidden;
 }
 </style>
