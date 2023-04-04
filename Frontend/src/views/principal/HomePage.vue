@@ -28,11 +28,11 @@ if (tokenArray.length > 4) {
       });
     })
     .catch((error) => {
+      const status = error.response.status;
+      const message = error.response.data.message;
       console.log(error);
       if (error.response) {
-        // Si la respuesta de la API tiene un estado, el error provino de la API
-        const status = error.response.status;
-        const message = error.response.data.message;
+        // Si la respuesta de la API tiene un estado, el error provino de la API  
         if (status !== 401) {
           toast.error(`Error al enviar la solicitud (${status}): ${message}`, {
             timeout: 5000,
@@ -72,7 +72,9 @@ if (tokenArray.length > 4) {
       <Categories />
       <LandingFeatures />
       <BookSeries />
-      <Showcase />
+      <Suspense>
+        <Showcase />
+      </Suspense>
     </div>
     <Footer />
   </div>

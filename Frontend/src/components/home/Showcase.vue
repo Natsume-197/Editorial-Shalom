@@ -1,7 +1,8 @@
 <script setup>
 import { register } from "swiper/element/bundle";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { api } from "../../utils/axios"
 
 const categories = ref(["Nuevo", "Selección"]);
 
@@ -32,6 +33,15 @@ const carouselItems = [
       "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg?width=914&height=671",
   },
 ];
+
+const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
+
+const response = await api.get(`book`);
+  response.data.books = response.data.books.sort(
+    (a, b) =>
+      new Date(b.published_date).getTime() -
+      new Date(a.published_date).getTime()
+  );
 </script>
 
 <template>
@@ -90,25 +100,25 @@ const carouselItems = [
                 grid-col="4"
               >
                 <swiper-slide
-                  v-for="(item, index) in carouselItems"
+                  v-for="(item, index) in response.data.books"
                   :key="index"
                   class=""
                 >
-                  <router-link to="/book">
+                
+                  <router-link :to="'/book/'+item.id">
                     <div
                       class="px-2 h-80 sm:px-6 sm:h-96 sm:pt-6 sm:pb-4 bg-white rounded-xl transform transition-all shadow-xl overflow-hidden"
                     >
                       <!-- Image -->
-
                       <img
                         class="w-full mt-1 h-60 object-contain rounded-xl transition delay-100 hover:rotate-6 mb-2 sm:mb-6 duration-300"
-                        :src="item.imageSrc"
+                        :src="url_base+item.cover"
                         alt=""
                       />
                       <div class="sm:p-2">
                         <!-- Heading -->
                         <h2 class="text-sm sm:text-lg font-medium">
-                          {{ item.title }}
+                          {{ item.book_t[0].title }}
                         </h2>
                       </div>
                     </div>

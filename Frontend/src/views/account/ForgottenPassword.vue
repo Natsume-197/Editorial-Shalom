@@ -3,7 +3,7 @@
     <div class="flex-1">
       <Navbar />
       <div
-        class="w-full mt-24 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 animate__animated animate__fadeIn"
+        class="w-full mt-24 flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
       >
         <div class="w-full sm:max-w-md p-5 mx-auto">
           <h2 class="mb-12 text-center text-5xl font-extrabold">
@@ -15,7 +15,31 @@
               <div class="email">
                 <div class="sec-2">
                   <ion-icon name="mail-outline"></ion-icon>
-                  <input placeholder="Correo" type="email" name="email" v-model="data.email" required />
+                  <div class="relative flex items-center mt-2">
+                    <span class="absolute">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 mx-3 text-gray-400 dark:text-gray-500"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                        />
+                      </svg>
+                    </span>
+
+                    <input
+                      v-model="data.email"
+                      type="email"
+                      placeholder="Correo"
+                      class="block w-full py-2.5 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg pl-11 pr-5 rtl:pr-11 rtl:pl-5  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
