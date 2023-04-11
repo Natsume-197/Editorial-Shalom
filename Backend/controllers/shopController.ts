@@ -12,6 +12,7 @@ import { Request_message } from '../models/shops/request_message'
 import { Book_t } from '../models/books/book_t'
 import { Category } from '../models/books/category'
 import { User } from '../models/users/user'
+import { sendConfirmationShopEmail, sendConfirmationShopEmailAdmin } from '../services/mailService'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -159,6 +160,21 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     if (Object.keys(req.body).length === 0) {
       throw new Conflict('No se ha enviado ningún dato.')
     }
+    if (Object.keys(req.body.shopping_form.email).length === 0) {
+      throw new Conflict('No se ha enviado el correo.')
+    }
+    if (Object.keys(req.body.shopping_form.name).length === 0) {
+      throw new Conflict('No se ha enviado el nombre.')
+    }
+    if (Object.keys(req.body.shopping_form.address).length === 0) {
+      throw new Conflict('No se ha enviado la dirección.')
+    }
+    if (Object.keys(req.body.shopping_form.city).length === 0) {
+      throw new Conflict('No se ha enviado la ciudad.')
+    }
+    if (Object.keys(req.body.shopping_form.cellphone).length === 0) {
+      throw new Conflict('No se ha enviado el numero de celular.')
+    }
 
     const bookReserved = [];
     let total_price = 0
@@ -198,7 +214,8 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     )
 
     await sales_request.save()
-
+    await sendConfirmationShopEmail(sales_request.user.name, email, sales_request.id)
+    await sendConfirmationShopEmailAdmin(sales_request.user.name, sales_request.user.id, sales_request.id,sales_request.cell )
     return res.status(StatusCodes.CREATED).json({
       message: `Se ha creado la solicitud de forma exitosa.`,
       sales_request: sales_request

@@ -78,6 +78,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
             cellphone: cellphone,
             email_token: randomTokenEmail,
             is_verified: true,
+            is_active: true,
             user_roles: userRoles
           },
           { include: User_role }
@@ -103,6 +104,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
             cellphone: cellphone,
             email_token: randomTokenEmail,
             is_verified: false,
+            is_active: true,
             user_roles: userRoles
           },
           { include: User_role }
@@ -140,6 +142,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
 
     if (!user) throw new NotFound('Este correo no se encuentra registrado...')
+    if (!user.is_active) throw new NotFound('Este usuario no se encuentra activo...')
 
     // Compare the passwords
     const password: boolean = await bcrypt.compare(req.body.password, user.password)
@@ -363,15 +366,37 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
     })
 
     if (!user) throw new NotFound('Este usuario no existe...')
-
+    user.is_active = false
     // Delete user
-    await user.destroy()
+    await user.save()
 
     // Response
     return res.status(StatusCodes.OK).json({
-      message: `Se ha eliminado el usuario de forma exitosa.`
+      message: `Se ha desactivado el usuario de forma exitosa.`
     })
   } catch (error) {
     return next(error)
   }
 }
+
+  export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Check if user exists
+      const user = await User.findOne({
+        where: { id: req.params.id }
+      })
+  
+      if (!user) throw new NotFound('Este usuario no existe...')
+      user.is_active = true
+      // Delete user
+      await user.save()
+  
+      // Response
+      return res.status(StatusCodes.OK).json({
+        message: `Se ha desactivado el usuario de forma exitosa.`
+      })
+    } catch (error) {
+      return next(error)
+    }
+}
+

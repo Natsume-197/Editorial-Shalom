@@ -17,7 +17,8 @@ import {
   updateUser,
   deleteUser,
   sendResetPassword,
-  setNewPassword
+  setNewPassword,
+  activeUser
 } from '../controllers/userController'
 import { createBook, searchBooks, findBook, getCategories, getAllBooks } from '../controllers/bookController'
 import { createReceipt,
@@ -93,7 +94,8 @@ router.get('/book/category', getCategories)
 router.get('/user', isAuthAdmin, getAllUsers)
 router.get('/user/:id',isAuthAdmin, getUser)
 router.patch('/user/:id', isAuthAdmin, updateUser)
-router.delete('/user/:id', isAuthAdmin, deleteUser)
+router.post('/deleteuser/:id', isAuthAdmin, deleteUser)
+router.post('/activeuser/:id', isAuthAdmin, activeUser)
 
 // Book CRUD Routes
 router.get('/book', getAllBooks)

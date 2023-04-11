@@ -25,6 +25,32 @@ export async function sendConfirmationEmail(name: string, email: string, token: 
     .catch((err: any) => console.log(err))
 }
 
+export async function sendConfirmationShopEmail(name: string, email: string, id: string) {
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: 'Proceso de compra',
+      html: `<h2>¡Hola, ${name}!</h2>
+            <p>Gracias por realizar una compra. Pronto se comunicaran contigo para continuar el proceso de compra con id.</p>
+            ${id}
+            </div>`
+    })
+    .catch((err: any) => console.log(err))
+}
+export async function sendConfirmationShopEmailAdmin(name: string,id_user: string, id: string, cell: string) {
+  transport
+    .sendMail({
+      from: user,
+      to: user,
+      subject: 'Proceso de compra',
+      html: `<h2>¡Se ha registrado una compra nueva!</h2>
+            <p>El usuario de nombre ${name} y con id ${id_user} ha realizado una compra. Comunicate con él usuario para continuar con el proceso, numero de celular : ${cell}.</p>
+            Numero de compra: ${id}
+            </div>`
+    })
+    .catch((err: any) => console.log(err))
+}
 export async function sendResetPasswordEmail(name: string, email: string, token: string) {
   transport
     .sendMail({

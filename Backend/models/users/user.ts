@@ -83,6 +83,13 @@ export class User extends Model {
   is_verified!: Boolean;
 
   @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  })
+  is_active!: Boolean;
+
+  @Column({
     type: DataType.STRING,
     allowNull: true,
     unique: true,
