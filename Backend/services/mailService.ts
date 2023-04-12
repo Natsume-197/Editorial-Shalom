@@ -32,8 +32,7 @@ export async function sendConfirmationShopEmail(name: string, email: string, id:
       to: email,
       subject: 'Proceso de compra',
       html: `<h2>¡Hola, ${name}!</h2>
-            <p>Gracias por realizar una compra. Pronto se comunicaran contigo para continuar el proceso de compra con id.</p>
-            ${id}
+            <p>Gracias por realizar una compra. Pronto se comunicaran contigo para continuar el proceso de compra con id: ${id}</p>
             </div>`
     })
     .catch((err: any) => console.log(err))
