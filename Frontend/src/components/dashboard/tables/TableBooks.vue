@@ -207,7 +207,7 @@ const selectedCategory = ref();
 
 const form = reactive({
   file: null,
-  preview: null,
+  preview: null
 });
 
 const handleFileChange = (event) => {
@@ -267,6 +267,8 @@ const updateBook = async () => {
       icon: true,
     });
   }
+
+  return false
 };
 </script>
 <template>
@@ -472,7 +474,7 @@ const updateBook = async () => {
           class="text-black resize-none placeholder-gray-600 w-full mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
         />
         <FormField label="Categoría">
-          <FormControl v-model="form.category" :options="state.categories" />
+          <FormControl v-model="state.categories[currentUser.category.id]" :options="state.categories" />
         </FormField>
 
         <div class="border-t border-gray-200 mt-6"></div>
@@ -503,7 +505,7 @@ const updateBook = async () => {
             </h3>
             <input
               v-model="currentUser.units_available"
-              placeholder="Ciudad"
+              placeholder="Unidades disponibles"
               class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
             />
           </div>

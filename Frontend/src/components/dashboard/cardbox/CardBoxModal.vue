@@ -38,10 +38,14 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-const confirmCancel = (mode) => {
+const confirmCancel = async (mode) => {
   emit(mode);
   if (mode === "confirm") {
-    props.functionConfirm();
+    await props.functionConfirm().then((result_hide) =>{
+      console.log(result_hide)
+      value.value = result_hide
+    });
+    
   } else {
     value.value = false;
   }
