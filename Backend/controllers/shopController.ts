@@ -192,14 +192,14 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
           amount: item.amount_selected,
           price: cost
         });
-      }
-      let units = book.units_available-item.amount_selected
-      if(units > 0){
-        book.units_available = units
-        books.push({book});
-      }
-      else{
-        throw new Conflict('La cantidad de unidades del libro '+book.name+' es mayor a la disponible.')
+        let units = book.units_available-item.amount_selected
+        if(units > 0){
+          book.units_available = units
+          books.push({book});
+        }
+        else{
+          throw new Conflict('La cantidad de unidades del libro '+book.book_t[0].title+' es mayor a la disponible.')
+        }
       }
     }
     // Create book
@@ -224,11 +224,11 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
 
     await sales_request.save()
     for (const book of books){
-      await book.save()
+      await book.book.save()
     }
     
-    await sendConfirmationShopEmail(sales_request.user.name, email, sales_request.id)
-    await sendConfirmationShopEmailAdmin(sales_request.user.name, sales_request.user.id, sales_request.id,sales_request.cell )
+    await sendConfirmationShopEmail(sales_request.user.name, email, sales_request.id.toString())
+    await sendConfirmationShopEmailAdmin(sales_request.user.name, sales_request.user.id.toString(), sales_request.id.toString(),sales_request.cell )
     return res.status(StatusCodes.CREATED).json({
       message: `Se ha creado la solicitud de forma exitosa.`,
       sales_request: sales_request
