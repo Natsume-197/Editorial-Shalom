@@ -5,6 +5,7 @@ import { reactive, ref } from "vue";
 import Modal from "./modal.vue";
 import { useI18n } from "vue-i18n";
 import { userStore } from "../../stores/user";
+import ShowcaseDetails from "./ShowcaseDetails.vue";
 
 const route = useRoute();
 const id = route.params.id;
@@ -97,7 +98,7 @@ const visualizePDF = () => {
 </script>
 <template>
   <section class="text-gray-700 body-font overflow-hidden bg-white">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-24 mt-12 mx-auto">
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
         <img
           class="lg:w-1/2 w-full object-contain px-8 object-center rounded border border-gray-200"
@@ -169,4 +170,5 @@ const visualizePDF = () => {
       </div>
     </div>
   </section>
+  <ShowcaseDetails/>
 </template>
