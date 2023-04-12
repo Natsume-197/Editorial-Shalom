@@ -178,6 +178,7 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
 
     const bookReserved = [];
     let total_price = 0
+    const books = [];
     for (const item of req.body.cart) {
       let book = await Book.findOne({
         where: { id: item.id },
@@ -191,6 +192,14 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
           amount: item.amount_selected,
           price: cost
         });
+      }
+      let units = book.units_available-item.amount_selected
+      if(units > 0){
+        book.units_available = units
+        books.push({book});
+      }
+      else{
+        throw new Conflict('La cantidad de unidades del libro '+book.name+' es mayor a la disponible.')
       }
     }
     // Create book
@@ -214,6 +223,10 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     )
 
     await sales_request.save()
+    for (const book of books){
+      await book.save()
+    }
+    
     await sendConfirmationShopEmail(sales_request.user.name, email, sales_request.id)
     await sendConfirmationShopEmailAdmin(sales_request.user.name, sales_request.user.id, sales_request.id,sales_request.cell )
     return res.status(StatusCodes.CREATED).json({

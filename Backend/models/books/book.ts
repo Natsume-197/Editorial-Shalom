@@ -66,6 +66,13 @@ export class Book extends Model {
     allowNull: true
   })
   total_pages!: number
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  })
+  is_showcase!: Boolean;
   
   @ForeignKey(() => Category)
   @Column({
