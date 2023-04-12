@@ -105,28 +105,26 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
 
 export const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body)
     // Find book
     const book = await Book.findOne({
       where: { id: req.body.id },
       include: [Book_t, Category]
     })
+    
     if (!book) throw new NotFound('Libro no encontrado')
 
-    // Update book
+    if (req.body.title_spanish) await book.book_t[0].update({ title: req.body.title_spanish })
+    if (req.body.title_english) await book.book_t[1].update({ title: req.body.title_english })
+    if (req.body.description_spanish) await book.book_t[0].update({ description: req.body.description_spanish })
+    if (req.body.description_english) await book.book_t[1].update({ description: req.body.description_english })
+    
     if (req.body.isbn) book.isbn = req.body.isbn
-    //if (req.body.isbn) book.isbn = req.body.isbn
-    if (req.body.title_spanish) book.book_t[0].title = req.body.title_spanish
-    if (req.body.title_english) book.book_t[1].title = req.body.title_english
-    if (req.body.description_spanish) book.book_t[0].description = req.body.description_spanish
-    if (req.body.description_english) book.book_t[1].description = req.body.description_english
     if (req.body.category) book.category = req.body.category
     if (req.body.price) book.price = req.body.price
     if (req.body.units_available) book.units_available = req.body.units_available
 
     await book.save()
 
-    // Response
     return res.status(StatusCodes.OK).json({
       message: `Se ha actualizado el libro: '${book.id}' de forma exitosa.`,
       book: book
