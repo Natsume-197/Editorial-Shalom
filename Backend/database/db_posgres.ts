@@ -16,18 +16,18 @@ import { Request_message } from '../models/shops/request_message'
 require('dotenv').config()
 
 const connection = new Sequelize({
+  dialect: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false 
     }
   },
-  dialect: 'postgres',
   host: process.env.PG_HOST,
   username: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT,
+  port: Number(process.env.PG_PORT),
   models: [User, Role, User_role, Book, Language, Book_t, Category, Book_reserved, Status, Receipt, Request_message, Sale_request],
   logging: false
 })
