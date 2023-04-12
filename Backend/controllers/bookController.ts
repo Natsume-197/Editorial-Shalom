@@ -113,6 +113,25 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
     
     if (!book) throw new NotFound('Libro no encontrado')
 
+    let cover = ''
+    let preview = ''
+
+    if ((req as any).files?.image?.[0]) {
+      cover = (req as any).files.image[0].filename
+      book.cover = cover
+    }else{
+      cover = ''
+    }
+
+    if ((req as any).files?.pdf?.[0]) {
+      preview = (req as any).files.pdf[0].filename
+      book.preview = preview
+    }else{
+      preview = ''
+    }
+
+    console.log(cover)
+
     if (req.body.title_spanish) await book.book_t[0].update({ title: req.body.title_spanish })
     if (req.body.title_english) await book.book_t[1].update({ title: req.body.title_english })
     if (req.body.description_spanish) await book.book_t[0].update({ description: req.body.description_spanish })

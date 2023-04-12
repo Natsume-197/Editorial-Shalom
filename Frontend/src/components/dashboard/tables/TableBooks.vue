@@ -222,21 +222,28 @@ const handleFileChange = (event) => {
 };
 
 const updateBook = async () => {
-  const body = {
-    id: currentUser.value.id,
-    isbn: currentUser.value.isbn,
-    title_spanish: currentUser.value.book_t[0].title,
-    title_english: currentUser.value.book_t[1].title,
-    description_spanish: currentUser.value.book_t[0].description,
-    description_english: currentUser.value.book_t[1].description,
-    category: currentUser.value.category.id,
-    price: currentUser.value.price,
-    units_available: currentUser.value.units_available,
-  };
-  console.log(body);
+  let formData = new FormData();
+
+  formData.append("id", currentUser.value.id);
+  formData.append("isbn", currentUser.value.isbn);
+  formData.append("title_spanish", currentUser.value.book_t[0].title);
+  formData.append("title_english", currentUser.value.book_t[1].title);
+  formData.append("description_spanish", currentUser.value.book_t[0].description);
+  formData.append("description_english", currentUser.value.book_t[1].description);
+  formData.append("category", currentUser.value.category.id);
+  formData.append("price", currentUser.value.price);
+  formData.append("units_available", currentUser.value.units_available);
+
+  if (form.cover) {
+    formData.append("image", form.cover);
+  }
+
+  if (form.pdf) {
+    formData.append("pdf", form.pdf);
+  }
 
   try {
-    await api.patch("/book/" + body.id, body);
+    await api.patch("/book/" + currentUser.value.id, formData);
   } catch (error) {
     console.log(error);
   }

@@ -19,7 +19,7 @@ const connection = new Sequelize({
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false // <<<<<<< YOU NEED THIS
+      rejectUnauthorized: false 
     }
   },
   dialect: 'postgres',

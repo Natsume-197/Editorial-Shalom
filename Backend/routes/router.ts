@@ -57,6 +57,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 // diskStorage receipt
 const storageR = multer.diskStorage({
   destination: function (_req: any, file: { mimetype: string }, cb: (arg0: null, arg1: string) => void) {
@@ -101,7 +102,7 @@ router.patch('/activeuser/:id', isAuthAdmin, activeUser)
 router.get('/book', getAllBooks)
 router.get('/book/:id', findBook)
 router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createBook)
-router.patch('/book/:id', updateBook)
+router.patch('/book/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), updateBook)
 router.patch('/activeBook/:id', activeBook)
 router.patch('/inactiveBook/:id', inactiveBook)
 
