@@ -8,7 +8,13 @@ import { userStore } from "../../stores/user";
 
 const route = useRoute();
 const id = route.params.id;
-const response = await api.get(`book/${id}`);
+const body = {
+  is_showcase: true,
+};
+
+const response = await api.get(`book/${id}`, {
+  params: body,
+});
 
 const i18nLocale = useI18n();
 console.log(i18nLocale.locale.value);
@@ -17,7 +23,8 @@ let title = "";
 let description = "";
 
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
-const url_base2 = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/previews/";
+const url_base2 =
+  import.meta.env.VITE_API_URL_SHALOM + "/assets/books/previews/";
 
 if (i18nLocale.locale.value === "es") {
   title = response.data.book.book_t[0].title;
@@ -26,7 +33,6 @@ if (i18nLocale.locale.value === "es") {
   title = response.data.book.book_t[1].title;
   description = response.data.book.book_t[1].description;
 }
-
 
 const data = reactive({
   id: response.data.book.id,
@@ -46,7 +52,8 @@ const data = reactive({
     .split(",")[0],
   cover: url_base + response.data.book.cover,
   amount_selected: 1,
-  preview: response.data.book.preview
+  preview: response.data.book.preview,
+  units_available: response.data.book.units_available
 });
 
 let showModal = ref(false);
@@ -86,8 +93,7 @@ const addItemCart = (item) => {
 
 const visualizePDF = () => {
   window.open(url_base2 + data.preview);
-}
-
+};
 </script>
 <template>
   <section class="text-gray-700 body-font overflow-hidden bg-white">
@@ -113,7 +119,7 @@ const visualizePDF = () => {
               >
             </span>
             <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-              En Stock (15 unidades)
+              En Stock ({{ data.units_available }} unidades)
             </span>
           </div>
           <p class="leading-relaxed">{{ data.description }}</p>
@@ -132,16 +138,16 @@ const visualizePDF = () => {
             <span class="title-font mr-8 font-medium text-2xl text-gray-900"
               >{{ data.price }} (COP)</span
             >
-       
+
             <div v-if="data.preview">
-            <button
-              class="flex ml-auto text-white  bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded"
-              @click="visualizePDF()"
-            >
-              Visualizar
-            </button>
-          </div>
-            
+              <button
+                class="flex ml-auto text-white bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded"
+                @click="visualizePDF()"
+              >
+                Visualizar
+              </button>
+            </div>
+
             <button
               class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               @click="addItemCart(data)"

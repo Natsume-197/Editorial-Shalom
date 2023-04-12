@@ -27,13 +27,13 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
 
     if ((req as any).files?.image?.[0]) {
       cover = (req as any).files.image[0].filename
-    }else{
+    } else {
       cover = ''
     }
 
     if ((req as any).files?.pdf?.[0]) {
       preview = (req as any).files.pdf[0].filename
-    }else{
+    } else {
       preview = ''
     }
 
@@ -110,7 +110,7 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
       where: { id: req.body.id },
       include: [Book_t, Category]
     })
-    
+
     if (!book) throw new NotFound('Libro no encontrado')
 
     let cover = ''
@@ -119,14 +119,14 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
     if ((req as any).files?.image?.[0]) {
       cover = (req as any).files.image[0].filename
       book.cover = cover
-    }else{
+    } else {
       cover = ''
     }
 
     if ((req as any).files?.pdf?.[0]) {
       preview = (req as any).files.pdf[0].filename
       book.preview = preview
-    }else{
+    } else {
       preview = ''
     }
 
@@ -134,18 +134,21 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
 
     if (req.body.title_spanish) await book.book_t[0].update({ title: req.body.title_spanish })
     if (req.body.title_english) await book.book_t[1].update({ title: req.body.title_english })
-    if (req.body.description_spanish) await book.book_t[0].update({ description: req.body.description_spanish })
-    if (req.body.description_english) await book.book_t[1].update({ description: req.body.description_english })
-    
+    if (req.body.description_spanish)
+      await book.book_t[0].update({ description: req.body.description_spanish })
+    if (req.body.description_english)
+      await book.book_t[1].update({ description: req.body.description_english })
+
     if (req.body.isbn) book.isbn = req.body.isbn
     if (req.body.category) book.category = req.body.category
     if (req.body.price) book.price = req.body.price
     if (req.body.units_available) book.units_available = req.body.units_available
+    if (req.body.is_showcase) book.is_showcase = req.body.is_showcase
 
     await book.save()
 
     return res.status(StatusCodes.OK).json({
-      message: `Se ha actualizado el libro: '${book.id}' de forma exitosa.`,
+      message: `Se ha actualizado el libro: '${book.book_t[0].title}' de forma exitosa.`,
       book: book
     })
   } catch (error) {
@@ -156,17 +159,23 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
 export const findBook = async (req: Request, res: Response, next: NextFunction) => {
   console.log(req.params.id)
   try {
-    const book = await Book.findOne({
-      where: { id: req.params.id },
-      include: [Book_t, Category]
-    })
+    let book = null
+    if (req.query.is_showcase) {
+      book = await Book.findOne({
+        include: [Book_t, Category],
+        where: { id: req.params.id, is_showcase: true }
+      })
+    } else {
+      book = await Book.findOne({
+        include: [Book_t, Category],
+        where: { id: req.params.id }
+      })
+    }
+
     if (!book) throw new NotFound('Libro no válido...')
-    return res.status(StatusCodes.OK).json(
-      {
-        book: book,
-      },
-      
-    )
+    return res.status(StatusCodes.OK).json({
+      book: book
+    })
   } catch (error) {
     return next(error)
   }
@@ -176,14 +185,14 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
   try {
     const books = await Book.findAll({
       where: {
-        '$book_t.title$': { [Op.iLike]: `%${req.query.name}%` },
+        '$book_t.title$': { [Op.iLike]: `%${req.query.name}%` }
       },
       include: [
         {
-          model: Book_t,
+          model: Book_t
         },
-        Category,
-      ],
+        Category
+      ]
     })
     return res.status(StatusCodes.OK).json({
       books: books
@@ -193,11 +202,19 @@ export const searchBooks = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-export const getAllBooks = async (_req: Request, res: Response, next: NextFunction) => {
+export const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const books = await Book.findAll({
-      include: [Book_t, Category]
-    })
+    let books = null
+    if (req.query.is_showcase) {
+      books = await Book.findAll({
+        include: [Book_t, Category],
+        where: { is_showcase: true }
+      })
+    } else {
+      books = await Book.findAll({
+        include: [Book_t, Category]
+      })
+    }
     return res.status(StatusCodes.OK).json({
       books: books
     })
@@ -208,10 +225,8 @@ export const getAllBooks = async (_req: Request, res: Response, next: NextFuncti
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 // CRUD Functions
 // Get all books
-
 
 export const findBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -248,23 +263,23 @@ export const inactiveBook = async (req: Request, res: Response, next: NextFuncti
   }
 }
 
-  export const activeBook = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Check if user exists
-      const book = await Book.findOne({
-        where: { id: req.params.id }
-      })
-  
-      if (!book) throw new NotFound('Este libro no existe...')
-      book.is_showcase = true
-      // Delete user
-      await book.save()
-  
-      // Response
-      return res.status(StatusCodes.OK).json({
-        message: `Se ha desactivado el usuario de forma exitosa.`
-      })
-    } catch (error) {
-      return next(error)
-    }
+export const activeBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if user exists
+    const book = await Book.findOne({
+      where: { id: req.params.id }
+    })
+
+    if (!book) throw new NotFound('Este libro no existe...')
+    book.is_showcase = true
+    // Delete user
+    await book.save()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha desactivado el usuario de forma exitosa.`
+    })
+  } catch (error) {
+    return next(error)
+  }
 }

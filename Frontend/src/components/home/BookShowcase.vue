@@ -18,7 +18,14 @@ const response = reactive({
 
 async function getBooks() {
   try {
-    const res = await api.get(`book`);
+    const body = {
+      is_showcase: true
+    }
+    
+    const res = await api.get(`book`, {
+      params: body
+    });
+    console.log(res)
     response.data = res.data.books;
     response.data_backup = res.data.books;
 

@@ -161,7 +161,11 @@ router.beforeEach(async (to, _from, next) => {
       id_book = to.params.id;
 
       try {
-        response = await api.get("/book/" + to.params.id);
+        const body = {
+          is_showcase: true
+        }
+
+        response = await api.get("/book/" + to.params.id, {params: body});
 
         //console.log("Received name:", to.params.name)
         //console.log("Original title:", response.data.book.book_t[0].title)

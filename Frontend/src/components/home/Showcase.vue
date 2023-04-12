@@ -8,35 +8,12 @@ const categories = ref(["Nuevo", "Selección"]);
 
 register();
 
-const carouselItems = [
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc: "https://pbs.twimg.com/media/FZ8piU4UcAAhj5T.jpg",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc: "https://aleatoriascan.xyz/wp-content/uploads/2022/12/32.jpg",
-  },
-  {
-    title: "Tensei Oujo to Tensai",
-    imageSrc:
-      "https://animenewsplus.net/wp-content/uploads/2022/08/Tensei-Oujo-to-Tensai-Reijou-no-Mahou-Kakumei-Cover-Volume-5-1.webp",
-  },
-  {
-    title: "Tensei Oujo to Tensai Reijou no Mahou Kakumei",
-    imageSrc:
-      "https://cdn.novelupdates.com/images/2020/01/revolution-cover.jpg",
-  },
-  {
-    title: "Little Genius",
-    imageSrc:
-      "https://media.discordapp.net/attachments/738158789655527426/1078545170548670495/Imagen_de_WhatsApp_2023-02-23_a_las_17.15.43.jpg?width=914&height=671",
-  },
-];
-
 const url_base = import.meta.env.VITE_API_URL_SHALOM + "/assets/books/covers/";
+const body = {
+      is_showcase: true
+}
 
-const response = await api.get(`book`);
+const response = await api.get(`book`, { params: body });
   response.data.books = response.data.books.sort(
     (a, b) =>
       new Date(b.published_date).getTime() -

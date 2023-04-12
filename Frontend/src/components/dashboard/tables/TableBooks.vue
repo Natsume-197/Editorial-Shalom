@@ -21,6 +21,7 @@ import CardBox from "../cardbox/CardBox.vue";
 import FormField from "../form/FormField.vue";
 import BaseDivider from "../minimal/BaseDivider.vue";
 import FormFilePicker from "../form/FormFilePicker.vue";
+import FormCheckRadioGroup from "../form/FormCheckRadioGroup.vue";
 
 let props = defineProps({
   checkable: Boolean,
@@ -228,11 +229,19 @@ const updateBook = async () => {
   formData.append("isbn", currentUser.value.isbn);
   formData.append("title_spanish", currentUser.value.book_t[0].title);
   formData.append("title_english", currentUser.value.book_t[1].title);
-  formData.append("description_spanish", currentUser.value.book_t[0].description);
-  formData.append("description_english", currentUser.value.book_t[1].description);
+  formData.append(
+    "description_spanish",
+    currentUser.value.book_t[0].description
+  );
+  formData.append(
+    "description_english",
+    currentUser.value.book_t[1].description
+  );
   formData.append("category", currentUser.value.category.id);
   formData.append("price", currentUser.value.price);
   formData.append("units_available", currentUser.value.units_available);
+  formData.append("is_showcase", currentUser.value.is_showcase);
+
 
   if (form.cover) {
     formData.append("image", form.cover);
@@ -243,9 +252,20 @@ const updateBook = async () => {
   }
 
   try {
-    await api.patch("/book/" + currentUser.value.id, formData);
+    api.patch("/book/" + currentUser.value.id, formData).then((response) => {
+      toast.success(`${response.data.message}`, {
+        timeout: 3000,
+        position: "top-right",
+        icon: true,
+      });
+    });
   } catch (error) {
     console.log(error);
+    toast.error(`${response.data.message}`, {
+      timeout: 3000,
+      position: "top-right",
+      icon: true,
+    });
   }
 };
 </script>
@@ -411,7 +431,7 @@ const updateBook = async () => {
               Total páginas
             </h3>
             <input
-              v-model="currentUser.city"
+              v-model="currentUser.total_pages"
               placeholder="Total páginas"
               class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
             />
@@ -488,6 +508,20 @@ const updateBook = async () => {
             />
           </div>
         </div>
+        <div class="border-t border-gray-200 my-6"></div>
+
+        <FormField label="Opciones">
+          <FormField label="">
+            <FormCheckRadioGroup
+              v-model="currentUser.is_showcase"
+              name="sample-switch"
+              type="switch"
+              :options="{
+                is_showcase: 'En publicación',
+              }"
+            />
+          </FormField>
+        </FormField>
       </div>
     </CardBoxModal>
     <CardBoxModal
@@ -555,7 +589,21 @@ const updateBook = async () => {
             {{ book.book_t[1].title }}
           </td>
           <td data-label="Address" class="lg:w-32">
-            {{ book.units_available }}
+            <div class="text-center">
+              <span
+                :class="{
+                  'bg-rose-500 text-sm': book.units_available === 0,
+                }"
+                class="inline-block px-3 py-2 text-white rounded-full w-full"
+              >
+                <template v-if="book.units_available === 0">
+                  {{ book.units_available }} (Agotado)
+                </template>
+                <template v-else>
+                  {{ book.units_available }}
+                </template>
+              </span>
+            </div>
           </td>
           <td data-label="Cellphone" class="lg:w-32">
             {{ book.price }}
@@ -563,9 +611,20 @@ const updateBook = async () => {
           <td data-label="Total" class="lg:w-32">
             <div class="text-center">
               <span
-                class="inline-block px-2 bg-emerald-500 py-1 text-white rounded-full text-xs w-full"
-                >En Publicación</span
+                :class="{
+                  'bg-emerald-500': book.is_showcase === true,
+                  'bg-rose-500': book.is_showcase === false,
+                }"
+                class="inline-block px-3 py-2 text-white rounded-full text-xs w-full"
               >
+                <template v-if="book.is_showcase === true">
+                  En publicación
+                </template>
+                <template v-else-if="book.is_showcase === false">
+                  Pausado
+                </template>
+                <template v-else> --- </template>
+              </span>
             </div>
           </td>
 
