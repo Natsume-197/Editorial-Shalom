@@ -38,14 +38,14 @@ export async function sendConfirmationShopEmail(name: string, email: string, id:
     })
     .catch((err: any) => console.log(err))
 }
-export async function sendConfirmationShopEmailAdmin(name: string,id_user: string, id: string, cell: string) {
+export async function sendConfirmationShopEmailAdmin(id_user: string, id: string, cell: string) {
   transport
     .sendMail({
       from: user,
       to: user,
       subject: 'Proceso de compra',
       html: `<h2>¡Se ha registrado una compra nueva!</h2>
-            <p>El usuario de nombre ${name} y con id ${id_user} ha realizado una compra. Comunicate con él usuario para continuar con el proceso, numero de celular : ${cell}.</p>
+            <p>El usuario con id ${id_user} ha realizado una compra. Comunicate con él usuario para continuar con el proceso, numero de celular : ${cell}.</p>
             Numero de compra: ${id}
             </div>`
     })

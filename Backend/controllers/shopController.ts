@@ -226,9 +226,11 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     for (const book of books){
       await book.book.save()
     }
-    
-    await sendConfirmationShopEmail(sales_request.user.name, email, sales_request.id.toString())
-    await sendConfirmationShopEmailAdmin(sales_request.user.name, sales_request.user.id.toString(), sales_request.id.toString(),sales_request.cell )
+    console.log('//////////////////////////////////////////////')
+    console.log(sales_request)
+    console.log('//////////////////////////////////////////////')
+    await sendConfirmationShopEmail(sales_request.name, email, sales_request.id.toString())
+    await sendConfirmationShopEmailAdmin(sales_request.id.toString(), sales_request.id_user.toString(),sales_request.cell )
     return res.status(StatusCodes.CREATED).json({
       message: `Se ha creado la solicitud de forma exitosa.`,
       sales_request: sales_request
