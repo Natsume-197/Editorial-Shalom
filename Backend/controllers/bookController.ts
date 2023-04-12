@@ -107,7 +107,10 @@ export const updateBook = async (req: Request, res: Response, next: NextFunction
   try {
     console.log(req.body)
     // Find book
-    const book = await Book.findByPk(req.body.id)
+    const book = await Book.findOne({
+      where: { id: req.body.id },
+      include: [Book_t, Category]
+    })
     if (!book) throw new NotFound('Libro no encontrado')
 
     // Update book
