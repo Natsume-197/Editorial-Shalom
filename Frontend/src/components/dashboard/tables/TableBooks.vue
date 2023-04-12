@@ -221,20 +221,26 @@ const handleFileChange = (event) => {
   }
 };
 
-const updateBook = () => {
-    const body = {
-        isbn: currentUser.value.isbn,
-        title_spanish: currentUser.value.book_t[0].title,
-        title_english: currentUser.value.book_t[1].title,
-        description_spanish: currentUser.value.book_t[0].description,
-        description_english: currentUser.value.book_t[1].description,
-        category: currentUser.value.category.id,
-        price: currentUser.value.price,
-        units_available: currentUser.value.units_available
-    }
-    console.log(body)
-}
+const updateBook = async () => {
+  const body = {
+    id: currentUser.value.id,
+    isbn: currentUser.value.isbn,
+    title_spanish: currentUser.value.book_t[0].title,
+    title_english: currentUser.value.book_t[1].title,
+    description_spanish: currentUser.value.book_t[0].description,
+    description_english: currentUser.value.book_t[1].description,
+    category: currentUser.value.category.id,
+    price: currentUser.value.price,
+    units_available: currentUser.value.units_available,
+  };
+  console.log(body);
 
+  try {
+    await api.patch("/book/" + body.id, body);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 <template>
   <template v-if="!loadingComplete">

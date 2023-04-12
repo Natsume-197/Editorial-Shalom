@@ -95,7 +95,7 @@ app.listen(process.env.PORT || 5000, async () => {
   try {
     await connection.sync()
     console.log(`Base de datos disponible`)
-    //await reSyncDatabase()
+    await reSyncDatabase()
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -131,6 +131,7 @@ async function addBooks(amount: number) {
         total_pages: faker.random.numeric(3),
         price: faker.finance.amount(30000, 110000, 0),
         units_available: faker.datatype.number({ min: 1, max: 100 }),
+        is_showcase: true,
         cover: 'test.jpg',
         book_t: [
           {
@@ -249,7 +250,8 @@ async function addUsers(amount: number) {
       cellphone: '',
       email_token: '',
       is_verified: true,
-      user_roles: userRoles
+      user_roles: userRoles,
+      is_active: true
     },
     { include: User_role }
   )
