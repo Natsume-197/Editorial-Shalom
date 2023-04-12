@@ -26,7 +26,11 @@ const data = reactive({
 });
 
 getRequestsUser(user.value.id).then((response) => {
-  table.items = response.data.sales_request;
+  table.items = response.data.sales_request.sort(
+    (a, b) =>
+      new Date(b.purchase_date).getTime() -
+      new Date(a.purchase_date).getTime()
+  );
 });
 
 let itemSelected = ref(null);
@@ -39,12 +43,12 @@ const actionsButton = (item) => {
 </script>
 
 <template>
-  <div class="mx-auto flex flex-col min-h-screen lg:items-center">
+  <div class="mx-auto flex flex-col min-h-screen lg:items-center bg-sky-500">
     <div class="flex-1 ">
       <Navbar />
 
-      <div class="max-w-screen-2xl">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-white mt-28 mb-4">
+      <div class="max-w-screen-2xl bg-white rounded-xl">
+        <h2 class="text-xl font-bold text-gray-800 b dark:text-white mt-28 mb-4 mx-4 pt-4 ">
           Historial de pedidos
         </h2>
         <HistoryItem
@@ -54,7 +58,7 @@ const actionsButton = (item) => {
           @close-modal="isOpenAction = false"
         />
 
-        <div class="overflow-hidden rounded-lg shadow-xs">
+        <div class="overflow-hidden rounded-lg shadow-xs ">
           <div class="overflow-x-auto">
             <table class="whitespace-no-wrap">
               <thead>

@@ -58,10 +58,6 @@ import {
       ],
     },
     {
-      label: "Auditoría",
-      icon: mdiClipboardTextClockOutline,
-    },
-    {
       isDivider: true,
     },
     {

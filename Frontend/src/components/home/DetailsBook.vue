@@ -118,8 +118,11 @@ const visualizePDF = () => {
                 >{{ data.total_pages }} página(s)</span
               >
             </span>
-            <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-              En Stock ({{ data.units_available }} unidades)
+            <span v-if="data.units_available > 0"  class="bg-emerald-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs">
+              En Stock ({{ data.units_available }} unidades) 
+            </span>
+            <span v-else  class="bg-rose-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs ">
+              No hay unidades disponibles
             </span>
           </div>
           <p class="leading-relaxed">{{ data.description }}</p>
@@ -141,18 +144,25 @@ const visualizePDF = () => {
 
             <div v-if="data.preview">
               <button
-                class="flex ml-auto text-white bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded"
+                class="flex text-white mx-4 bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded"
                 @click="visualizePDF()"
               >
-                Visualizar
+                Visualizar PDF
               </button>
             </div>
 
             <button
+            v-if="data.units_available > 0"
               class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               @click="addItemCart(data)"
             >
               Añadir al carrito
+            </button>
+            <button
+            v-else
+              class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+            >
+              No disponible para compra
             </button>
           </div>
         </div>
