@@ -207,3 +207,44 @@ export const findBooks = async (req: Request, res: Response, next: NextFunction)
     return next(error)
   }
 }
+export const inactiveBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if book exists
+    const book = await Book.findOne({
+      where: { id: req.params.id }
+    })
+
+    if (!book) throw new NotFound('Este libro no existe...')
+    book.is_showcase = false
+    // Delete user
+    await book.save()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha desactivado el libro de forma exitosa.`
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+  export const activeBook = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Check if user exists
+      const book = await Book.findOne({
+        where: { id: req.params.id }
+      })
+  
+      if (!book) throw new NotFound('Este libro no existe...')
+      book.is_showcase = true
+      // Delete user
+      await book.save()
+  
+      // Response
+      return res.status(StatusCodes.OK).json({
+        message: `Se ha desactivado el usuario de forma exitosa.`
+      })
+    } catch (error) {
+      return next(error)
+    }
+}

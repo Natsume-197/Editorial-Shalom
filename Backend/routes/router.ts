@@ -20,7 +20,7 @@ import {
   setNewPassword,
   activeUser
 } from '../controllers/userController'
-import { createBook, searchBooks, findBook, getCategories, getAllBooks, updateBook } from '../controllers/bookController'
+import { createBook, searchBooks, findBook, getCategories, getAllBooks, updateBook, inactiveBook, activeBook } from '../controllers/bookController'
 import { createReceipt,
    searchBooksReserved,
    getStatus, 
@@ -94,14 +94,17 @@ router.get('/book/category', getCategories)
 router.get('/user', isAuthAdmin, getAllUsers)
 router.get('/user/:id',isAuthAdmin, getUser)
 router.patch('/user/:id', isAuthAdmin, updateUser)
-router.post('/deleteuser/:id', isAuthAdmin, deleteUser)
-router.post('/activeuser/:id', isAuthAdmin, activeUser)
+router.patch('/deleteuser/:id', isAuthAdmin, deleteUser)
+router.patch('/activeuser/:id', isAuthAdmin, activeUser)
 
 // Book CRUD Routes
 router.get('/book', getAllBooks)
 router.get('/book/:id', findBook)
 router.post('/book', isAuthAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createBook)
 router.patch('/book/:id', updateBook)
+router.patch('/activeBook/:id', activeBook)
+router.patch('/inactiveBook/:id', inactiveBook)
+
 
 // Shops Related Functions
 router.get('/searchReserved/:id', searchBooksReserved)
