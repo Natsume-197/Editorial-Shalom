@@ -31,7 +31,8 @@ import { createReceipt,
    getAllRequestSaleForUser, 
    addMessage,
    getAllMessageForRequestSale,
-   getAllRequestSaleForStatus
+   getAllRequestSaleForStatus,
+   updateMessage
   } from '../controllers/shopController'
 
 export const router = express.Router()
@@ -121,6 +122,7 @@ router.get('/sales_request_find/:id', findRequestSale)
 router.post('/sales_request', createRequestSale)
 router.patch('/sales_request_update/:id', isAuthAdmin, updateRequestSale)
 router.post('/sales_request/receipt', uploadR.fields([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 1 }]), createReceipt)
+router.patch('/sales_request/update_message',updateMessage)
 
 // Protected Routes
 router.get('/logout', isAuth, logout)

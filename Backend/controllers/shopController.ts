@@ -12,7 +12,7 @@ import { Request_message } from '../models/shops/request_message'
 import { Book_t } from '../models/books/book_t'
 import { Category } from '../models/books/category'
 import { User } from '../models/users/user'
-import { sendConfirmationShopEmail, sendConfirmationShopEmailAdmin } from '../services/mailService'
+import { sendConfirmationOrderStatusChange, sendConfirmationShopEmail, sendConfirmationShopEmailAdmin } from '../services/mailService'
 
 // Crear recibo 
 export const createReceipt = async (req: Request, res: Response, next: NextFunction) => {
@@ -275,6 +275,7 @@ export const addMessage = async (req: Request, res: Response, next: NextFunction
         id_user: user,
         comments: message,
         message_date: Date.now(),
+        is_readed: false
       }
     )
 
@@ -289,6 +290,28 @@ export const addMessage = async (req: Request, res: Response, next: NextFunction
     return next(error)
   }
 }
+export const updateMessage = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const request_messages = await Request_message.findAll({
+      where: { id_sale: req.params.id },
+      include: [User]
+    })
+    if (!request_messages) throw new NotFound('Solicitud no valida...')
+    for (const mesagge of request_messages){
+      if(!mesagge.is_readed) {
+        mesagge.is_readed = true
+        await mesagge.save()
+      }
+
+    }
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha actualizado los mensajes de forma exitosa.`,
+      request_messages: request_messages
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
 
 export const updateRequestSale = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -298,7 +321,9 @@ export const updateRequestSale = async (req: Request, res: Response, next: NextF
     if (req.body.id_status) sale_request.id_status = req.body.id_status
 
     await sale_request.save()
-
+    const status = await Status.findByPk(req.body.id_status)
+    if(!status) throw new NotFound('El estado no fue encontrado')
+    await sendConfirmationOrderStatusChange(status.name, sale_request.id.toString())
     // Response
     return res.status(StatusCodes.OK).json({
       message: `Se ha actualizado la solicitud de forma exitosa.`,

@@ -15,6 +15,13 @@ export class Request_message extends Model {
         autoIncrement: true
       })
       id!: number
+
+      @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      })
+      is_readed!: Boolean;
       
       @ForeignKey(() => Sale_request)
       @Column({

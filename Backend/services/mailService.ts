@@ -37,6 +37,8 @@ export async function sendConfirmationShopEmail(name: string, email: string, id:
     })
     .catch((err: any) => console.log(err))
 }
+
+
 export async function sendConfirmationShopEmailAdmin(id_user: string, id: string, cell: string) {
   transport
     .sendMail({
@@ -50,6 +52,21 @@ export async function sendConfirmationShopEmailAdmin(id_user: string, id: string
     })
     .catch((err: any) => console.log(err))
 }
+
+export async function sendConfirmationOrderStatusChange(status: string, id: string) {
+  transport
+    .sendMail({
+      from: user,
+      to: user,
+      subject: 'Actualización proceso de compra',
+      html: `<h2>¡Se ha actualizado tu proceso de compra!</h2>
+            <p>Tu proceso de compra se ha actualizado al estado: ${status}.</p>
+            Numero de compra: ${id}
+            </div>`
+    })
+    .catch((err: any) => console.log(err))
+}
+
 export async function sendResetPasswordEmail(name: string, email: string, token: string) {
   transport
     .sendMail({
