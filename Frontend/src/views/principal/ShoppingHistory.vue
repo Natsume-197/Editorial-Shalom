@@ -43,12 +43,7 @@ const actionsButton = (item) => {
 </script>
 
 <template>
-  <div class="mx-auto flex flex-col min-h-screen lg:items-center bg-sky-500">
-    <div class="flex-1 ">
-      <Navbar />
-
-      <div class="max-w-screen-2xl bg-white rounded-xl">
-        <h2 class="text-xl font-bold text-gray-800 b dark:text-white mt-28 mb-4 mx-4 pt-4 ">
+        <h2 class="text-xl font-bold text-gray-800 b dark:text-white mb-4">
           Historial de pedidos
         </h2>
         <HistoryItem
@@ -57,13 +52,12 @@ const actionsButton = (item) => {
           :isOpen="isOpenAction"
           @close-modal="isOpenAction = false"
         />
-
         <div class="overflow-hidden rounded-lg shadow-xs ">
           <div class="overflow-x-auto">
             <table class="whitespace-no-wrap">
               <thead>
                 <tr
-                  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700  dark:text-gray-400 dark:bg-gray-800"
                 >
                   <th class="px-4 py-3">Número Pedido</th>
                   <th class="px-4 py-3">Cliente</th>
@@ -94,7 +88,7 @@ const actionsButton = (item) => {
                       </div>
                     </div>
                   </td>
-                  <td class="px-4 py-3 text-sm">
+                  <td class="px-4 py-3 text-sm whitespace-nowrap">
                     {{ item.address }}
                   </td>
                   <td class="px-4 py-3 text-sm">
@@ -103,13 +97,13 @@ const actionsButton = (item) => {
 
                   <td class="px-4 py-3 text-xs">
                     <span
-                      class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                      class="px-2 py-1 font-semibold leading-tight whitespace-nowrap text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                     >
                       {{ item.status.name }}
                     </span>
                   </td>
-                  <td class="px-4 py-3 text-sm">$ {{ item.total }}</td>
-                  <td class="px-4 py-3 text-sm">
+                  <td class="px-4 py-3 text-sm whitespace-nowrap">$ {{ item.total }}</td>
+                  <td class="px-4 py-3 text-sm whitespace-nowrap">
                     {{
                       new Date(item.purchase_date).toLocaleString("en-US", {
                         hour12: true,
@@ -258,28 +252,28 @@ const actionsButton = (item) => {
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       1
                     </button>
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       2
                     </button>
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 text-white transition-colors duration-150 bg-sky-600 border border-r-0 border-sky-600 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       3
                     </button>
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       4
                     </button>
@@ -289,21 +283,21 @@ const actionsButton = (item) => {
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       8
                     </button>
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-sky"
                     >
                       9
                     </button>
                   </li>
                   <li>
                     <button
-                      class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                      class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-sky"
                       aria-label="Next"
                     >
                       <svg
@@ -324,8 +318,4 @@ const actionsButton = (item) => {
             </span>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <Footer />
 </template>
