@@ -4,8 +4,9 @@ import { userStore } from "../../stores/user";
 import Navbar from "../../components/home/elements/Navbar.vue";
 import Footer from "../../components/home/Footer.vue";
 import { onMounted } from "vue";
-
+import { api } from "../../utils/axios";
 import { getRequestsUser } from "../../utils/actions";
+import ShoppingHistory from "./ShoppingHistory.vue"
 
 const store = userStore();
 const user = computed(() => store.userInfo);
@@ -16,12 +17,30 @@ const table = reactive({
 });
 
 const data = reactive({
-  name: user.value.name,
-  email: user.value.email,
+  res: "",
+  name: "",
+  email: "",
   cellphone: "",
-  zip_code: "",
-  city: "",
   address: "",
+});
+
+async function getFCurrentUser() {
+  try {
+    data.res = await api.get(`user/` + user.value.id);
+
+    data.name = data.res.data.user.name;
+    data.email = data.res.data.user.email;
+    data.cellphone = data.res.data.user.cellphone;
+    data.address = data.res.data.user.address;
+
+    console.log(data.res.data.user);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+onMounted(() => {
+  getFCurrentUser();
 });
 
 getRequestsUser(user.value.id).then((response) => {
@@ -31,13 +50,11 @@ getRequestsUser(user.value.id).then((response) => {
 
 <template>
   <div class="mx-auto flex flex-col min-h-screen">
-    <div class="flex-1">
+    <div class="flex-1 bg-sky-400">
       <Navbar />
 
-      <section
-        class="flex justify-center overflow-hidden"
-      >
-        <div class="px-4 py-8 sm:py-12 sm:px-6 lg:pt-16 lg:px-8">
+      <section class="flex justify-center overflow-hidden ">
+        <div class="px-4 py-8 sm:py-12 sm:px-6 lg:pt-16 lg:px-8 ">
           <div
             class="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:items-center lg:gap-x-16 mt-20"
           >
@@ -67,10 +84,10 @@ getRequestsUser(user.value.id).then((response) => {
                 </div>
                 <div class="mt-16 flex flex-col items-center">
                   <h4 class="text-bluePrimary text-xl font-bold">
-                    {{ user.name }}
+                    {{ data.name }}
                   </h4>
                   <p class="text-lightSecondary text-base font-normal">
-                    {{ user.email }}
+                    {{ data.email }}
                   </p>
                 </div>
 
@@ -95,12 +112,7 @@ getRequestsUser(user.value.id).then((response) => {
                   </div>
                 </div>
 
-                <button
-                  @click="removeAccount"
-                  class="bg-sky-500 w-full mt-2 text-white hover:bg-sky-700 block px-3 py-2 rounded-md text-xl font-semibold"
-                >
-                  Historial de pedidos
-                </button>
+         
                 <button
                   @click="removeAccount"
                   class="bg-rose-500 w-full mt-2 text-white hover:bg-rose-700 block px-3 py-2 rounded-md text-xl font-semibold"
@@ -143,7 +155,8 @@ getRequestsUser(user.value.id).then((response) => {
                     <input
                       v-model="data.email"
                       placeholder="Correo"
-                      class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                      disabled
+                      class="text-black placeholder-gray-600 disabled:bg-gray-100 disabled:text-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                     />
                   </div>
                   <div class="md:w-full px-3">
@@ -215,22 +228,18 @@ getRequestsUser(user.value.id).then((response) => {
                 </button>
               </div>
             </div>
+
+            <div class="grid grid-cols-1">
+              <div
+                class="bg-white shadow-md border rounded-2xl px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
+              >
+              <ShoppingHistory/>
+            </div>
+            </div>
+
           </div>
         </div>
       </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
     <Footer />
