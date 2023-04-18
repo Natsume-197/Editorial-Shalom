@@ -175,6 +175,9 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     if (Object.keys(req.body.shopping_form.cellphone).length === 0) {
       throw new Conflict('No se ha enviado el numero de celular.')
     }
+    if (Object.keys(req.body.shopping_form.id).length === 0) {
+      throw new Conflict('No se ha enviado el usuario.')
+    }
 
     const bookReserved = [];
     let total_price = 0
