@@ -226,9 +226,6 @@ export const createRequestSale = async (req: Request, res: Response, next: NextF
     for (const book of books){
       await book.book.save()
     }
-    console.log('//////////////////////////////////////////////')
-    console.log(sales_request)
-    console.log('//////////////////////////////////////////////')
     await sendConfirmationShopEmail(sales_request.name, email, sales_request.id.toString())
     await sendConfirmationShopEmailAdmin(sales_request.id.toString(), sales_request.id_user.toString(),sales_request.cell )
     return res.status(StatusCodes.CREATED).json({
