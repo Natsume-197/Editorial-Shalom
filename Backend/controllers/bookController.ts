@@ -75,6 +75,7 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
         units_available: available_units,
         cover: cover,
         preview: preview,
+        is_showcase: true,
         book_t: [
           {
             id_language: 1,
