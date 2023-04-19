@@ -84,6 +84,7 @@ export const getAllRequestSale = async (_req: Request, res: Response, next: Next
     const sales_request = await Sale_request.findAll({
       include: [{model :Book_reserved, include :[{model:Book, include:[Book_t, Category]}]}, Status, Receipt, Request_message]
     })
+    if (!sales_request) throw new NotFound('No hay ninguna solicitud...')
     return res.status(StatusCodes.OK).json({
       sales_request: sales_request
     })
