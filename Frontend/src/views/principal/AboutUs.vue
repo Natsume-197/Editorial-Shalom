@@ -44,10 +44,13 @@ import Footer from "../../components/home/Footer.vue";
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@200&display=swap');
+@font-face {
+  font-family: "DynaPuff";
+  src: url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@200&display=swap')
+}
 
 * {
   font-family: 'DynaPuff', cursive;
-  font-weight: 100;
 }
+
 </style>
