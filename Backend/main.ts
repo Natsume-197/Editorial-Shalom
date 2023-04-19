@@ -32,7 +32,7 @@ app.use(
   cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token', 'Origin'],
     credentials: true,
-    origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!],
+    origin: ['http://localhost:3000', process.env.URL_SHALOM_FRONT!, '*'],
     maxAge: 600,
     exposedHeaders: ['*', 'Authorization']
   })
