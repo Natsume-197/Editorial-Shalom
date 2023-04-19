@@ -22,8 +22,8 @@ export const authPage = (_req: Request, res: Response): object => {
 // Sign up Page
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    //if (!req.body.recaptcha)
-      //throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
+    if (!req.body.recaptcha)
+      throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
@@ -33,8 +33,8 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       }
     })
 
-    //if (!responseGoogleCaptcha.data.success)
-     // throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    if (!responseGoogleCaptcha.data.success)
+      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Validation User Input
     // const { error } = userData.validate(req.body)
@@ -90,6 +90,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
           message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
           user: user
         })
+
       } else {
         const userRoles = roles.map(roleId => ({ id_role: roleId }))
 
@@ -128,8 +129,8 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 export const logIn = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Check if captcha is correct
-    //if (!req.body.recaptcha)
-     // throw new BadRequest('Debe resolver el captcha primero para poder iniciar sesión')
+    if (!req.body.recaptcha)
+      throw new BadRequest('Debe resolver el captcha primero para poder iniciar sesión')
 
     // Check if user already exists
     const user = await User.findOne({
@@ -139,6 +140,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     console.log(user)
 
+
     if (!user) throw new NotFound('Este correo no se encuentra registrado...')
     if (!user.is_active) throw new NotFound('Este usuario no se encuentra activo...')
 
@@ -146,8 +148,8 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     const password: boolean = await bcrypt.compare(req.body.password, user.password)
     if (!password) throw new BadRequest('Correo o contraseña incorrecta...')
 
-    //if (user.is_verified === false)
-      //throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
+    if (user.is_verified === false)
+      throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
@@ -157,8 +159,8 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
       }
     })
 
-    //if (!responseGoogleCaptcha.data.success)
-      //throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    if (!responseGoogleCaptcha.data.success)
+      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Create Token with role permissions
     const user_role = await User_role.findAll({
@@ -362,17 +364,18 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 export const updateUserforUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Find user
-    if (req.params.id) {
+    if(req.params.id){
       const user = await User.findByPk(req.params.id)
       if (!user) throw new NotFound('Usuario no encontrado')
 
       // Update user
       if (req.body.name) user.name = req.body.name
-      if (req.body.address) user.address = req.body.address
-      if (req.body.second_name) user.second_name = req.body.second_name
-      if (req.body.cellphone) user.cellphone = req.body.cellphone
-      if (req.body.city) user.city = req.body.city
-      if (req.body.password) user.password = req.body.password
+    if (req.body.address) user.address = req.body.address
+    if (req.body.second_name) user.second_name = req.body.second_name
+    if (req.body.cellphone) user.cellphone = req.body.cellphone
+    if (req.body.city) user.city = req.body.city
+    if (req.body.password) user.password = req.body.password
+
 
       await user.save()
 
@@ -380,8 +383,8 @@ export const updateUserforUser = async (req: Request, res: Response, next: NextF
       return res.status(StatusCodes.OK).json({
         message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
         user: user
-      })
-    } else {
+      })}
+    else{
       throw new NotFound('El id del usuario a modificar no concuerda con el usuario en sesion')
     }
   } catch (error) {
@@ -410,23 +413,24 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
   }
 }
 
-export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    // Check if user exists
-    const user = await User.findOne({
-      where: { id: req.params.id }
-    })
-
-    if (!user) throw new NotFound('Este usuario no existe...')
-    user.is_active = true
-    // Delete user
-    await user.save()
-
-    // Response
-    return res.status(StatusCodes.OK).json({
-      message: `Se ha desactivado el usuario de forma exitosa.`
-    })
-  } catch (error) {
-    return next(error)
-  }
+  export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Check if user exists
+      const user = await User.findOne({
+        where: { id: req.params.id }
+      })
+  
+      if (!user) throw new NotFound('Este usuario no existe...')
+      user.is_active = true
+      // Delete user
+      await user.save()
+  
+      // Response
+      return res.status(StatusCodes.OK).json({
+        message: `Se ha desactivado el usuario de forma exitosa.`
+      })
+    } catch (error) {
+      return next(error)
+    }
 }
+
