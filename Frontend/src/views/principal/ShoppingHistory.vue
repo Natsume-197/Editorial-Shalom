@@ -7,9 +7,11 @@ import { getRequestsUser } from "../../utils/actions";
 import HistoryItem from "./modals/HistoryItem.vue";
 import ChatUser from "./modals/ChatUser.vue";
 import { api } from "../../utils/axios";
+import { useToast } from "vue-toastification";
 
 const store = userStore();
 const user = computed(() => store.userInfo);
+const toast = useToast();
 
 let items = null;
 const table = reactive({
@@ -44,12 +46,16 @@ const actionsButton = (item) => {
 
 const cancelProduct = async (item) => {
   const body = { id_status: 8}
-
+  console.log(item)
   try {
     data.res = await api.patch(`sales_request_update/` + item.id, body);
     console.log(data.res.data);
+    toast.success(`Se ha cancelado el pedido.`, {
+        timeout: 3000,
+        position: "top-right",
+        icon: true,
+    });
   } catch (error) {
-
     console.log(error);
   }
 };
