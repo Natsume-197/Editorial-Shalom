@@ -7,9 +7,12 @@ import { onMounted } from "vue";
 import { api } from "../../utils/axios";
 import { getRequestsUser } from "../../utils/actions";
 import ShoppingHistory from "./ShoppingHistory.vue"
+import { logout } from "../../utils/actions";
+import { useRouter } from "vue-router";
 
 const store = userStore();
 const user = computed(() => store.userInfo);
+const router = useRouter();
 
 let items = null;
 const table = reactive({
@@ -35,7 +38,11 @@ async function getFCurrentUser() {
 
     console.log(data.res.data.user);
   } catch (error) {
-    console.log(error);
+    if(error.response.status === 404){
+      logout()
+      router.push("/")
+    }
+    console.log(error.response.status);
   }
 }
 

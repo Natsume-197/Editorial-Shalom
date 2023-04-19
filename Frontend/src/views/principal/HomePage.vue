@@ -81,6 +81,11 @@ if (tokenArray.length > 4) {
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@200&display=swap');
+
+* {
+  font-family: 'DynaPuff', cursive;
+}
 body {
   overflow-x: hidden;
 }

@@ -100,7 +100,7 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
               />
 
             <p
-              class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6"
+              class="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-2 md:mb-4 mt-6 "
             >
               {{ $t("landingpage.maintitle") }}
             </p>
@@ -183,10 +183,6 @@ S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715
     <!--Waves end-->
   </div>
 <!-- Base -->
-
-
-
-
 </template>
 
 <style>

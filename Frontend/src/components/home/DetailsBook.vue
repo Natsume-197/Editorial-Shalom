@@ -6,7 +6,9 @@ import Modal from "./modal.vue";
 import { useI18n } from "vue-i18n";
 import { userStore } from "../../stores/user";
 import ShowcaseDetails from "./ShowcaseDetails.vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const route = useRoute();
 const id = route.params.id;
 const body = {
@@ -54,7 +56,7 @@ const data = reactive({
   cover: url_base + response.data.book.cover,
   amount_selected: 1,
   preview: response.data.book.preview,
-  units_available: response.data.book.units_available
+  units_available: response.data.book.units_available,
 });
 
 let showModal = ref(false);
@@ -70,8 +72,6 @@ const closeModal = () => {
 const store = userStore();
 
 const addItemCart = (item) => {
-  console.log(item);
-
   // Añade el producto al carrito
   store.$patch((state) => {
     // Si el carrito aún no tiene items, crea una lista vacía
@@ -85,9 +85,21 @@ const addItemCart = (item) => {
     // Si el producto ya existe, aumenta su cantidad
     if (existingItem) {
       existingItem.amount_selected = existingItem.amount_selected + 1;
+
+      toast.success(`Se ha añadido otra existencia de este producto a la canasta.`, {
+        timeout: 5000,
+        position: "top-center",
+        icon: true,
+      });
     } else {
       // Agrega el nuevo item a la lista de items
       state.shoppingCart.items.push(item);
+
+      toast.success(`Se ha añadido el producto a la canasta.`, {
+        timeout: 5000,
+        position: "top-center",
+        icon: true,
+      });
     }
   });
 };
@@ -119,10 +131,16 @@ const visualizePDF = () => {
                 >{{ data.total_pages }} página(s)</span
               >
             </span>
-            <span v-if="data.units_available > 0"  class="bg-emerald-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs">
-              En Stock ({{ data.units_available }} unidades) 
+            <span
+              v-if="data.units_available > 0"
+              class="bg-emerald-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs"
+            >
+              En Stock ({{ data.units_available }} unidades)
             </span>
-            <span v-else  class="bg-rose-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs ">
+            <span
+              v-else
+              class="bg-rose-500 inline-block px-2 py-1 mx-4 text-white rounded-full text-xs"
+            >
               No hay unidades disponibles
             </span>
           </div>
@@ -153,14 +171,14 @@ const visualizePDF = () => {
             </div>
 
             <button
-            v-if="data.units_available > 0"
+              v-if="data.units_available > 0"
               class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               @click="addItemCart(data)"
             >
               Añadir al carrito
             </button>
             <button
-            v-else
+              v-else
               class="flex ml-auto text-white items-end bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
             >
               No disponible para compra
@@ -170,5 +188,5 @@ const visualizePDF = () => {
       </div>
     </div>
   </section>
-  <ShowcaseDetails/>
+  <ShowcaseDetails />
 </template>

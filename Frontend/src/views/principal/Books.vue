@@ -17,3 +17,12 @@ import BookShowcase from "../../components/home/BookShowcase.vue";
     <Footer />
   </div>
 </template>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@200&display=swap');
+
+* {
+  font-family: 'DynaPuff', cursive;
+  font-weight: 100;
+}
+</style>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -46,8 +46,27 @@ const removeAllItemCart = () => {
   });
 };
 
+let isStockFull = ref(false)
+let failed = ref(false)
 const totalPrice = computed(() => {
   let total = null;
+
+  // Validación si un producto supera el stock actual
+  
+  failed.value = false
+  current_items.value.forEach((item) =>{
+    if(item.amount_selected > item.units_available){
+      failed.value = true
+    }
+  })
+
+  if(failed.value === true){
+    isStockFull.value = true
+  }else{
+    failed.value = false
+    isStockFull.value = false
+  }
+  
   try {
     return current_items.value.reduce((total, item) => {
       return (total =
@@ -90,7 +109,6 @@ const buyProduct = () => {
     });
   }
 
-
   // Check if user is already logged
   if (store.isLoggedIn === false) {
     isLoading.value = true;
@@ -113,6 +131,8 @@ const buyProduct = () => {
     }, 1000);
   }
 };
+
+
 </script>
 <template>
   <TransitionRoot as="template" :show="value">
@@ -225,7 +245,7 @@ const buyProduct = () => {
                       </div>
                     </div>
                     </div>
-
+                    
                       <div class="flow-root">
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
                           <li
@@ -271,7 +291,8 @@ const buyProduct = () => {
                                   class="flex h-10 w-24 overflow-hidden rounded border border-gray-300"
                                 >
                                   <input
-                                    :value="product.amount_selected"
+                                  @keypress="isNumber($event)"
+                                    v-model="product.amount_selected"
                                     class="w-full px-4 py-2 outline-none ring-inset ring-indigo-500 transition duration-100 focus:ring"
                                   />
 
@@ -309,6 +330,10 @@ const buyProduct = () => {
                   </div>
 
                   <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+                    <div v-if=isStockFull class="text-red-600 text-sm mb-4">
+                      ADVERTENCIA: uno o más items superan el stock actual.
+                    </div>
+                    
                     <div
                       class="flex justify-between text-base font-medium text-gray-900"
                     >
