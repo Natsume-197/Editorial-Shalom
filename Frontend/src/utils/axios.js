@@ -10,7 +10,7 @@ export const BASE_API_URLS = [
 const toast = useToast()
 const api = axios.create({
   baseURL: BASE_API_URLS[0].endpoint, 
-  timeout: 20000,
+  timeout: 6000,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' }
 })

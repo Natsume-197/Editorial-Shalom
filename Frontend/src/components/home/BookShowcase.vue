@@ -25,7 +25,7 @@ async function getBooks() {
     const res = await api.get(`book`, {
       params: body
     });
-    console.log(res)
+
     response.data = res.data.books;
     response.data_backup = res.data.books;
 
@@ -37,6 +37,7 @@ async function getBooks() {
     }
   } catch (error) {
     console.log(error);
+    getBooks()
   }
 }
 
