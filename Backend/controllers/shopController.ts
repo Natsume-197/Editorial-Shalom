@@ -318,7 +318,7 @@ export const updateRequestSale = async (req: Request, res: Response, next: NextF
   try {
     const sale_request = await Sale_request.findByPk(req.params.id)
     if (!sale_request) throw new NotFound('Solicitud no encontrada')
-
+    if (sale_request.id_status === req.body.id_status) throw new NotFound('La solicitud ya se encuentra en el estado que desea asignar')
     if (req.body.id_status) sale_request.id_status = req.body.id_status
 
     await sale_request.save()
