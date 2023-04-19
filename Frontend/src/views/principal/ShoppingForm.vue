@@ -54,6 +54,7 @@ const clearFormShopping = async () => {
 };
 
 async function getFCurrentUser() {
+
   try {
     data.res = await api.get(`user/` + user.value.id);
 

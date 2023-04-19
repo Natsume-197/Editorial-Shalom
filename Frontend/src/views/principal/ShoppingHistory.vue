@@ -6,6 +6,7 @@ import { userStore } from "../../stores/user";
 import { getRequestsUser } from "../../utils/actions";
 import HistoryItem from "./modals/HistoryItem.vue";
 import ChatUser from "./modals/ChatUser.vue";
+import { api } from "../../utils/axios";
 
 const store = userStore();
 const user = computed(() => store.userInfo);
@@ -40,6 +41,19 @@ const actionsButton = (item) => {
   itemSelected.value = item;
   isOpenAction.value = true;
 };
+
+const cancelProduct = async (item) => {
+  const body = { id_status: 8}
+
+  try {
+    data.res = await api.patch(`sales_request_update/` + item.id, body);
+    console.log(data.res.data);
+  } catch (error) {
+
+    console.log(error);
+  }
+};
+
 </script>
 
 <template>
@@ -113,6 +127,7 @@ const actionsButton = (item) => {
 
                   <td>
                     <button
+                      @click="cancelProduct(item)"
                       class="text-gray-500 mx-4 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
                     >
                       <svg
