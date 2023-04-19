@@ -22,8 +22,8 @@ export const authPage = (_req: Request, res: Response): object => {
 // Sign up Page
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.body.recaptcha)
-      throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
+    //if (!req.body.recaptcha)
+      //throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
@@ -33,8 +33,8 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       }
     })
 
-    if (!responseGoogleCaptcha.data.success)
-      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    //if (!responseGoogleCaptcha.data.success)
+     // throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Validation User Input
     // const { error } = userData.validate(req.body)
