@@ -21,8 +21,8 @@ if (tokenArray.length > 4) {
   api
     .get("account/verify/" + token)
     .then(() => {
-      toast.success(`${response.data.message}`, {
-        timeout: 8000,
+      toast.success(`Se ha verificado el correo electronico.`, {
+        timeout: 5000,
         position: "bottom-right",
         icon: true,
       });

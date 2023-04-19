@@ -90,7 +90,6 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
           message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
           user: user
         })
-
       } else {
         const userRoles = roles.map(roleId => ({ id_role: roleId }))
 
@@ -139,7 +138,6 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     })
 
     console.log(user)
-
 
     if (!user) throw new NotFound('Este correo no se encuentra registrado...')
     if (!user.is_active) throw new NotFound('Este usuario no se encuentra activo...')
@@ -364,17 +362,17 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 export const updateUserforUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Find user
-    if(req.params.id === req.params.idUser){
+    if (req.params.id) {
       const user = await User.findByPk(req.params.id)
       if (!user) throw new NotFound('Usuario no encontrado')
 
       // Update user
       if (req.body.name) user.name = req.body.name
-    if (req.body.address) user.address = req.body.address
-    if (req.body.second_name) user.second_name = req.body.second_name
-    if (req.body.cellphone) user.cellphone = req.body.cellphone
-    if (req.body.city) user.city = req.body.city
-    if (req.body.password) user.password = req.body.password
+      if (req.body.address) user.address = req.body.address
+      if (req.body.second_name) user.second_name = req.body.second_name
+      if (req.body.cellphone) user.cellphone = req.body.cellphone
+      if (req.body.city) user.city = req.body.city
+      if (req.body.password) user.password = req.body.password
 
       await user.save()
 
@@ -382,8 +380,8 @@ export const updateUserforUser = async (req: Request, res: Response, next: NextF
       return res.status(StatusCodes.OK).json({
         message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
         user: user
-      })}
-    else{
+      })
+    } else {
       throw new NotFound('El id del usuario a modificar no concuerda con el usuario en sesion')
     }
   } catch (error) {
@@ -412,24 +410,23 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
   }
 }
 
-  export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Check if user exists
-      const user = await User.findOne({
-        where: { id: req.params.id }
-      })
-  
-      if (!user) throw new NotFound('Este usuario no existe...')
-      user.is_active = true
-      // Delete user
-      await user.save()
-  
-      // Response
-      return res.status(StatusCodes.OK).json({
-        message: `Se ha desactivado el usuario de forma exitosa.`
-      })
-    } catch (error) {
-      return next(error)
-    }
-}
+export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if user exists
+    const user = await User.findOne({
+      where: { id: req.params.id }
+    })
 
+    if (!user) throw new NotFound('Este usuario no existe...')
+    user.is_active = true
+    // Delete user
+    await user.save()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha desactivado el usuario de forma exitosa.`
+    })
+  } catch (error) {
+    return next(error)
+  }
+}

@@ -158,7 +158,7 @@
 .links__item {
   display: inline-block;
   vertical-align: top;
-  width: calc(100% / 4);
+  width: calc(100% / 2);
   padding: 20px 10px 0;
   font-weight: normal;
   font-style: normal;
@@ -216,7 +216,7 @@
   position: absolute;
   right: 50px;
   bottom: 50px;
-  width: 850px;
+  width: 1100px;
   height: 800px;
   margin: 0 -400px -400px 0;
   border-radius: 800px;

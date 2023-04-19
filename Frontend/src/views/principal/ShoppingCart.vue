@@ -54,7 +54,7 @@ const totalPrice = computed(() => {
   // Validación si un producto supera el stock actual
   
   failed.value = false
-  current_items.value.forEach((item) =>{
+  current_items?.value?.forEach((item) =>{
     if(item.amount_selected > item.units_available){
       failed.value = true
     }

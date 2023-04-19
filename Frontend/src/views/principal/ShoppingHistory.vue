@@ -161,7 +161,7 @@ const actionsButton = (item) => {
               </tbody>
             </table>
             <div
-              v-if="!table.items"
+              v-if="table?.items?.length === 0"
               class="flex items-center mt-2 text-center border rounded-lg h-96 dark:border-gray-700"
             >
               <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
@@ -190,11 +190,7 @@ const actionsButton = (item) => {
                   Realiza un pedido en nuestra tienda o limpia la busqueda.
                 </p>
                 <div class="flex items-center mt-4 sm:mx-auto gap-x-3">
-                  <button
-                    class="w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700"
-                  >
-                    Limpiar busqueda
-                  </button>
+
 
                   <button
                     class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600"
@@ -221,7 +217,7 @@ const actionsButton = (item) => {
             </div>
           </div>
 
-          <div
+          <div v-if="table?.items?.length > 0"
             class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
           >
             <span class="flex items-center col-span-3">

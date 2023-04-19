@@ -96,9 +96,9 @@ router.get('/book/category', getCategories)
 // User CRUD Routes
 router.get('/user', isAuthAdmin, getAllUsers)
 router.get('/user/:id',isAuth, getUser)
-router.patch('/user/:id', isAuthAdmin, updateUser)
+router.patch('/user/:id', isAuth, updateUser)
 router.patch('/userforuser/:id', updateUserforUser)
-router.patch('/deleteuser/:id', isAuthAdmin, deleteUser)
+router.patch('/deleteuser/:id', isAuth, deleteUser)
 router.patch('/activeuser/:id', isAuthAdmin, activeUser)
 
 // Book CRUD Routes
