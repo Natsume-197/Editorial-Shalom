@@ -18,7 +18,8 @@ import {
   deleteUser,
   sendResetPassword,
   setNewPassword,
-  activeUser
+  activeUser,
+  updateUserforUser
 } from '../controllers/userController'
 import { createBook, searchBooks, findBook, getCategories, getAllBooks, updateBook, inactiveBook, activeBook } from '../controllers/bookController'
 import { createReceipt,
@@ -96,6 +97,7 @@ router.get('/book/category', getCategories)
 router.get('/user', isAuthAdmin, getAllUsers)
 router.get('/user/:id',isAuth, getUser)
 router.patch('/user/:id', isAuthAdmin, updateUser)
+router.patch('/userforuser/:id', updateUserforUser)
 router.patch('/deleteuser/:id', isAuthAdmin, deleteUser)
 router.patch('/activeuser/:id', isAuthAdmin, activeUser)
 

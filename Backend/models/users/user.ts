@@ -98,6 +98,12 @@ export class User extends Model {
 
   @Column({
     type: DataType.STRING,
+    allowNull: false
+  })
+  city!: string
+
+  @Column({
+    type: DataType.STRING,
     allowNull: true,
     unique: true,
   })

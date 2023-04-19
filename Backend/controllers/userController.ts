@@ -343,7 +343,10 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
     // Update user
     if (req.body.name) user.name = req.body.name
-    if (req.body.email) user.email = req.body.email
+    if (req.body.address) user.address = req.body.address
+    if (req.body.second_name) user.second_name = req.body.second_name
+    if (req.body.cellphone) user.cellphone = req.body.cellphone
+    if (req.body.city) user.city = req.body.city
     if (req.body.password) user.password = req.body.password
 
     await user.save()
@@ -353,6 +356,36 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
       message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
       user: user
     })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export const updateUserforUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Find user
+    if(req.params.id === req.params.idUser){
+      const user = await User.findByPk(req.params.id)
+      if (!user) throw new NotFound('Usuario no encontrado')
+
+      // Update user
+      if (req.body.name) user.name = req.body.name
+    if (req.body.address) user.address = req.body.address
+    if (req.body.second_name) user.second_name = req.body.second_name
+    if (req.body.cellphone) user.cellphone = req.body.cellphone
+    if (req.body.city) user.city = req.body.city
+    if (req.body.password) user.password = req.body.password
+
+      await user.save()
+
+      // Response
+      return res.status(StatusCodes.OK).json({
+        message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
+        user: user
+      })}
+    else{
+      throw new NotFound('El id del usuario a modificar no concuerda con el usuario en sesion')
+    }
   } catch (error) {
     return next(error)
   }
