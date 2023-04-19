@@ -150,6 +150,8 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     if (user.is_verified === false)
       throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
+      await sendConfirmationEmail(user.name, user.email.toLowerCase(), user.email_token.toString())
+      
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
