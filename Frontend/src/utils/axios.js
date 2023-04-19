@@ -8,21 +8,12 @@ export const BASE_API_URLS = [
   { name: 'ShalomAPI', endpoint: import.meta.env.VITE_API_URL_SHALOM },
 ]
 const toast = useToast()
-const api = null
-try {
-  api = axios.create({
-    baseURL: BASE_API_URLS[0].endpoint, 
-    timeout: 15000,
-    withCredentials: true,
-    headers: { 'Content-Type': 'application/json' }
-  })  
-} catch (error) {
-  toast.error(`${error.response.data.message}`, {
-    timeout: 5000,
-    position: 'top-center',
-    icon: true
-  })
-}
+const api = axios.create({
+  baseURL: BASE_API_URLS[0].endpoint, 
+  timeout: 20000,
+  withCredentials: true,
+  headers: { 'Content-Type': 'application/json' }
+})
 
 api.interceptors.response.use(
   (response) => {
@@ -50,7 +41,17 @@ api.interceptors.response.use(
       window.localStorage.clear();
 
     }else if (error.response && error.response.status === 500){
-      
+      toast.error(`${error.response.data.message}`, {
+        timeout: 5000,
+        position: 'top-right',
+        icon: true
+      })
+    }else{
+      toast.error(`${error.response.data.message}`, {
+        timeout: 5000,
+        position: 'top-right',
+        icon: true
+      })
     }
     return Promise.reject(error)
   }
