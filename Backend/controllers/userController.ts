@@ -128,8 +128,8 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 export const logIn = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Check if captcha is correct
-    if (!req.body.recaptcha)
-      throw new BadRequest('Debe resolver el captcha primero para poder iniciar sesión')
+    //if (!req.body.recaptcha)
+     // throw new BadRequest('Debe resolver el captcha primero para poder iniciar sesión')
 
     // Check if user already exists
     const user = await User.findOne({
@@ -146,8 +146,8 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
     const password: boolean = await bcrypt.compare(req.body.password, user.password)
     if (!password) throw new BadRequest('Correo o contraseña incorrecta...')
 
-    if (user.is_verified === false)
-      throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
+    //if (user.is_verified === false)
+      //throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
@@ -157,8 +157,8 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
       }
     })
 
-    if (!responseGoogleCaptcha.data.success)
-      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    //if (!responseGoogleCaptcha.data.success)
+      //throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
 
     // Create Token with role permissions
     const user_role = await User_role.findAll({

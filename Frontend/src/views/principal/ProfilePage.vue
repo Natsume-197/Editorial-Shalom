@@ -116,11 +116,11 @@ const updateDetailsAccount = async () => {
       <Navbar />
 
       <section class="flex justify-center overflow-hidden">
-        <div class="px-4 py-8 sm:py-12 sm:px-6 lg:pt-16 lg:px-8">
+        <div class="px-4 py-8 sm:py-12 sm:px-6 lg:pt-16 lg:px-8 w-5/6">
           <div
-            class="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:items-center lg:gap-x-16 mt-20"
+            class="grid grid-cols-1 gap-y-8 lg:grid-cols-4 lg:items-center lg:gap-x-8 mt-20"
           >
-            <div class="max-w-lg text-center lg:mx-0 lg:text-left">
+            <div class="max-w-2xl text-center lg:mx-0 lg:text-left col-start-1 col-span-2">
               <div
                 class="dark:!bg-navy-800 shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full flex-col items-center bg-white border rounded-2xl bg-cover bg-clip-border p-[16px] dark:text-white dark:shadow-none"
               >
@@ -278,7 +278,7 @@ const updateDetailsAccount = async () => {
               </div>
             </div>
 
-            <div class="grid grid-cols-1">
+            <div class="col-start-3 col-span-3">
               <div
                 class="bg-white shadow-md border rounded-2xl px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
               >
@@ -372,7 +372,7 @@ const updateDetailsAccount = async () => {
               </div>
             </div>
 
-            <div class="grid grid-cols-1">
+            <div class="col-start-1 col-span-4">
               <div
                 class="bg-white shadow-md border rounded-2xl px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
               >

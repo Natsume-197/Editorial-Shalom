@@ -54,7 +54,7 @@ const actionsButton = (item) => {
         />
         <div class="overflow-hidden rounded-lg shadow-xs ">
           <div class="overflow-x-auto">
-            <table class="whitespace-no-wrap">
+            <table class="whitespace-no-wrap w-full">
               <thead>
                 <tr
                   class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700  dark:text-gray-400 dark:bg-gray-800"

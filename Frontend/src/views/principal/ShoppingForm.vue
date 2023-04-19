@@ -1,9 +1,10 @@
 <script setup>
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { DialogTitle } from "@headlessui/vue";
-import { reactive, computed, ref } from "vue";
+import { reactive, computed, ref, onMounted } from "vue";
 import { userStore } from "../../stores/user";
 import { createRequestSale } from "../../utils/actions";
+import { api } from "../../utils/axios";
 
 const emit = defineEmits(["close-form", "close-modal"]);
 
@@ -12,6 +13,7 @@ const backButton = () => {
 };
 
 const store = userStore();
+const user = computed(() => store.userInfo);
 
 const data = reactive({
   id: store.userInfo.id,
@@ -50,6 +52,28 @@ const clearFormShopping = async () => {
   emit("close-modal", false);
   successShopping.value = false;
 };
+
+async function getFCurrentUser() {
+  try {
+    data.res = await api.get(`user/` + user.value.id);
+
+    data.name = data.res.data.user.name;
+    data.email = data.res.data.user.email;
+    data.cellphone = data.res.data.user.cellphone;
+    data.address = data.res.data.user.address;
+    data.city = data.res.data.user.city;
+
+    console.log(data.res.data.user);
+  } catch (error) {
+
+    console.log(error);
+  }
+}
+
+onMounted(() => {
+  getFCurrentUser();
+});
+
 </script>
 <template>
   <div class="flex justify-center h-screen bg-gray-200 antialiased">
