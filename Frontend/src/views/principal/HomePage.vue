@@ -22,7 +22,7 @@ if (tokenArray.length > 4) {
     .get("account/verify/" + token)
     .then(() => {
       toast.success(`${response.data.message}`, {
-        timeout: 4000,
+        timeout: 8000,
         position: "bottom-right",
         icon: true,
       });
