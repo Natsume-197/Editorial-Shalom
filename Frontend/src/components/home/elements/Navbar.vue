@@ -130,32 +130,34 @@ var handleout = () => {
               Editorial Shalom
             </p>
             <div class="hidden md:hidden lg:block lg:ml-6">
-              <div class="flex space-x-4 text-center">
+              <div class="flex space-x-4 text-center align-middle items-center">
                 <router-link
                   to="/"
-                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-xl font-semibold"
+                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-2 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.home") }}</router-link
                 >
                 <router-link
                   to="/books"
-                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-2 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.books") }}</router-link
                 >
                 <router-link
                   to="/about"
-                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-2 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.aboutus") }}</router-link
                 >
                 <router-link
                   to="/contact"
-                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-3 py-2 rounded-md text-lg font-semibold"
+                  class="text-gray-700 hover:border-sky-500 hover:text-sky-500 transition-all duration-200 border-transparent border-2 px-2 py-2 rounded-md text-lg font-semibold"
                   >{{ $t("navbar.homepage.contact") }}</router-link
                 >
+
+                <LanguageChooser class="hidden md:hidden sm:hidden lg:block px-2" />
+
               </div>
             </div>
           </div>
 
-          <LanguageChooser class="hidden md:hidden lg:inline-block" />
 
           <div class="">
             <strong
