@@ -17,14 +17,6 @@ import BaseButton from "../../../components/dashboard/minimal/BaseButton.vue";
         main
       >
 
-      <BaseButton
-          target="_white"
-          :icon="mdiExport"
-          label="Exportar..."
-          color="contrast"
-          rounded-full
-          small
-        />
       </SectionTitleLineWithButton>
 
       <CardBox class="mb-6" has-table>

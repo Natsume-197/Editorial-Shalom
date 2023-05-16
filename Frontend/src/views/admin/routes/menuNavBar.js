@@ -10,6 +10,7 @@ import {
   } from "@mdi/js";
   
   export default [
+    /* 
     {
       icon: mdiMenu,
       label: "Funciones adicionales",
@@ -30,7 +31,7 @@ import {
           label: "Item Last",
         },
       ],
-    },
+    },*/
     {
       isCurrentUser: true,
       menu: [
