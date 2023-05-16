@@ -22,19 +22,21 @@ export const authPage = (_req: Request, res: Response): object => {
 // Sign up Page
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.body.recaptcha)
-      throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
+    if (req.body.is_admin !== true) {
+      if (!req.body.recaptcha)
+        throw new BadRequest('Debe resolver el captcha primero para poder registrarse')
 
-    const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
+      const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
-    const responseGoogleCaptcha = await axios.post(urlGoogleVerification, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      }
-    })
+      const responseGoogleCaptcha = await axios.post(urlGoogleVerification, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        }
+      })
 
-    if (!responseGoogleCaptcha.data.success)
-      throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+      if (!responseGoogleCaptcha.data.success)
+        throw new BadRequest('Captcha no válido. Intentelo nuevamente en unos minutos.')
+    }
 
     // Validation User Input
     // const { error } = userData.validate(req.body)
@@ -90,7 +92,6 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
           message: `Se ha creado el usuario: '${req.body.name}' de forma exitosa.`,
           user: user
         })
-
       } else {
         const userRoles = roles.map(roleId => ({ id_role: roleId }))
 
@@ -140,7 +141,6 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     console.log(user)
 
-
     if (!user) throw new NotFound('Este correo no se encuentra registrado...')
     if (!user.is_active) throw new NotFound('Este usuario no se encuentra activo...')
 
@@ -150,8 +150,7 @@ export const logIn = async (req: Request, res: Response, next: NextFunction) => 
 
     if (user.is_verified === false)
       throw new Authorized('El correo no ha sido verificado. Revise su correo eléctronico.')
-      await sendConfirmationEmail(user.name, user.email.toLowerCase(), user.email_token.toString())
-      
+    await sendConfirmationEmail(user.name, user.email.toLowerCase(), user.email_token.toString())
 
     const urlGoogleVerification = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_GOOGLE}&response=${req.body.recaptcha}`
 
@@ -366,18 +365,17 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 export const updateUserforUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Find user
-    if(req.params.id){
+    if (req.params.id) {
       const user = await User.findByPk(req.params.id)
       if (!user) throw new NotFound('Usuario no encontrado')
 
       // Update user
       if (req.body.name) user.name = req.body.name
-    if (req.body.address) user.address = req.body.address
-    if (req.body.second_name) user.second_name = req.body.second_name
-    if (req.body.cellphone) user.cellphone = req.body.cellphone
-    if (req.body.city) user.city = req.body.city
-    if (req.body.password) user.password = req.body.password
-
+      if (req.body.address) user.address = req.body.address
+      if (req.body.second_name) user.second_name = req.body.second_name
+      if (req.body.cellphone) user.cellphone = req.body.cellphone
+      if (req.body.city) user.city = req.body.city
+      if (req.body.password) user.password = req.body.password
 
       await user.save()
 
@@ -385,8 +383,8 @@ export const updateUserforUser = async (req: Request, res: Response, next: NextF
       return res.status(StatusCodes.OK).json({
         message: `Se ha actualizado el usuario: '${user.name}' de forma exitosa.`,
         user: user
-      })}
-    else{
+      })
+    } else {
       throw new NotFound('El id del usuario a modificar no concuerda con el usuario en sesion')
     }
   } catch (error) {
@@ -415,24 +413,23 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
   }
 }
 
-  export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Check if user exists
-      const user = await User.findOne({
-        where: { id: req.params.id }
-      })
-  
-      if (!user) throw new NotFound('Este usuario no existe...')
-      user.is_active = true
-      // Delete user
-      await user.save()
-  
-      // Response
-      return res.status(StatusCodes.OK).json({
-        message: `Se ha desactivado el usuario de forma exitosa.`
-      })
-    } catch (error) {
-      return next(error)
-    }
-}
+export const activeUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Check if user exists
+    const user = await User.findOne({
+      where: { id: req.params.id }
+    })
 
+    if (!user) throw new NotFound('Este usuario no existe...')
+    user.is_active = true
+    // Delete user
+    await user.save()
+
+    // Response
+    return res.status(StatusCodes.OK).json({
+      message: `Se ha desactivado el usuario de forma exitosa.`
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
