@@ -12,6 +12,7 @@ import { Sale_request } from '../models/shops/sales_request'
 import { Status } from '../models/shops/status'
 import { Receipt } from '../models/shops/receipt'
 import { Request_message } from '../models/shops/request_message'
+import { Log } from '../models/logs/log'
 
 require('dotenv').config()
 
@@ -28,7 +29,7 @@ const connection = new Sequelize({
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
   port: Number(process.env.PG_PORT),
-  models: [User, Role, User_role, Book, Language, Book_t, Category, Book_reserved, Status, Receipt, Request_message, Sale_request],
+  models: [User, Role, User_role, Book, Language, Book_t, Category, Book_reserved, Status, Receipt, Request_message, Sale_request, Log],
   logging: false
 })
 
