@@ -146,12 +146,14 @@ async function getAllBooks() {
 
 // Get transaction by ID
 async function getTransactionByID(id) {
-  try {
-    const res = await api.get("/book/" + id);
-    response.books = res.data.books;
-  } catch (error) {
-    console.log(error);
+  if(id === 1){
+    response.books = response.books.filter(book => book.is_showcase === true);
+  }else if (id === 2 ){
+    response.books = response.books.filter(book => book.is_showcase === false);
+  }else if (id === 3){
+    response.books = response.books.filter(book => book.units_available === 0);
   }
+ 
 }
 
 // Filter items by search bar

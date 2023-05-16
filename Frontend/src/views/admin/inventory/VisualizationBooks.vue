@@ -18,7 +18,7 @@ const categories = [
   "En Publicación",
   "Pausado",
   "Agotado"
-];
+];  
 
 const selectedCategory = ref(categories[0]);
 const selectedCategoryIndex = ref(0);
