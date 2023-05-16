@@ -146,6 +146,7 @@ async function getAllBooks() {
 
 // Get transaction by ID
 async function getTransactionByID(id) {
+  await getAllBooks()
   if(id === 1){
     response.books = response.books.filter(book => book.is_showcase === true);
   }else if (id === 2 ){
