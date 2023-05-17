@@ -38,7 +38,7 @@ import {
         {
           icon: mdiAccount,
           label: "Mi Perfil",
-          to: "dashboard/perfil",
+          to: "/perfil",
         },
         {
           isDivider: true,
