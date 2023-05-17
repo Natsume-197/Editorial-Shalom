@@ -157,9 +157,10 @@ const checkPasswords = async () => {
                 <UserAvatarCurrentUser
                   class="relative w-24 h-24 md:w-32 md:h-32 mr-6"
                 >
+                <!--
                   <div class="absolute right-0 bottom-0">
                     <FormFilePicker :icon="mdiCamera" roundedFull />
-                  </div>
+                  </div> -->
                 </UserAvatarCurrentUser>
                 <div class="flex-1">
                   <div class="flex justify-between items-center">
@@ -173,12 +174,6 @@ const checkPasswords = async () => {
                         class="text-blue-400"
                       />
                     </div>
-                    <BaseButton
-                      :icon="mdiPencil"
-                      color="lightDark"
-                      small
-                      rounded-full
-                    />
                   </div>
                   <BaseButtons class="flex items-left text-gray-400 text-2x4">
                     <BaseIcon

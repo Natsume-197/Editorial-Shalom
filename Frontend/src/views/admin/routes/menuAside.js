@@ -61,7 +61,7 @@ import {
       isDivider: true,
     },
     {
-      href: "https://github.com/justboil/admin-one-vue-tailwind",
+      href: "https://drive.google.com/file/d/1U1W-uQs5j-b-uCLeqMlRL8Op1jR6CZ0k/view?usp=sharing",
       label: "Manual",
       icon: mdiBookOpenPageVariant ,
       target: "_blank",
