@@ -332,7 +332,7 @@ export const updateRequestSale = async (req: Request, res: Response, next: NextF
       const books = [];
       for (const item of sale_request.book_reserved) {
         let book = await Book.findOne({
-          where: { id: item.id },
+          where: { id: item.id_book },
           include: [Book_t, Category]
         })
         if (book != null) {
