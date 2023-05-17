@@ -224,9 +224,20 @@ async function changeStatusOrder() {
   const body = { id_status: selectedCategory.value.value }
   try {
     const res = await api.patch("/sales_request_update/" + currentUser.value.id, body);
-    console.log(res)
+    toast.success(`${res.data.message}`, {
+        timeout: 5000,
+        position: "top-right",
+        icon: true,
+      });
+      getAllTransactions();
   } catch (error) {
+    toast.error(`${res.data.message}`, {
+        timeout: 5000,
+        position: "top-right",
+        icon: true,
+      });
     console.log(error);
+    getAllTransactions();
   }
 }
 </script>
