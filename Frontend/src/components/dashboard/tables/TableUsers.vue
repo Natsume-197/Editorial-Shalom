@@ -168,11 +168,22 @@ async function deleteUser(id) {
       title="Detalles del usuario"
     >
       <p><b>Nombre: </b> {{ currentUser.name }}</p>
-      <p><b>Apellido: </b></p>
-      <p><b>Correo: </b></p>
-      <p><b>Direccion: </b></p>
-      <p><b>Celular: </b></p>
-      <p><b>Fecha de creación: </b></p>
+      <p><b>Apellido: </b> {{ currentUser.second_name ? currentUser.second_name : "" }}</p>
+      <p><b>Correo: </b> {{ currentUser.email }}</p>
+      <p><b>Direccion: </b> {{ currentUser.address }}</p>
+      <p><b>Celular: </b> {{ currentUser.cellphone }} </p>
+      <p><b>Fecha de creación: {{ new Date(currentUser.created_at).toLocaleString() }}</b></p>
+      <p><b>Estado: </b> <div class="text-center">
+              <span
+                :class="{
+                  'bg-emerald-500': currentUser.is_verified,
+                  'bg-rose-500': !currentUser.is_verified,
+                }"
+                class="inline-block px-2 py-1 text-white rounded-full text-xs w-full"
+                >{{ currentUser.is_verified ? "Verificado" : "No verificado" }}</span
+              >
+            </div> </p>
+
     </CardBoxModal>
     <CardBoxModal
       v-if="currentUser"
