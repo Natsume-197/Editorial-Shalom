@@ -536,7 +536,13 @@ async function changeStatusOrder() {
               <span
                 :class="{
                   'bg-blue-500': sale.id_status === 1,
-                  'bg-rose-500': sale.id_status === 2,
+                  'bg-yellow-500': sale.id_status === 2,
+                  'bg-green-500': sale.id_status === 3,
+                  'bg-orange-500': sale.id_status === 4,
+                  'bg-green-600': sale.id_status === 5,
+                  'bg-cyan-500': sale.id_status === 6,
+                  'bg-red-700': sale.id_status === 7,
+                  'bg-red-500': sale.id_status === 8
                 }"
                 class="inline-block px-3 py-2 text-white rounded-full text-xs w-full"
                 >{{ getStatusName(sale.id_status) }}</span
