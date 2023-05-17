@@ -325,6 +325,23 @@ export const updateRequestSale = async (req: Request, res: Response, next: NextF
     const status = await Status.findByPk(req.body.id_status)
     if(!status) throw new NotFound('El estado no fue encontrado')
     await sendConfirmationOrderStatusChange(status.name, sale_request.id.toString())
+    if (sale_request.id_status === 8 || sale_request.id_status === 7) {
+      const books = [];
+      for (const item of sale_request.book_reserved) {
+        let book = await Book.findOne({
+          where: { id: item.id },
+          include: [Book_t, Category]
+        })
+        if (book != null) {
+          let units = book.units_available+item.amount
+          book.units_available = units
+          books.push({book});
+        }
+      }
+      for (const book of books){
+        await book.book.save()
+      }
+    }
     // Response
     return res.status(StatusCodes.OK).json({
       message: `Se ha actualizado la solicitud de forma exitosa.`,
