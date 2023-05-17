@@ -452,11 +452,20 @@ async function changeStatusOrder() {
       <!-- Ajustes pedido (Cambiar estado del pedido) -->
       <FormField label="Estado del pedido" class="w-full">
         <FormControl :options="categories" v-model="selectedCategory" />
-        <BaseButton
+        <div v-if="currentUser.status.id !== 7 && currentUser.status.id !== 8">
+
+          <BaseButton
           color="info"
           label="Actualizar estado"
           @click="changeStatusOrder"
         />
+        
+      </div>
+      <div v-else>
+        <p class="text-red-500">Este pedido se encuentra cancelado/rechazado. No es posible realizar más cambios.</p>
+
+      </div>
+      
       </FormField>
     </CardBoxModal>
     <CardBoxModal
@@ -469,7 +478,7 @@ async function changeStatusOrder() {
       :functionConfirm="() => deleteUser(currentUser.id)"
     >
       <p>
-        ¿Desea eliminar el usuario <b>{{ currentUser.name }}?</b>
+        ¿Desea eliminar el pedido con identificación <b>{{ currentUser.id }}?</b>
       </p>
       <p>Esto cambio no es reversible.</p>
     </CardBoxModal>
