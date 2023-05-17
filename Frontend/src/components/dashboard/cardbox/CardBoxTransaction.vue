@@ -54,7 +54,7 @@ const type =  computed(() => {
     return "Completado"
   }else if(props.type === 7){
     return "Rechazado"
-  }else if(props.type === 7){
+  }else if(props.type === 8){
     return "Cancelado"
   }
 })
@@ -63,42 +63,42 @@ const icon = computed(() => {
   if(props.type === 1){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "nuevoPedido",
   };
   }else if(props.type === 2){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "procesando",
   };
   }else if(props.type === 3){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "pagado",
   };
   }else if(props.type === 4){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "enEnvio",
   };
   }else if(props.type === 5){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "entregado",
   };
   }else if(props.type === 6){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "completado",
   };
   }else if(props.type === 7){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "rechazado",
   };
   }else if(props.type === 8){
     return {
     icon: mdiCreditCardOutline,
-    type: "info",
+    type: "cancelado",
   };
   }
   return {

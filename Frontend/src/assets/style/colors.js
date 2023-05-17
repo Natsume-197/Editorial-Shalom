@@ -15,7 +15,17 @@ export const colorsBgLight = {
   success: 'bg-emerald-500 border-emerald-500 text-white',
   danger: 'bg-red-500 border-red-500 text-white',
   warning: 'bg-yellow-500 border-yellow-500 text-white',
-  info: 'bg-blue-500 border-blue-500 text-white'
+  info: 'bg-blue-500 border-blue-500 text-white',
+
+  nuevoPedido: 'bg-blue-500 border-blue-500',
+  procesando: 'bg-yellow-500 border-yellow-500',
+  pagado: 'bg-green-500 border-green-500',
+  enEnvio: 'bg-orange-500 border-orange-500',
+  entregado: 'bg-green-600 border-green-600',
+  completado: 'bg-cyan-500 border-cyan-500',
+  rechazado: 'bg-red-700 border-red-700',
+  cancelado: 'bg-red-500 border-red-500',
+
 }
 
 export const colorsText = {
@@ -35,7 +45,16 @@ export const colorsOutline = {
   success: [colorsText.success, 'border-emerald-500'],
   danger: [colorsText.danger, 'border-red-500'],
   warning: [colorsText.warning, 'border-yellow-500'],
-  info: [colorsText.info, 'border-blue-500']
+  info: [colorsText.info, 'border-blue-500'],
+
+  nuevoPedido: [colorsText.info, 'border-blue-500'],
+  procesando: [colorsText.info, 'border-yellow-500'],
+  pagado: [colorsText.info, 'border-green-500'],
+  enEnvio: [colorsText.info, 'border-orange-500'],
+  entregado: [colorsText.info, 'border-green-600'],
+  completado: [colorsText.info, 'border-cyan-500'],
+  rechazado: [colorsText.info, 'border-red-700'],
+  cancelado: [colorsText.info, 'border-red-500'],
 }
 
 export const getButtonColor = (color, isOutlined, hasHover) => {
