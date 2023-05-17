@@ -316,7 +316,10 @@ export const updateMessage = async (req: Request, res: Response, next: NextFunct
 
 export const updateRequestSale = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const sale_request = await Sale_request.findByPk(req.params.id)
+    const sale_request = await Sale_request.findByPk(req.params.id,
+      {
+        include: [Book_reserved]
+      })
     if (!sale_request) throw new NotFound('Solicitud no encontrada')
     if (sale_request.id_status === req.body.id_status) throw new NotFound('La solicitud ya se encuentra en el estado que desea asignar')
     if (req.body.id_status) sale_request.id_status = req.body.id_status
