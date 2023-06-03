@@ -952,11 +952,10 @@ import BaseDivider from "../../components/dashboard/minimal/BaseDivider.vue";
 
 <style>
 @font-face {
-  font-family: "DynaPuff";
-  src: url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@200&display=swap')
+  font-family: "Roboto";
 }
 
 * {
-  font-family: 'DynaPuff', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 </style>
